@@ -1,0 +1,217 @@
+/* ===== Design tokens ===== */
+:root {
+  --maroon-dark: #5c1f4a;
+  --maroon: #7a2a5e;
+  --maroon-light: #8f3570;
+  --navy: #1b2a4a;
+  --charcoal: #3a3a3a;
+  --ink: #262626;
+  --paper: #ffffff;
+  --mist: #f4f2f3;
+  --line: rgba(255, 255, 255, 0.25);
+
+  --font-display: "Segoe UI Semibold", "Segoe UI", Arial, sans-serif;
+  --font-body: "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--maroon-dark) url('../images/banner-backdrop.jpg') center top / cover fixed no-repeat;
+}
+
+body.risk-matrix-page {
+  background: #f5f5f5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== Top navigation (shared across pages) ===== */
+.site-nav {
+  display: none;
+  gap: 24px;
+  align-items: center;
+}
+
+.site-nav a {
+  color: #d8dbe6;
+  font-size: 14px;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a.active,
+.site-nav a:hover {
+  color: #ffffff;
+  border-bottom-color: #e2136e;
+}
+
+/* ===== Header banner ===== */
+.banner {
+  height: 183px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.content-area {
+  width: 75vw;
+  height: calc(100vh - 183px);
+  margin-left: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* On narrow screens, cropping a 16:9 image edge-to-edge can clip the
+   logo/text baked into it — cap the height so it stays legible rather
+   than stretching full-bleed. */
+@media (max-width: 700px) {
+  .banner {
+    aspect-ratio: auto;
+    height: 220px;
+  }
+}
+
+/* ===== Intro card (overlaps the banner) ===== */
+.intro-card {
+  background: var(--paper);
+  width: 100%;
+  margin: 0;
+  padding: 18px 10px 18px 10px;
+  border-radius: 2px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 2;
+}
+
+.intro-card h2 {
+  color: var(--maroon-dark);
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin: 0 0 2px 0;
+}
+
+.intro-card h3 {
+  color: var(--maroon-dark);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 14px 0;
+}
+
+.intro-card p {
+  max-width: 900px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--charcoal);
+  margin: 0 0 14px 0;
+}
+
+.refresh-line {
+  font-size: 12.5px;
+  font-style: italic;
+  color: #666;
+}
+
+.refresh-line span {
+  text-decoration: underline;
+}
+
+/* ===== Panel grid ===== */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  margin: 12px 0 0;
+}
+
+.panel {
+  background: var(--paper);
+  padding: 22px 22px 26px 22px;
+  border-right: 1px solid #e4e0e2;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel:last-child { border-right: none; }
+
+.panel h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.panel.theme-maroon h4 { color: var(--maroon-dark); }
+.panel.theme-navy h4 { color: var(--navy); }
+.panel.theme-charcoal h4 { color: var(--charcoal); }
+
+.panel p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4a4a4a;
+  min-height: 205px;
+  flex: 0 0 205px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+}
+
+.nav-btn.maroon { background: var(--maroon); }
+.nav-btn.navy { background: var(--navy); }
+.nav-btn.charcoal { background: #4d4d4d; }
+
+.nav-btn:hover { filter: brightness(1.1); }
+
+.hint {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  font-size: 11.5px;
+  color: #666;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  display: none;
+  justify-content: flex-end;
+  padding: 0 40px 30px 40px;
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--charcoal);
+  letter-spacing: 0.5px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1000px) {
+  .content-area { width: calc(100% - 8px); height: auto; }
+  .intro-card, .panel-grid { width: auto; }
+  .panel-grid { grid-template-columns: 1fr 1fr; }
+  .panel p { min-height: 0; flex-basis: auto; }
+  .panel { border-right: none; border-bottom: 1px solid #e4e0e2; }
+  .banner-top { flex-direction: column; }
+}
+
+@media (max-width: 600px) {
+  .banner { height: 150px; }
+  .content-area { height: auto; }
+  .panel-grid { grid-template-columns: 1fr; }
+}

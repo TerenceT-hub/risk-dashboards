@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Risks by Category — Bar Chart</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f5f5f5;
+  }
+  h1 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  #status {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  #chartContainer {
+    max-width: 900px;
+    margin-left: 80px;
+    background: #fff;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: none;
+  }
+  #tableContainer {
+    max-width: 980px;
+    margin: 24px 0 0 80px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: none;
+    overflow-x: auto;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  th {
+    background: #333;
+    color: #fff;
+    position: sticky;
+    top: 0;
+  }
+  tr:nth-child(even) {
+    background: #fafafa;
+  }
+  tbody tr {
+    cursor: pointer;
+  }
+  tbody tr:hover {
+    background: #f3dfe4;
+  }
+  .risk-high { color: #b00020; font-weight: bold; }
+  .risk-medium { color: #b8860b; font-weight: bold; }
+  .risk-watch { color: #555; }
+  @media (max-width: 700px) {
+    body { margin: 20px; }
+    #chartContainer, #tableContainer { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Emerging Risks by Thematic Category</h1>
+<div id="status">Loading data.json...</div>
+
+<div id="chartContainer">
+  <canvas id="riskChart" height="120"></canvas>
+</div>
+
+<div id="tableContainer">
+  <table id="riskTable">
+    <thead>
+      <tr>
+        <th>Emerging Risk</th>
+        <th>Overall Risk</th>
+        <th>Thematic Category</th>
+      </tr>
+    </thead>
+    <tbody id="riskTableBody"></tbody>
+  </table>
+</div>
+
+<script>
+  const DATA_FILE = 'data.json';
+  let chart;
+  let allRows = [];
+  let selectedCategory = null;
+
+  function renderTable() {
+    const visibleRows = selectedCategory
+      ? allRows.filter(r => (r.category ?? r.ThematicCategory ?? 'Uncategorized') === selectedCategory)
+      : allRows;
+    const tbody = document.getElementById('riskTableBody');
+    tbody.innerHTML = '';
+
+    visibleRows.forEach(r => {
+      const category = r.category ?? r.ThematicCategory ?? 'Uncategorized';
+      const tr = document.createElement('tr');
+      tr.addEventListener('click', () => selectCategory(category));
+
+      const riskCell = document.createElement('td');
+      riskCell.textContent = r.riskName ?? r.ER_ID ?? r.EmergingRisk ?? '';
+
+      const overallCell = document.createElement('td');
+      const level = (r.overallRisk || '').toLowerCase();
+      overallCell.textContent = r.overallRisk ?? '';
+      if (level === 'high') overallCell.className = 'risk-high';
+      else if (level === 'medium') overallCell.className = 'risk-medium';
+      else if (level === 'watch') overallCell.className = 'risk-watch';
+
+      const categoryCell = document.createElement('td');
+      categoryCell.textContent = category;
+
+      tr.append(riskCell, overallCell, categoryCell);
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('status').textContent = selectedCategory
+      ? `Showing ${visibleRows.length} risks in ${selectedCategory}. Click the bar or a row to change the selection.`
+      : `Loaded ${allRows.length} rows across ${chart.data.labels.length} categories. Click a bar or row to filter both visuals.`;
+  }
+
+  function selectCategory(category) {
+    selectedCategory = selectedCategory === category ? null : category;
+    chart.data.datasets[0].backgroundColor = chart.data.labels.map(label =>
+      label === selectedCategory ? '#a63d56' : '#800020'
+    );
+    chart.update();
+    renderTable();
+  }
+
+  fetch(DATA_FILE)
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      allRows = data.rows?.body || data.rows || data;
+
+      // Count risks per category
+      const counts = {};
+      allRows.forEach(r => {
+        const cat = r.category ?? r.ThematicCategory ?? 'Uncategorized';
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
+
+      // Sort categories by count, descending, so the chart reads high-to-low
+      const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      const labels = sortedEntries.map(e => e[0]);
+      const values = sortedEntries.map(e => e[1]);
+
+      const ctx = document.getElementById('riskChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Number of Risks',
+            data: values,
+            backgroundColor: '#800020',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          indexAxis: 'y', // horizontal bars — easier to read long category names
+          responsive: true,
+          onClick: (event, elements) => {
+            if (!elements.length) return;
+            const category = labels[elements[0].index];
+            selectCategory(category);
+          },
+          onHover: (event, elements) => {
+            event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.parsed.x} risk${ctx.parsed.x === 1 ? '' : 's'}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { stepSize: 1 }
+            }
+          }
+        }
+      });
+
+      renderTable();
+      document.getElementById('chartContainer').style.display = 'block';
+      document.getElementById('tableContainer').style.display = 'block';
+    })
+    .catch(err => {
+      document.getElementById('status').textContent =
+        'Failed to load data.json — ' + err.message +
+        ' (make sure data.json is in the same folder as this file, and that you\'re using a local server, not opening the file directly with file://)';
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>

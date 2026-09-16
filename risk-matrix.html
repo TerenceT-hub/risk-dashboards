@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Key Active Risks — Enduring &amp; Principal Risk Summary</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+  .risk-matrix-page {
+    --topbar-height: 132px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(500px, 2fr) minmax(230px, 0.8fr);
+    gap: 18px;
+    align-items: stretch;
+    margin: 0;
+    padding: 8px 10px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+  }
+  .brand-panel { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .homepage-button {
+    display: inline-flex;
+    box-sizing: border-box;
+    width: fit-content;
+    height: 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    background: #830051;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .filters-panel { background: #f1f1f1; border-radius: 24px; padding: 10px 18px; }
+  .filters-heading { display: flex; justify-content: space-between; align-items: center; color: #3a3a3a; font-weight: 700; font-size: 14px; }
+  .clear-filters { border: 0; background: transparent; color: #555; text-decoration: underline; cursor: pointer; font-style: italic; }
+  .filter-grid { display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 8px 16px; margin-top: 5px; }
+  .filter-control { display: grid; grid-template-columns: auto 1fr; gap: 6px; align-items: center; font-size: 11px; font-weight: 700; }
+  .filter-control { position: relative; }
+  .filter-control select[data-filter] { display: none; }
+  .multi-select { position: relative; min-width: 0; }
+  .multi-select-toggle { width: 100%; border: 1px solid #e0e0e0; background: #fff; padding: 5px 24px 5px 7px; color: #444; font-size: 11px; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .multi-select-toggle::after { content: '▾'; position: absolute; right: 8px; color: #777; }
+  .multi-select-menu { display: none; position: absolute; top: calc(100% + 2px); left: 0; right: 0; min-width: 170px; max-height: 190px; overflow-y: auto; z-index: 25; padding: 5px; background: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgba(0,0,0,0.16); }
+  .multi-select.is-open .multi-select-menu { display: block; }
+  .multi-select-option { display: flex; align-items: center; gap: 6px; padding: 5px 4px; font-size: 11px; font-weight: 400; white-space: nowrap; cursor: pointer; }
+  .multi-select-option:hover { background: #f5e6ef; }
+  .brand-right { align-items: flex-end; justify-content: flex-start; text-align: right; color: #830051; font-weight: 700; font-size: 17px; }
+  .brand-right-image { width: 190px; max-height: 65px; }
+  .brand-right-mark { font-size: 30px; line-height: 1; }
+  .legend-button { border: 0; background: transparent; color: #3a3a3a; cursor: pointer; font-size: 12px; }
+  .legend-panel { display: none; position: fixed; top: 72px; right: 0; z-index: 20; width: min(560px, calc(100vw - 16px)); padding: 8px 12px 12px; background: #fff; border: 1px solid #ddd; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+    .legend-close { display: block; margin-left: auto; border: 0; background: transparent; color: #830051; cursor: pointer; font-size: 22px; line-height: 1; font-weight: 700; }
+    .legend-image { display: block; width: 100%; max-height: 280px; object-fit: contain; object-position: right center; }
+  .legend-panel.is-open { display: block; }
+  .legend-panel strong { color: #3a3a3a; }
+  .legend-item { display: flex; align-items: center; gap: 8px; color: #555; font-size: 12px; }
+
+  .kpi-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 0 clamp(16px, 4vw, 40px) 16px;
+    background: #fff;
+    padding: 14px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    position: sticky;
+    top: var(--topbar-height);
+    z-index: 14;
+    isolation: isolate;
+  }
+  .kpi { font-size: 14px; color: var(--charcoal); }
+  .kpi strong { color: var(--maroon-dark); font-size: 16px; }
+
+  .tab-group { display: flex; gap: 2px; position: absolute; left: 50%; transform: translateX(-100%); margin-left: -8px; }
+  .tab-btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--maroon);
+    background: #fff;
+    color: var(--maroon-dark);
+    cursor: pointer;
+  }
+  .tab-btn.active { background: var(--maroon); color: #fff; }
+  .tab-btn[data-tab="Principal"].active { background: #D4A017; border-color: #D4A017; color: #000; }
+
+  .toggle-group { display: flex; gap: 2px; position: absolute; left: 50%; margin-left: 8px; }
+  .toggle-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    color: #444;
+    cursor: pointer;
+  }
+  .toggle-btn.active { background: #333; color: #fff; }
+
+  .viz-row {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 0;
+    margin: 0 clamp(16px, 4vw, 40px) clamp(24px, 4vh, 40px);
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    min-height: clamp(420px, 72vh, 760px);
+  }
+  .viz-panel {
+    padding: 16px;
+    border-right: 1px solid #eee;
+  }
+  .viz-panel:last-child { border-right: none; }
+  .viz-panel h3 {
+    font-size: 13px;
+    color: var(--maroon-dark);
+    margin: 0 0 8px 0;
+    text-transform: none;
+  }
+  .viz-hint {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  #matrixView, #sankeyView {
+    width: 100%;
+    height: clamp(360px, 58vh, 620px);
+  }
+
+  .summary-panel {
+    margin: 0 clamp(16px, 4vw, 40px) 24px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .summary-panel h3 {
+    margin: 0;
+    padding: 8px 12px;
+    background: var(--maroon);
+    color: #fff;
+    font-size: 14px;
+  }
+  .summary-scroll {
+    max-height: clamp(180px, 32vh, 420px);
+    overflow: auto;
+  }
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: min(900px, 100%);
+  }
+  .summary-table th,
+  .summary-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: left;
+    font-size: 12px;
+    vertical-align: top;
+  }
+  .summary-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f4edf2;
+    color: var(--maroon-dark);
+  }
+  .summary-table tbody tr { cursor: pointer; }
+  .summary-table tbody tr:hover,
+  .summary-table tbody tr.selected { background: #f8e6ef; }
+  .summary-table tbody tr.principal-row td {
+    border-top: 2px solid #D4A017;
+    border-bottom: 2px solid #D4A017;
+  }
+  .summary-table tbody tr.principal-row td:first-child { border-left: 2px solid #D4A017; }
+  .summary-table tbody tr.principal-row td:last-child { border-right: 2px solid #D4A017; }
+  .summary-table td.risk-level { font-weight: 600; }
+  .summary-table td.risk-level-very-high,
+  .summary-table td.risk-level-high { color: #fff; }
+  .summary-table td.risk-level-very-high { background: #6A003C; }
+  .summary-table td.risk-level-high { background: #A1005B; }
+  .summary-table td.risk-level-medium { background: #D36AA2; }
+  .summary-table td.risk-level-low { background: #F9D6E6; }
+  .summary-table td.risk-level-very-low { background: #FBECF3; }
+  .strategic-area-cell {
+    min-width: 220px;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+  .strategic-area-icons {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .strategic-area-icon {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid #c9c9c9;
+    background: #fff;
+    color: #fff;
+  }
+  .strategic-area-icon.is-yes {
+    border-color: #830051;
+    background: #830051;
+  }
+  .trend-cell {
+    min-width: 64px;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+  .trend-icon {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #E50073;
+    color: #fff;
+  }
+  .trend-icon svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+  .strategic-area-icon svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+
+  .legend-note {
+    display: none;
+    font-size: 11.5px;
+    color: #666;
+    margin: 0 clamp(16px, 4vw, 40px) 30px;
+  }
+
+  @media (max-width: 760px) {
+    .risk-matrix-page { --topbar-height: 390px; }
+    .dashboard-topbar { grid-template-columns: 1fr; }
+    .brand-right { align-items: flex-start; text-align: left; }
+    .filter-grid { grid-template-columns: 1fr 1fr; }
+    .legend-panel.is-open { grid-template-columns: 1fr; }
+    .kpi-row { gap: 12px; padding: 12px; }
+    .tab-group, .toggle-group { width: 100%; position: static; transform: none; margin: 0; }
+    .tab-group { margin-left: 0; }
+    .tab-btn, .toggle-btn { flex: 1; padding-inline: 8px; }
+    .viz-row { grid-template-columns: 1fr; }
+    .viz-panel { border-right: none; border-bottom: 1px solid #eee; }
+    .viz-panel:last-child { border-bottom: none; }
+    #status { margin-left: 16px !important; margin-right: 16px !important; }
+  }
+  .legend-swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body class="risk-matrix-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-matrix.html" class="active">Key Active Risks</a>
+  <a href="#">Enduring &amp; Principal Risks</a>
+  <a href="#">Material Controls</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-panel">
+    <div class="brand-identity">
+      <div class="brand-logo-row">
+        <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+        <a class="homepage-button" href="index.html">&#9664; HomePage</a>
+      </div>
+      <div class="brand-meta">
+        <span>Nexus</span>
+        <span>Enduring &amp; Principal Risk Summary</span>
+        <span class="refresh-line">UTC <time id="refreshDateTime"></time></span>
+      </div>
+    </div>
+  </div>
+  <section class="filters-panel" aria-label="Data Filters">
+    <div class="filters-heading">
+      <span>Data Filters</span>
+      <button class="clear-filters" id="clearFilters" type="button">Clear all</button>
+    </div>
+    <div class="filter-grid" id="filterGrid">
+      <label class="filter-control">Owner<select data-filter="owner" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Period<select data-filter="period" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Strategic Area<select data-filter="strategicArea" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Risk Category<select data-filter="riskCategory" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Current Probability<select data-filter="currentProbability" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Gross Probability<select data-filter="grossProbability" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Current Impact<select data-filter="currentImpact" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Gross Impact<select data-filter="grossImpact" multiple><option value="All">All</option></select></label>
+    </div>
+  </section>
+  <div class="brand-panel brand-right">
+    <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+    <button class="legend-button" id="legendButton" type="button">ⓘ Click for Legend Info</button>
+  </div>
+</header>
+
+<section class="legend-panel" id="legendPanel" aria-label="Legend">
+  <button class="legend-close" id="legendClose" type="button" aria-label="Close legend">&#10005;</button>
+  <img class="legend-image" src="images/Legend.jpg" alt="Strategy and trend legend">
+</section>
+
+<div class="kpi-row">
+  <div class="kpi">Total Enduring: <strong id="kpiEndurance">–</strong></div>
+  <div class="kpi">Total Principal Risks: <strong id="kpiPrincipal">–</strong></div>
+
+  <div class="tab-group" id="tabGroup">
+    <button class="tab-btn active" data-tab="all">All</button>
+    <button class="tab-btn" data-tab="Endurance">Enduring</button>
+    <button class="tab-btn" data-tab="Principal">Principal</button>
+  </div>
+
+  <div class="toggle-group" id="toggleGroup">
+    <button class="toggle-btn active" data-mode="Current">Current</button>
+    <button class="toggle-btn" data-mode="Gross">Gross</button>
+  </div>
+</div>
+
+<div id="status" style="margin: 0 clamp(16px, 4vw, 40px) 12px; font-size: 13px; color: #666;">Loading data…</div>
+
+<div class="viz-row">
+  <div class="viz-panel">
+    <h3>Risk Profile Matrix — showing <span id="matrixModeLabel">Current</span> risk levels</h3>
+    <div class="viz-hint">Click a risk pill to see its linkage on the right. Click empty space to clear.</div>
+    <div id="matrixView"></div>
+  </div>
+  <div class="viz-panel">
+    <h3>Linkage Between Enduring/Principal Risks &amp; Key Active Risks</h3>
+    <div class="viz-hint">Hover or click a node to trace its connections.</div>
+    <div id="sankeyView"></div>
+  </div>
+</div>
+
+<section class="summary-panel">
+  <h3>Summary</h3>
+  <div class="summary-scroll">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Enduring Risk</th>
+          <th>Principal Risk?</th>
+          <th>Current Impact</th>
+          <th>Current Probability</th>
+          <th>Gross Impact</th>
+          <th>Gross Probability</th>
+          <th>Strategic Area</th>
+          <th>Linked KAR</th>
+          <th>Risk Owner</th>
+          <th>Trend</th>
+        </tr>
+      </thead>
+      <tbody id="summaryTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<p class="legend-note">
+  <span class="legend-swatch" style="background:#D4A017;"></span> Principal Risk
+  &nbsp;&nbsp;
+  <span class="legend-swatch" style="background:#830051;"></span> Enduring (non-Principal) Risk
+</p>
+
+<script>
+// ---- Register Deneb/Power-BI-specific expression functions so the ----
+// ---- ported specs run unmodified outside Power BI ----
+vega.expressionFunction('pbiCrossFilterApply', function (event) {
+  var d = event && event.item && event.item.datum;
+  var name = d ? (d['Short Name'] || d['Key Active Risk']) : null;
+  setCrossFilterSelection(name, 'matrix');
+  return name;
+});
+vega.expressionFunction('pbiCrossFilterClear', function () {
+  setCrossFilterSelection(null);
+  return null;
+});
+vega.expressionFunction('pbiSankeyCrossFilterApply', function (event) {
+  var d = event && event.item && event.item.datum;
+  var name = d ? (d['Short Name'] || d['Key Active Risk']) : null;
+  setCrossFilterSelection(currentSelection === name ? null : name, 'sankey');
+  return name;
+});
+
+let matrixView = null;
+let sankeyView = null;
+let currentSelection = null;
+let selectionSource = null; // 'matrix' or 'table'
+let currentMode = 'Current'; // 'Current' or 'Gross'
+let currentTab = 'all';      // 'all' | 'Endurance' | 'Principal'
+const activeFilters = {
+  owner: ['All'], period: ['All'], strategicArea: ['All'], riskCategory: ['All'],
+  currentProbability: ['All'], grossProbability: ['All'], currentImpact: ['All'], grossImpact: ['All']
+};
+
+let epRowsRaw = [];   // full EP_dim_RiskTEST rows (24)
+let linkRowsRaw = []; // Short Name <-> Key Active Risk pairs
+
+function getFilteredEpRows() {
+  const matches = (selected, value) => selected.includes('All') || selected.includes(value);
+  return epRowsRaw.filter(row => {
+    const strategicMatch = activeFilters.strategicArea.includes('All')
+      || activeFilters.strategicArea.some(field => row[field] === 'Yes');
+    return matches(activeFilters.owner, row['SET Risk Owner'])
+      && strategicMatch
+      && matches(activeFilters.riskCategory, row['Risk Category'])
+      && matches(activeFilters.currentProbability, row['Current Likelihood_Level'])
+      && matches(activeFilters.grossProbability, row['Gross Likelihood_Level'])
+      && matches(activeFilters.currentImpact, row['Current Impact_Level'])
+      && matches(activeFilters.grossImpact, row['Gross Impact_Level'])
+      && matches(activeFilters.period, row.Period);
+  });
+}
+
+function populateFilters() {
+  const options = {
+    owner: [...new Set(epRowsRaw.map(row => row['SET Risk Owner']))].sort(),
+    strategicArea: ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'],
+    riskCategory: [...new Set(epRowsRaw.map(row => row['Risk Category']))].sort(),
+    currentProbability: [...new Set(epRowsRaw.map(row => row['Current Likelihood_Level']))].sort(),
+    grossProbability: [...new Set(epRowsRaw.map(row => row['Gross Likelihood_Level']))].sort(),
+    currentImpact: [...new Set(epRowsRaw.map(row => row['Current Impact_Level']))].sort(),
+    grossImpact: [...new Set(epRowsRaw.map(row => row['Gross Impact_Level']))].sort()
+  };
+  document.querySelectorAll('[data-filter]').forEach(select => {
+    const values = options[select.dataset.filter] || [];
+    select.innerHTML = '<option value="All">All</option>' + values.map(value => `<option value="${value}">${value}</option>`).join('');
+    const dropdown = document.createElement('div');
+    dropdown.className = 'multi-select';
+    dropdown.innerHTML = `<button class="multi-select-toggle" type="button" aria-haspopup="listbox">All</button><div class="multi-select-menu" role="listbox"></div>`;
+    const menu = dropdown.querySelector('.multi-select-menu');
+    [...select.options].forEach(option => {
+      const label = document.createElement('label');
+      label.className = 'multi-select-option';
+      label.innerHTML = `<input type="checkbox" value="${option.value}"> <span>${option.textContent}</span>`;
+      label.querySelector('input').checked = activeFilters[select.dataset.filter].includes(option.value);
+      label.querySelector('input').addEventListener('change', event => {
+        const checkboxes = [...menu.querySelectorAll('input')];
+        if (event.target.value === 'All' && event.target.checked) {
+          checkboxes.forEach(input => { input.checked = input.value === 'All'; });
+        } else if (event.target.value !== 'All' && event.target.checked) {
+          menu.querySelector('input[value="All"]').checked = false;
+        }
+        const selected = checkboxes.filter(input => input.checked).map(input => input.value);
+        activeFilters[select.dataset.filter] = selected.length ? selected : ['All'];
+        [...select.options].forEach(option => { option.selected = activeFilters[select.dataset.filter].includes(option.value); });
+        updateMultiSelectLabel(dropdown, activeFilters[select.dataset.filter]);
+        renderFilteredViews();
+      });
+      menu.appendChild(label);
+    });
+    select.parentElement.appendChild(dropdown);
+    dropdown.addEventListener('click', event => event.stopPropagation());
+    updateMultiSelectLabel(dropdown, activeFilters[select.dataset.filter]);
+    dropdown.querySelector('.multi-select-toggle').addEventListener('click', event => {
+      event.stopPropagation();
+      document.querySelectorAll('.multi-select.is-open').forEach(item => { if (item !== dropdown) item.classList.remove('is-open'); });
+      dropdown.classList.toggle('is-open');
+    });
+  });
+}
+
+function updateMultiSelectLabel(dropdown, selected) {
+  const label = selected.includes('All') ? 'All' : selected.length === 1 ? selected[0] : `${selected.length} selected`;
+  dropdown.querySelector('.multi-select-toggle').textContent = label;
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.multi-select.is-open').forEach(item => item.classList.remove('is-open'));
+});
+
+function renderFilteredViews() {
+  renderSummaryTable();
+  if (matrixView) matrixView.change('dataset', vega.changeset().remove(() => true).insert(buildMatrixRows())).run();
+  updateSankeyData();
+}
+
+function getCurrentSelectionSet() {
+  if (!currentSelection) return null;
+
+  const shortNameMatch = epRowsRaw.find(r => r['Short Name'] === currentSelection);
+  if (shortNameMatch) {
+    return new Set([currentSelection]);
+  }
+
+  const matchingShortNames = linkRowsRaw
+    .filter(r => r['Key Active Risk'] === currentSelection)
+    .map(r => r['Short Name'])
+    .filter(Boolean);
+
+  if (matchingShortNames.length) {
+    return new Set(matchingShortNames);
+  }
+
+  return new Set();
+}
+
+function applySelectionFlags(rows, matchField) {
+  const matchSet = currentSelection ? getCurrentSelectionSet() : null;
+  return rows.map(r => {
+    const selected = !currentSelection
+      || (matchField === 'Key Active Risk'
+        ? r[matchField] === currentSelection
+        : matchSet.has(r[matchField]));
+    return Object.assign({}, r, {
+      __selected__: currentSelection == null ? undefined : (selected ? 'on' : 'off')
+    });
+  });
+}
+
+function applySankeyFilterFlags(rows) {
+  const filterIsActive = Object.values(activeFilters).some(values => !values.includes('All'));
+  const allowedNames = new Set(getFilteredEpRows().map(row => row['Short Name']));
+  const selectionSet = currentSelection ? getCurrentSelectionSet() : null;
+  return rows.map(row => {
+    const passesFilter = !filterIsActive || allowedNames.has(row['Short Name']);
+    const passesSelection = !selectionSet
+      || (isKarName(currentSelection)
+        ? row['Key Active Risk'] === currentSelection
+        : selectionSet.has(row['Short Name']));
+    const isActive = passesFilter && passesSelection;
+    return Object.assign({}, row, {
+      __selected__: filterIsActive || currentSelection ? (isActive ? 'on' : 'off') : undefined,
+      __leftSelected__: currentSelection && !isKarName(currentSelection) && row['Short Name'] === currentSelection ? 1 : 0,
+      __rightSelected__: currentSelection && isKarName(currentSelection) && row['Key Active Risk'] === currentSelection ? 1 : 0
+    });
+  });
+}
+
+function updateSankeyData() {
+  if (sankeyView) sankeyView.data('dataset', applySankeyFilterFlags(linkRowsRaw)).run();
+}
+
+function setCrossFilterSelection(name, source = 'matrix') {
+  currentSelection = name;
+  selectionSource = name == null ? null : source;
+  renderSummaryTable();
+  if (matrixView) {
+    matrixView.change('dataset', vega.changeset()
+      .remove(() => true)
+      .insert(buildMatrixRows())
+    ).run();
+  }
+  updateSankeyData();
+}
+
+function isKarName(name) {
+  return linkRowsRaw.some(r => r['Key Active Risk'] === name);
+}
+
+function buildMatrixRows() {
+  const filteredRows = getFilteredEpRows();
+  const filtered = currentTab === 'all'
+    ? filteredRows
+    : filteredRows.filter(r => r['Risk Type'] === currentTab);
+
+  const rows = filtered.map(r => {
+    const level = currentMode === 'Current' ? 'Current' : 'Gross';
+    const selected = currentSelection == null
+      ? undefined
+      : (getCurrentSelectionSet().has(r['Short Name']) ? 'on' : 'off');
+    return Object.assign({}, r, {
+      'Selected Likelihood_Level': r[`${level} Likelihood_Level`],
+      'Selected Impact_Level': r[`${level} Impact_Level`],
+      __selected__: selected
+    });
+  });
+
+  if (selectionSource === 'table' && currentSelection) {
+    return rows.filter(r => r['Short Name'] === currentSelection);
+  }
+
+  return rows;
+}
+
+function updateKpis() {
+  const endurance = epRowsRaw.filter(r => r['Risk Type'] === 'Endurance').length;
+  const principal = epRowsRaw.filter(r => r['Risk Type'] === 'Principal').length;
+  document.getElementById('kpiEndurance').textContent = endurance + principal;
+  document.getElementById('kpiPrincipal').textContent = principal;
+}
+
+function renderSummaryTable() {
+  const filteredRows = getFilteredEpRows();
+  const visibleRows = currentTab === 'all'
+    ? filteredRows
+    : filteredRows.filter(r => r['Risk Type'] === currentTab);
+
+  const rowsToRender = (selectionSource === 'matrix' || selectionSource === 'sankey') && currentSelection
+    ? visibleRows.filter(r => getCurrentSelectionSet().has(r['Short Name']))
+    : visibleRows;
+
+  const tbody = document.getElementById('summaryTableBody');
+  tbody.innerHTML = '';
+
+  rowsToRender.forEach(row => {
+    const tr = document.createElement('tr');
+    const isSelected = currentSelection != null && getCurrentSelectionSet().has(row['Short Name']);
+    const isMuted = selectionSource === 'table' && currentSelection != null && !isSelected;
+
+    if (row['Risk Type'] === 'Principal') tr.classList.add('principal-row');
+    if (isSelected) tr.className = 'selected';
+    if (row['Risk Type'] === 'Principal') tr.classList.add('principal-row');
+    if (isMuted) tr.style.opacity = '0.4';
+
+    tr.addEventListener('click', () => {
+      const nextSelection = isSelected ? null : row['Short Name'];
+      setCrossFilterSelection(nextSelection, 'table');
+    });
+    const values = [
+      row['Enduring Risk Number'], row['Enduring Risk'], row['Principal Risk?'],
+      row['Current Impact_Level'], row['Current Likelihood_Level'],
+      row['Gross Impact_Level'], row['Gross Likelihood_Level'],
+      [row['Science and Innovation'], row['People and Sustainability'],
+       row['Growth and Therapy Area Leadership'], row['Achieve Group Financial Targets']],
+      row['Count of Linked KAR'], row['SET Risk Owner'], row['Trend'],
+    ];
+    const strategicAreaIcons = [
+      '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+      '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+      '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+      '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+    ];
+    const trend = String(row['Trend'] ?? 'Unchanged');
+    const trendIcons = {
+      Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+      Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+      Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+    };
+    const riskLevelLabels = {
+      'Very High': 'VH',
+      High: 'H',
+      Medium: 'M',
+      Low: 'L',
+      'Very Low': 'VL'
+    };
+    values.forEach((value, index) => {
+      const cell = document.createElement('td');
+      if (index >= 3 && index <= 6) {
+        const level = String(value ?? '').toLowerCase().replace(/\s+/g, '-');
+        cell.classList.add('risk-level', `risk-level-${level}`);
+      }
+      if (index === 7) {
+        cell.className = 'strategic-area-cell';
+        const areaNames = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+        cell.setAttribute('aria-label', areaNames.map((name, areaIndex) => `${value[areaIndex] ?? 'No'}: ${name}`).join('; '));
+        cell.innerHTML = `<span class="strategic-area-icons">${value.map((areaValue, areaIndex) => {
+          const isYes = String(areaValue ?? '').toLowerCase() === 'yes';
+          return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${areaNames[areaIndex]}: ${isYes ? 'Yes' : 'No'}">${isYes ? strategicAreaIcons[areaIndex] : ''}</span>`;
+        }).join('')}</span>`;
+      } else if (index === 10) {
+        cell.className = 'trend-cell';
+        cell.setAttribute('aria-label', trend);
+        cell.innerHTML = `<span class="trend-icon" title="${trend}">${trendIcons[trend] ?? trendIcons.Unchanged}</span>`;
+      } else {
+        cell.textContent = index >= 3 && index <= 6
+          ? (riskLevelLabels[value] ?? value ?? '')
+          : (value ?? '');
+      }
+      tr.appendChild(cell);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+// ---- Matrix spec (ported from Deneb) ----
+const matrixSpec = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"left": 0, "right": 20, "top": 10, "bottom": 20},
+  "signals": [
+    {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
+    {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
+    {"name": "width", "update": "pbiContainerWidth - 0"},
+    {"name": "height", "update": "pbiContainerHeight - 0"},
+    {"name": "pillHeight", "update": "15 * sizeScale"},
+    {"name": "pillGap", "update": "0.8 * sizeScale"},
+    {"name": "plotLeft", "value": 72},
+    {"name": "plotRight", "update": "width - 0"},
+    {"name": "plotTop", "value": 1},
+    {"name": "plotBottom", "update": "height - 0"},
+    {"name": "probDomain", "value": ["Very High", "High", "Medium", "Low", "Very Low"]},
+    {"name": "impactDomain", "value": ["Very Low", "Low", "Medium", "High", "Very High"]},
+    {"name": "sizeScale", "update": "min(pbiContainerWidth / 700, pbiContainerHeight / 400)"},
+    {"name": "clearSelection", "on": [{"events": "click[!event.item]", "update": "pbiCrossFilterClear()"}]},
+    {"name": "pillSelection", "on": [
+      {"events": "@riskPill:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"},
+      {"events": "@pillClickArea:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"},
+      {"events": "@pillArrowIcon:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"}
+    ]},
+    {"name": "pr5", "update": "length(data('probRank5')) ? peek(data('probRank5')).rowCount : 0"},
+    {"name": "pr4", "update": "length(data('probRank4')) ? peek(data('probRank4')).rowCount : 0"},
+    {"name": "pr3", "update": "length(data('probRank3')) ? peek(data('probRank3')).rowCount : 0"},
+    {"name": "pr2", "update": "length(data('probRank2')) ? peek(data('probRank2')).rowCount : 0"},
+    {"name": "ic1", "update": "length(data('impactRank1')) ? peek(data('impactRank1')).colCount : 0"},
+    {"name": "ic2", "update": "length(data('impactRank2')) ? peek(data('impactRank2')).colCount : 0"},
+    {"name": "ic3", "update": "length(data('impactRank3')) ? peek(data('impactRank3')).colCount : 0"},
+    {"name": "ic4", "update": "length(data('impactRank4')) ? peek(data('impactRank4')).colCount : 0"}
+  ],
+  "data": [
+    {"name": "levels", "values": [
+      {"level": "Very Low", "rank": 1}, {"level": "Low", "rank": 2}, {"level": "Medium", "rank": 3},
+      {"level": "High", "rank": 4}, {"level": "Very High", "rank": 5}
+    ]},
+    {"name": "dataset", "values": []},
+    {"name": "probLevelsFiltered", "source": "levels", "transform": [{"type": "filter", "expr": "indexof(probDomain, datum.level) >= 0"}]},
+    {"name": "impactLevelsFiltered", "source": "levels", "transform": [{"type": "filter", "expr": "indexof(impactDomain, datum.level) >= 0"}]},
+    {"name": "cellCounts", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(probDomain, datum['Selected Likelihood_Level']) >= 0 && indexof(impactDomain, datum['Selected Impact_Level']) >= 0"},
+      {"type": "aggregate", "groupby": ["Selected Likelihood_Level", "Selected Impact_Level"], "ops": ["count"], "as": ["groupCount"]}
+    ]},
+    {"name": "impactTextLen", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(impactDomain, datum['Selected Impact_Level']) >= 0"},
+      {"type": "formula", "as": "nameLen", "expr": "length(datum['Short Name'])"},
+      {"type": "aggregate", "groupby": ["Selected Impact_Level"], "ops": ["max"], "fields": ["nameLen"], "as": ["maxLen"]}
+    ]},
+    {"name": "rowCounts", "source": "cellCounts", "transform": [{"type": "aggregate", "groupby": ["Selected Likelihood_Level"], "ops": ["max"], "fields": ["groupCount"], "as": ["maxCount"]}]},
+    {"name": "colCounts", "source": "cellCounts", "transform": [{"type": "aggregate", "groupby": ["Selected Impact_Level"], "ops": ["max"], "fields": ["groupCount"], "as": ["maxCount"]}]},
+    {"name": "probRowsRaw", "source": "probLevelsFiltered", "transform": [
+      {"type": "lookup", "from": "rowCounts", "key": "Selected Likelihood_Level", "fields": ["level"], "values": ["maxCount"], "as": ["maxCount"], "default": 1},
+      {"type": "formula", "as": "labelLen", "expr": "length(datum.level)"},
+      {"type": "formula", "as": "rowCount", "expr": "max(datum.maxCount, ceil(datum.labelLen / 2))"}
+    ]},
+    {"name": "probRowTotal", "source": "probRowsRaw", "transform": [{"type": "aggregate", "ops": ["sum"], "fields": ["rowCount"], "as": ["total"]}]},
+    {"name": "probRank5", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 5"}]},
+    {"name": "probRank4", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 4"}]},
+    {"name": "probRank3", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 3"}]},
+    {"name": "probRank2", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 2"}]},
+    {"name": "probRows", "source": "probRowsRaw", "transform": [
+      {"type": "formula", "as": "y0", "expr": "plotTop + (datum.rank === 5 ? 0 : datum.rank === 4 ? pr5 : datum.rank === 3 ? pr5 + pr4 : datum.rank === 2 ? pr5 + pr4 + pr3 : pr5 + pr4 + pr3 + pr2) / peek(data('probRowTotal')).total * (plotBottom - plotTop)"},
+      {"type": "formula", "as": "y1", "expr": "datum.y0 + (datum.rowCount / peek(data('probRowTotal')).total) * (plotBottom - plotTop)"}
+    ]},
+    {"name": "impactColsRaw", "source": "impactLevelsFiltered", "transform": [
+      {"type": "lookup", "from": "colCounts", "key": "Selected Impact_Level", "fields": ["level"], "values": ["maxCount"], "as": ["maxCount"], "default": 1},
+      {"type": "lookup", "from": "impactTextLen", "key": "Selected Impact_Level", "fields": ["level"], "values": ["maxLen"], "as": ["maxLen"], "default": 0},
+      {"type": "formula", "as": "labelLen", "expr": "length(datum.level)"},
+      {"type": "formula", "as": "colCount", "expr": "max(datum.maxCount, ceil(datum.maxLen / 4), ceil(datum.labelLen / 2))"}
+    ]},
+    {"name": "impactColTotal", "source": "impactColsRaw", "transform": [{"type": "aggregate", "ops": ["sum"], "fields": ["colCount"], "as": ["total"]}]},
+    {"name": "impactRank1", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 1"}]},
+    {"name": "impactRank2", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 2"}]},
+    {"name": "impactRank3", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 3"}]},
+    {"name": "impactRank4", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 4"}]},
+    {"name": "impactCols", "source": "impactColsRaw", "transform": [
+      {"type": "formula", "as": "x0", "expr": "plotLeft + (datum.rank === 1 ? 0 : datum.rank === 2 ? ic1 : datum.rank === 3 ? ic1 + ic2 : datum.rank === 4 ? ic1 + ic2 + ic3 : ic1 + ic2 + ic3 + ic4) / peek(data('impactColTotal')).total * (plotRight - plotLeft)"},
+      {"type": "formula", "as": "x1", "expr": "datum.x0 + (datum.colCount / peek(data('impactColTotal')).total) * (plotRight - plotLeft)"}
+    ]},
+    {"name": "gridCells", "source": "levels", "transform": [
+      {"type": "cross", "as": ["prob", "impact"]},
+      {"type": "formula", "as": "score", "expr": "datum.prob.rank + datum.impact.rank"},
+      {"type": "lookup", "from": "probRows", "key": "level", "fields": ["prob.level"], "values": ["y0", "y1"], "as": ["probY0", "probY1"]},
+      {"type": "lookup", "from": "impactCols", "key": "level", "fields": ["impact.level"], "values": ["x0", "x1"], "as": ["impactX0", "impactX1"]}
+    ]},
+    {"name": "datasetFiltered", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(probDomain, datum['Selected Likelihood_Level']) >= 0 && indexof(impactDomain, datum['Selected Impact_Level']) >= 0"},
+      {"type": "lookup", "from": "probRows", "key": "level", "fields": ["Selected Likelihood_Level"], "values": ["y0", "y1"], "as": ["rowY0", "rowY1"]},
+      {"type": "lookup", "from": "impactCols", "key": "level", "fields": ["Selected Impact_Level"], "values": ["x0", "x1"], "as": ["colX0", "colX1"]},
+      {"type": "lookup", "from": "probRows", "key": "level", "fields": ["Gross Likelihood_Level"], "values": ["y0", "y1"], "as": ["grossRowY0", "grossRowY1"]},
+      {"type": "lookup", "from": "impactCols", "key": "level", "fields": ["Gross Impact_Level"], "values": ["x0", "x1"], "as": ["grossColX0", "grossColX1"]},
+      {"type": "joinaggregate", "groupby": ["Selected Likelihood_Level", "Selected Impact_Level"], "ops": ["count"], "as": ["groupCount"]},
+      {"type": "window", "groupby": ["Selected Likelihood_Level", "Selected Impact_Level"], "ops": ["row_number"], "as": ["stackIndex"]},
+      {"type": "formula", "as": "cellWidth", "expr": "datum.colX1 - datum.colX0 - (16 * sizeScale)"},
+      {"type": "formula", "as": "cellHeight", "expr": "datum.rowY1 - datum.rowY0 - (1 * sizeScale)"},
+      {"type": "formula", "as": "rawWidth", "expr": "(32 * sizeScale) + length(datum['Short Name']) * (6.2 * sizeScale)"},
+      {"type": "formula", "as": "fontScale", "expr": "min(1, datum.cellWidth / datum.rawWidth)"},
+      {"type": "formula", "as": "pillFontSize", "expr": "max(7, min(18, 10 * datum.fontScale * sizeScale))"},
+      {"type": "formula", "as": "labelWidth", "expr": "min(datum.cellWidth, datum.rawWidth)"},
+      {"type": "formula", "as": "rowStep", "expr": "min(pillHeight + pillGap, datum.cellHeight / datum.groupCount)"},
+      {"type": "formula", "as": "pillRenderHeight", "expr": "max(12 * sizeScale, datum.rowStep - (3 * sizeScale))"},
+      {"type": "formula", "as": "yOffsetCalc", "expr": "(datum.stackIndex - (datum.groupCount + 1) / 2) * datum.rowStep"},
+      {"type": "formula", "as": "pillXC", "expr": "(datum.colX0 + datum.colX1) / 2"},
+      {"type": "formula", "as": "pillYC", "expr": "(datum.rowY0 + datum.rowY1) / 2 + datum.yOffsetCalc"},
+      {"type": "formula", "as": "grossXC", "expr": "(datum.grossColX0 + datum.grossColX1) / 2"},
+      {"type": "formula", "as": "grossYC", "expr": "(datum.grossRowY0 + datum.grossRowY1) / 2"}
+    ]}
+  ],
+  "scales": [
+    {"name": "cellColor", "type": "linear", "domain": [2, 10], "range": ["#FDF1F7", "#830051"]},
+    {"name": "stripColor", "type": "ordinal", "domain": ["Very Low", "Low", "Medium", "High", "Very High"], "range": ["#FBE4EF", "#F3AFD1", "#D46FAA", "#A32D74", "#830051"]}
+  ],
+  "marks": [
+    {"type": "rect", "from": {"data": "gridCells"}, "encode": {"update": {
+      "x": {"field": "impactX0"}, "x2": {"field": "impactX1"}, "y": {"field": "probY0"}, "y2": {"field": "probY1"},
+      "fill": {"scale": "cellColor", "field": "score"}, "stroke": {"value": "#FFFFFF"}, "strokeWidth": {"value": 0}
+    }}},
+    {"type": "text", "encode": {"update": {
+      "x": {"value": 14}, "y": {"signal": "(plotTop + plotBottom) / 2"}, "text": {"value": "Probability"},
+      "angle": {"value": -90}, "align": {"value": "center"}, "baseline": {"value": "middle"},
+      "fontSize": {"value": 11}, "fontWeight": {"value": "bold"}, "fill": {"value": "#333333"}
+    }}},
+    {"type": "rect", "from": {"data": "probRows"}, "encode": {"update": {
+      "x": {"value": 40}, "width": {"value": 30}, "y": {"field": "y0"}, "y2": {"field": "y1"}, "fill": {"scale": "stripColor", "field": "level"}
+    }}},
+    {"type": "text", "from": {"data": "probRows"}, "encode": {"update": {
+      "x": {"value": 55}, "y": {"signal": "(datum.y0 + datum.y1) / 2"}, "text": {"field": "level"}, "angle": {"value": -90},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"value": 10},
+      "fill": [{"test": "datum.level === 'High' || datum.level === 'Very High'", "value": "#FFFFFF"}, {"value": "#333333"}]
+    }}},
+    {"type": "rect", "from": {"data": "impactCols"}, "encode": {"update": {
+      "x": {"field": "x0"}, "x2": {"field": "x1"}, "y": {"signal": "plotBottom + 2"}, "height": {"value": 25}, "fill": {"scale": "stripColor", "field": "level"}
+    }}},
+    {"type": "text", "from": {"data": "impactCols"}, "encode": {"update": {
+      "x": {"signal": "(datum.x0 + datum.x1) / 2"}, "y": {"signal": "plotBottom + 15"}, "text": {"field": "level"},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"value": 10},
+      "fill": [{"test": "datum.level === 'High' || datum.level === 'Very High'", "value": "#FFFFFF"}, {"value": "#333333"}]
+    }}},
+    {"type": "text", "encode": {"update": {
+      "x": {"signal": "(plotLeft + plotRight) / 2"}, "y": {"signal": "plotBottom + 35"}, "text": {"value": "Impact"},
+      "align": {"value": "center"}, "baseline": {"value": "middle"},
+      "fontSize": {"value": 11}, "fontWeight": {"value": "bold"}, "fill": {"value": "#333333"}
+    }}},
+    {"type": "rect", "name": "riskPill", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "xc": {"field": "pillXC"}, "yc": {"field": "pillYC"}, "width": {"field": "labelWidth"}, "height": {"field": "pillRenderHeight"},
+      "cornerRadius": {"signal": "datum.pillRenderHeight / 2"},
+      "fill": [{"test": "datum['Principal Risk?'] === 'Yes' || datum['Principal Risk?'] === 1", "value": "#D4A017"}, {"value": "#830051"}],
+      "stroke": {"value": null}, "strokeWidth": {"value": 1},
+      "fillOpacity": [{"test": "datum.__selected__ === 'off'", "value": 0.4}, {"value": 1}]
+    }}},
+    {"type": "text", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "x": {"field": "pillXC"}, "y": {"field": "pillYC"}, "text": {"field": "Short Name"},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"field": "pillFontSize"},
+      "fill": [{"test": "datum['Principal Risk?'] === 'Yes' || datum['Principal Risk?'] === 1", "value": "#000000"}, {"value": "#FFFFFF"}],
+      "opacity": [{"test": "datum.__selected__ === 'off'", "value": 0.4}, {"value": 1}]
+    }}},
+    {"type": "text", "name": "pillArrowIcon", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "x": {"signal": "datum.pillXC + datum.labelWidth / 2 - 9 * sizeScale"}, "y": {"field": "pillYC"}, "text": {"value": ""},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "cursor": {"value": "pointer"},
+      "fill": {"value": "#FFFFFF"},
+      "opacity": [{"test": "datum.__selected__ === 'off'", "value": 0.4}, {"value": 1}]
+    }}},
+    {"type": "rect", "name": "pillClickArea", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "xc": {"field": "pillXC"}, "yc": {"field": "pillYC"}, "width": {"field": "labelWidth"}, "height": {"field": "pillRenderHeight"},
+      "fillOpacity": {"value": 0}, "cursor": {"value": "pointer"}
+    }}}
+  ],
+  "config": {"view": {"stroke": null}, "font": "Segoe UI"}
+};
+
+// ---- Sankey spec (ported from Deneb) ----
+const sankeySpec = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"left": 0, "right": 0, "top": 5, "bottom": 5},
+  "signals": [
+  {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
+  {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
+  {"name": "width", "update": "pbiContainerWidth"},
+  {"name": "height", "update": "pbiContainerHeight"},
+  {"name": "baseHeight", "value": 300},
+  {"name": "uiScale", "update": "clamp(height / baseHeight, 1, 1.2)"},
+  {"name": "nodeWidth", "update": "14 * uiScale"},
+  {"name": "bandGap", "update": "13 * uiScale"},
+  {"name": "labelPad", "update": "6 * uiScale"},
+  {"name": "plotLeft", "value": 112},
+  {"name": "plotRight", "update": "width - 145"},
+  {"name": "plotTop", "value": -3},
+  {"name": "plotBottom", "update": "height - 4"},
+  {"name": "leftTopOffset", "value": 0},
+  {"name": "rightTopOffset", "value": 0},
+  {"name": "leftX", "update": "plotLeft"},
+  {"name": "rightX", "update": "plotRight - nodeWidth"},
+  {"name": "nodePad", "update": "1 * uiScale"},
+  {"name": "minStripHeight", "update": "1 * uiScale"},
+  {"name": "maxStripHeight", "update": "4 * uiScale"},
+  {"name": "isFiltered", "update": "length(data('selectedRows')) > 0"},
+  {"name": "focusScale", "update": "isFiltered ? 1 : 1."},
+  {"name": "stripHeightL", "update": "data('leftSummary')[0] && data('leftSummary')[0].totalStrips > 0 ? clamp((plotBottom - plotTop - bandGap * (data('leftSummary')[0].n - 1) - nodePad * data('leftSummary')[0].n) / data('leftSummary')[0].totalStrips, minStripHeight, maxStripHeight) : minStripHeight"},
+  {"name": "stripHeightR", "update": "data('rightSummary')[0] && data('rightSummary')[0].totalStrips > 0 ? clamp((plotBottom - plotTop - bandGap * (data('rightSummary')[0].n - 1) - nodePad * data('rightSummary')[0].n) / data('rightSummary')[0].totalStrips, minStripHeight, maxStripHeight) : minStripHeight"},
+  {"name": "hoverPreview", "value": "", "on": [
+    {"events": "@leftNodeRect:mouseover, @rightNodeRect:mouseover, @leftNodeHitArea:mouseover, @rightNodeHitArea:mouseover", "update": "datum['Short Name'] || datum['Key Active Risk']"},
+    {"events": "@leftNodeRect:mouseout, @rightNodeRect:mouseout, @leftNodeHitArea:mouseout, @rightNodeHitArea:mouseout", "update": "''"}
+  ]},
+  {"name": "clickedField", "value": "Short Name", "on": [
+    {"events": "@leftNodeRect:click, @leftNodeHitArea:click", "update": "'Short Name'"},
+    {"events": "@rightNodeRect:click, @rightNodeHitArea:click", "update": "'Key Active Risk'"}
+  ]},
+  {"name": "leftNodeClick", "on": [{"events": "@leftNodeRect:click, @leftNodeHitArea:click", "update": "pbiSankeyCrossFilterApply(event)"}]},
+  {"name": "rightNodeClick", "on": [{"events": "@rightNodeRect:click, @rightNodeHitArea:click", "update": "pbiSankeyCrossFilterApply(event)"}]},
+  {"name": "activeNode", "update": "hoverPreview !== '' ? hoverPreview : (length(data('selectedRows')) ? data('selectedRows')[0][clickedField] : '')"}
+],
+  "data": [
+    {"name": "dataset", "values": []},
+    {"name": "selectedRows", "source": "dataset", "transform": [{"type": "filter", "expr": "datum.__selected__ === 'on'"}]},
+    {"name": "linksAgg", "source": "dataset", "transform": [
+  {"type": "formula", "as": "__selNum__", "expr": "datum.__selected__ === 'on' ? 1 : 0"},
+  {"type": "aggregate", "groupby": ["Short Name", "Key Active Risk"], "ops": ["count", "max", "max", "max"], "fields": [null, "__selNum__", "__leftSelected__", "__rightSelected__"], "as": ["value", "__selNum__", "__leftSelNum__", "__rightSelNum__"]}
+]},
+    {"name": "leftLinks", "source": "linksAgg", "transform": [
+      {"type": "aggregate", "groupby": ["Short Name"], "fields": ["Key Active Risk"], "ops": ["values"], "as": ["riskList"]},
+      {"type": "formula", "as": "connectedRisks", "expr": "pluck(datum.riskList, 'Key Active Risk')"},
+      {"type": "formula", "as": "riskListStr", "expr": "join(datum.connectedRisks, ', ')"}
+    ]},
+    {"name": "rightLinks", "source": "linksAgg", "transform": [
+      {"type": "aggregate", "groupby": ["Key Active Risk"], "fields": ["Short Name"], "ops": ["values"], "as": ["nameList"]},
+      {"type": "formula", "as": "connectedNames", "expr": "pluck(datum.nameList, 'Short Name')"},
+      {"type": "formula", "as": "nameListStr", "expr": "join(datum.connectedNames, ', ')"}
+    ]},
+    {"name": "leftAgg", "source": "linksAgg", "transform": [{"type": "aggregate", "groupby": ["Short Name"], "ops": ["sum", "count", "max", "max"], "fields": ["value", null, "__leftSelNum__", "__selNum__"], "as": ["total", "linkCount", "__selNum__", "__linkSelNum__"]}]},
+    {"name": "leftSummary", "source": "leftAgg", "transform": [{"type": "aggregate", "ops": ["sum", "count"], "fields": ["linkCount", null], "as": ["totalStrips", "n"]}]},
+    {"name": "leftNodes", "source": "leftAgg", "transform": [
+      {"type": "formula", "as": "nodeHeight", "expr": "(plotBottom - plotTop) / data('leftSummary')[0].n - bandGap"},
+      {"type": "formula", "as": "heightPlusGap", "expr": "datum.nodeHeight + bandGap"},
+      {"type": "window", "ops": ["row_number"], "fields": [null], "as": ["idx"], "sort": {"field": "Short Name"}},
+      {"type": "formula", "as": "y0", "expr": "plotTop + leftTopOffset + (datum.idx - 1) * datum.heightPlusGap"},
+      {"type": "formula", "as": "y1", "expr": "datum.y0 + datum.nodeHeight"},
+      {"type": "formula", "as": "yc", "expr": "(datum.y0 + datum.y1) / 2"},
+      {"type": "formula", "as": "x", "expr": "leftX"},
+      {"type": "lookup", "from": "leftLinks", "key": "Short Name", "fields": ["Short Name"], "values": ["riskListStr", "connectedRisks"], "as": ["riskListStr", "connectedRisks"]},
+      {"type": "formula", "as": "labelLines", "expr": "length(split(datum['Short Name'], ' ')) > 2 ? [join(slice(split(datum['Short Name'], ' '), 0, ceil(length(split(datum['Short Name'], ' '))/3)), ' '), join(slice(split(datum['Short Name'], ' '), ceil(length(split(datum['Short Name'], ' '))/3), ceil(2 * length(split(datum['Short Name'], ' '))/3)), ' '), join(slice(split(datum['Short Name'], ' '), ceil(2 * length(split(datum['Short Name'], ' '))/3)), ' ')] : [datum['Short Name']]"}
+    ]},
+    {"name": "rightAgg", "source": "linksAgg", "transform": [{"type": "aggregate", "groupby": ["Key Active Risk"], "ops": ["sum", "count", "max", "max"], "fields": ["value", null, "__rightSelNum__", "__selNum__"], "as": ["total", "linkCount", "__selNum__", "__linkSelNum__"]}]},
+    {"name": "rightSummary", "source": "rightAgg", "transform": [{"type": "aggregate", "ops": ["sum", "count"], "fields": ["linkCount", null], "as": ["totalStrips", "n"]}]},
+    {"name": "rightNodes", "source": "rightAgg", "transform": [
+      {"type": "formula", "as": "nodeHeight", "expr": "(plotBottom - plotTop) / data('rightSummary')[0].n - bandGap"},
+      {"type": "formula", "as": "heightPlusGap", "expr": "datum.nodeHeight + bandGap"},
+      {"type": "window", "ops": ["row_number"], "fields": [null], "as": ["idx"], "sort": {"field": "Key Active Risk"}},
+      {"type": "formula", "as": "y0", "expr": "plotTop + rightTopOffset + (datum.idx - 1) * datum.heightPlusGap"},
+      {"type": "formula", "as": "y1", "expr": "datum.y0 + datum.nodeHeight"},
+      {"type": "formula", "as": "yc", "expr": "(datum.y0 + datum.y1) / 2"},
+      {"type": "formula", "as": "x", "expr": "rightX"},
+      {"type": "formula", "as": "isSmall", "expr": "datum.nodeHeight"},
+      {"type": "window", "ops": ["sum"], "fields": ["isSmall"], "as": ["smallRank"], "frame": [null, 0], "sort": {"field": "Key Active Risk"}},
+      {"type": "lookup", "from": "rightLinks", "key": "Key Active Risk", "fields": ["Key Active Risk"], "values": ["nameListStr", "connectedNames"], "as": ["nameListStr", "connectedNames"]},
+      {"type": "formula", "as": "labelLines", "expr": "length(split(datum['Key Active Risk'], ' ')) > 2 ? [join(slice(split(datum['Key Active Risk'], ' '), 0, ceil(length(split(datum['Key Active Risk'], ' '))/3)), ' '), join(slice(split(datum['Key Active Risk'], ' '), ceil(length(split(datum['Key Active Risk'], ' '))/3), ceil(2 * length(split(datum['Key Active Risk'], ' '))/3)), ' '), join(slice(split(datum['Key Active Risk'], ' '), ceil(2 * length(split(datum['Key Active Risk'], ' '))/3)), ' ')] : [datum['Key Active Risk']]"}
+    ]},
+    {"name": "linksPositioned", "source": "linksAgg", "transform": [
+  {"type": "formula", "as": "linkHeightL", "expr": "(stripHeightL + 1) * focusScale"},
+  {"type": "formula", "as": "linkHeightR", "expr": "(stripHeightR + 1) * focusScale"},
+  {"type": "window", "ops": ["row_number"], "as": ["srcIdx"], "groupby": ["Short Name"], "sort": {"field": "Key Active Risk"}},
+  {"type": "window", "ops": ["row_number"], "as": ["tgtIdx"], "groupby": ["Key Active Risk"], "sort": {"field": "Short Name"}},
+  {"type": "lookup", "from": "leftNodes", "key": "Short Name", "fields": ["Short Name"], "values": ["yc", "__selNum__"], "as": ["srcCenter", "srcSelNum"]},
+  {"type": "lookup", "from": "rightNodes", "key": "Key Active Risk", "fields": ["Key Active Risk"], "values": ["yc", "__selNum__"], "as": ["tgtCenter", "tgtSelNum"]},
+  {"type": "formula", "as": "__selNum__", "expr": "max(datum.__selNum__, datum.srcSelNum, datum.tgtSelNum)"},
+  {"type": "formula", "as": "sy0", "expr": "datum.srcCenter"},
+  {"type": "formula", "as": "sy1", "expr": "datum.srcCenter + datum.linkHeightL"},
+  {"type": "formula", "as": "ty0", "expr": "datum.tgtCenter"},
+  {"type": "formula", "as": "ty1", "expr": "datum.tgtCenter + datum.linkHeightR"},
+  {"type": "formula", "as": "sx", "expr": "leftX + nodeWidth / 2"},
+  {"type": "formula", "as": "tx", "expr": "rightX + nodeWidth / 2"},
+  {"type": "formula", "as": "cx1", "expr": "datum.sx + (datum.tx - datum.sx) / 3"},
+  {"type": "formula", "as": "cx2", "expr": "datum.sx + 2 * (datum.tx - datum.sx) / 3"},
+  {"type": "formula", "as": "linkPath", "expr": "'M' + datum.sx + ',' + datum.sy0 + 'C' + datum.cx1 + ',' + datum.sy0 + ' ' + datum.cx2 + ',' + datum.ty0 + ' ' + datum.tx + ',' + datum.ty0 + 'L' + datum.tx + ',' + datum.ty1 + 'C' + datum.cx2 + ',' + datum.ty1 + ' ' + datum.cx1 + ',' + datum.sy1 + ' ' + datum.sx + ',' + datum.sy1 + 'Z'"}
+]}
+  ],
+  "scales": [{"name": "colorScale", "type": "ordinal", "domain": {"data": "leftAgg", "field": "Short Name"}, "range": {"scheme": "tableau20"}}],
+  "marks": [
+  {"type": "text", "encode": {"update": {
+    "x": {"value": 0}, "y": {"signal": "height / 2"}, "text": {"value": "Enduring/Principal Risk"},
+    "angle": {"value": -90}, "align": {"value": "center"}, "baseline": {"value": "middle"},
+    "fontSize": {"value": 10}, "fontWeight": {"value": "bold"}, "fill": {"value": "#830051"}
+  }}},
+  {"type": "text", "encode": {"update": {
+    "x": {"signal": "width"}, "y": {"signal": "height / 2"}, "text": {"value": "Key Active Risks"},
+    "angle": {"value": 90}, "align": {"value": "center"}, "baseline": {"value": "middle"},
+    "fontSize": {"value": 10}, "fontWeight": {"value": "bold"}, "fill": {"value": "#830051"}
+  }}},
+  {"type": "path", "from": {"data": "linksPositioned"}, "encode": {"update": {
+    "path": {"field": "linkPath"},
+    "fill": [
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": "#d5d5d5"},
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": "#830051"},
+      {"scale": "colorScale", "field": "Short Name"}
+    ],
+    "fillOpacity": [
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": 0.35},
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 0.95},
+      {"value": 0.5}
+    ],
+    "stroke": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": "#830051"},
+      {"value": "#cccccc"}
+    ],
+    "strokeWidth": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 1.2},
+      {"value": 0.4}
+    ],
+    "tooltip": {"signal": "{'From': datum['Short Name'], 'To': datum['Key Active Risk']}"}
+  }}},
+
+  {"type": "symbol", "name": "leftNodeRect", "from": {"data": "leftNodes"}, "encode": {"update": {
+    "x": {"signal": "leftX + nodeWidth / 2"}, "y": {"field": "yc"},
+    "size": {"signal": "nodeWidth * nodeWidth * 0.5"}, "shape": {"value": "circle"},
+    "fill": [{"test": "isFiltered && datum.__selNum__ === 1", "value": "#830051"}, {"value": "#595959"}],
+    "stroke": {"value": "#333333"}, "strokeWidth": {"value": 0},
+    "opacity": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__linkSelNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": 0.25},
+      {"test": "activeNode === '' || activeNode === datum['Short Name'] || indexof(datum.connectedRisks, activeNode) >= 0", "value": 1},
+      {"value": 0.4}
+    ],
+    "cursor": {"value": "pointer"},
+    "tooltip": {"signal": "{'Short Name': datum['Short Name'], 'Linked Key Active Risk': datum.riskListStr}"}
+  }}},
+  {"type": "text", "from": {"data": "leftNodes"}, "encode": {"update": {
+    "x": {"signal": "leftX - labelPad"}, "y": {"field": "yc"},
+    "text": {"field": "labelLines"}, "align": {"value": "right"}, "baseline": {"value": "middle"},
+    "fontSize": {"signal": "9 * uiScale"}, "lineHeight": {"signal": "9 * uiScale"},
+    "fill": [{"test": "datum.__selNum__ === 1 || datum.__linkSelNum__ === 1", "value": "#000000"}, {"value": "#666666"}],
+    "opacity": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__linkSelNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": 0.25},
+      {"test": "activeNode === '' || activeNode === datum['Short Name'] || indexof(datum.connectedRisks, activeNode) >= 0", "value": 1},
+      {"value": 0.4}
+    ],
+    "tooltip": {"signal": "datum['Short Name']"}
+  }}},
+  {"type": "rect", "name": "leftNodeHitArea", "from": {"data": "leftNodes"}, "encode": {"update": {
+    "xc": {"signal": "leftX + nodeWidth / 2"}, "yc": {"field": "yc"},
+    "width": {"signal": "nodeWidth + 90"}, "height": {"signal": "max(nodeWidth, 16 * uiScale)"},
+    "fillOpacity": {"value": 0}, "cursor": {"value": "pointer"},
+    "tooltip": {"signal": "{'Short Name': datum['Short Name'], 'Linked Key Active Risk': datum.riskListStr}"}
+  }}},
+
+  {"type": "symbol", "name": "rightNodeRect", "from": {"data": "rightNodes"}, "encode": {"update": {
+    "x": {"signal": "rightX + nodeWidth / 2"}, "y": {"field": "yc"},
+    "size": {"signal": "nodeWidth * nodeWidth * 0.5"}, "shape": {"value": "circle"},
+    "fill": [{"test": "isFiltered && datum.__selNum__ === 1", "value": "#830051"}, {"value": "#595959"}],
+    "stroke": {"value": "#FFFFFF"}, "strokeWidth": {"value": 0},
+    "opacity": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__linkSelNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": 0.25},
+      {"test": "activeNode === '' || activeNode === datum['Key Active Risk'] || indexof(datum.connectedNames, activeNode) >= 0", "value": 1},
+      {"value": 0.4}
+    ],
+    "cursor": {"value": "pointer"},
+    "tooltip": {"signal": "{'Key Active Risk': datum['Key Active Risk'], 'Linked Short Names': datum.nameListStr}"}
+  }}},
+  {"type": "text", "from": {"data": "rightNodes"}, "encode": {"update": {
+    "x": {"signal": "rightX + nodeWidth + labelPad"}, "y": {"field": "yc"},
+    "text": {"field": "labelLines"}, "align": {"value": "left"}, "baseline": {"value": "middle"},
+    "fontSize": {"signal": "9 * uiScale"}, "lineHeight": {"signal": "11 * uiScale"},
+    "fill": [{"test": "datum.__selNum__ === 1 || datum.__linkSelNum__ === 1", "value": "#000000"}, {"value": "#666666"}],
+    "opacity": [
+      {"test": "isFiltered && datum.__selNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__linkSelNum__ === 1", "value": 1},
+      {"test": "isFiltered && datum.__selNum__ === 0", "value": 0.25},
+      {"test": "activeNode === '' || activeNode === datum['Key Active Risk'] || indexof(datum.connectedNames, activeNode) >= 0", "value": 1},
+      {"value": 0.4}
+    ],
+    "tooltip": {"signal": "datum['Key Active Risk']"}
+  }}},
+  {"type": "rect", "name": "rightNodeHitArea", "from": {"data": "rightNodes"}, "encode": {"update": {
+    "xc": {"signal": "rightX + nodeWidth / 2"}, "yc": {"field": "yc"},
+    "width": {"signal": "nodeWidth + 130"}, "height": {"signal": "max(nodeWidth, 16 * uiScale)"},
+    "fillOpacity": {"value": 0}, "cursor": {"value": "pointer"},
+    "tooltip": {"signal": "{'Key Active Risk': datum['Key Active Risk'], 'Linked Short Names': datum.nameListStr}"}
+  }}}
+],
+  "config": {"view": {"stroke": null}, "font": "Segoe UI"}
+};
+
+// ---- Load real data and wire everything up ----
+Promise.all([
+  fetch('data/ep-dim-risktest.json').then(r => r.json()),
+  fetch('data/ep-kar-links.json').then(r => r.json()),
+  fetch('data/ep-dim-risktest.json').then(r => r.json())
+]).then(([matrixData, linkData, epFullData]) => {
+  const unwrapRows = payload => payload?.rows?.body || payload?.rows?.rows || payload?.rows || payload || [];
+  epRowsRaw = unwrapRows(epFullData);
+  linkRowsRaw = unwrapRows(linkData).filter(r => r['Short Name'] && r['Key Active Risk']);
+  populateFilters();
+  updateKpis();
+  renderSummaryTable();
+
+  return Promise.all([
+    vegaEmbed('#matrixView', matrixSpec, { actions: false }).then(res => { matrixView = res.view; }),
+    vegaEmbed('#sankeyView', sankeySpec, { actions: false }).then(res => { sankeyView = res.view; })
+  ]);
+}).then(() => {
+  matrixView.change('dataset', vega.changeset().insert(buildMatrixRows())).run();
+  updateSankeyData();
+  document.getElementById('status').textContent = '';
+}).catch(err => {
+  document.getElementById('status').textContent = 'Failed to load: ' + err.message;
+  console.error(err);
+});
+
+// ---- Tab and toggle controls ----
+document.getElementById('tabGroup').addEventListener('click', e => {
+  if (!e.target.matches('.tab-btn')) return;
+  document.querySelectorAll('#tabGroup .tab-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentTab = e.target.dataset.tab;
+  renderSummaryTable();
+  if (matrixView) {
+    matrixView.change('dataset', vega.changeset().remove(() => true).insert(buildMatrixRows())).run();
+  }
+});
+
+document.getElementById('toggleGroup').addEventListener('click', e => {
+  if (!e.target.matches('.toggle-btn')) return;
+  document.querySelectorAll('#toggleGroup .toggle-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentMode = e.target.dataset.mode;
+  document.getElementById('matrixModeLabel').textContent = currentMode;
+  if (matrixView) {
+    matrixView.change('dataset', vega.changeset().remove(() => true).insert(buildMatrixRows())).run();
+  }
+});
+
+document.getElementById('clearFilters').addEventListener('click', () => {
+  Object.keys(activeFilters).forEach(key => { activeFilters[key] = ['All']; });
+  document.querySelectorAll('[data-filter]').forEach(select => {
+    [...select.options].forEach(option => { option.selected = option.value === 'All'; });
+    const dropdown = select.parentElement.querySelector('.multi-select');
+    dropdown.querySelectorAll('input').forEach(input => { input.checked = input.value === 'All'; });
+    updateMultiSelectLabel(dropdown, ['All']);
+  });
+  setCrossFilterSelection(null);
+  renderFilteredViews();
+});
+
+document.getElementById('legendButton').addEventListener('click', () => {
+  document.getElementById('legendPanel').classList.toggle('is-open');
+});
+document.getElementById('legendClose').addEventListener('click', () => {
+  document.getElementById('legendPanel').classList.remove('is-open');
+});
+document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC'
+}).format(new Date());
+</script>
+
+<footer class="site-footer">
+  <div class="brand-mark">Your Company</div>
+</footer>
+
+</body>
+</html>

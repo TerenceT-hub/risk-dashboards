@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emerging Risk Wheel — Test</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+  :root { --burgundy: #800020; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px 14px;
+    background: #f5f5f5;
+    overflow-y: auto;
+  }
+  .risk-wheel-page { --topbar-height: 96px; }
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(500px, 2fr) minmax(230px, 0.8fr);
+    gap: 18px;
+    align-items: center;
+    margin: 0 -20px 10px;
+    padding: 8px 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .brand-panel { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .refresh-line time { text-decoration: underline; }
+  .homepage-button {
+    display: inline-flex;
+    box-sizing: border-box;
+    width: fit-content;
+    height: 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    background: #830051;
+    color: #fff;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .brand-right { align-items: flex-end; justify-content: center; }
+  .brand-right-image { width: 190px; max-height: 65px; }
+  .strategy-impact-panel { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; }
+  .legend-title { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .strategy-key .legend-title { color: #1b2a4a; }
+  .impact-legend .legend-title { color: #1b1b1b; }
+  .strategy-key-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 6px 20px; }
+  .strategy-key-item { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; color: #333; max-width: 155px; line-height: 1.2; }
+  .strategy-key-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    background: #1b2a4a;
+    color: #fff;
+  }
+  .strategy-key-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+  .strategy-key-icon svg.fill-icon { fill: currentColor; stroke: none; }
+  .impact-scale { display: flex; }
+  .impact-pill { display: flex; align-items: center; justify-content: center; min-width: 62px; padding: 8px 10px; font-size: 11px; font-weight: 700; }
+  .impact-pill.level-verylow { background: #eaf3fb; color: #1b2a4a; }
+  .impact-pill.level-low { background: #bcdcf3; color: #1b2a4a; }
+  .impact-pill.level-medium { background: #4fa3dc; color: #fff; }
+  .impact-pill.level-high { background: #1c5fa1; color: #fff; }
+  .impact-pill.level-veryhigh { background: #0c2b4e; color: #fff; }
+
+  .category-bar-row { margin: 10px 0 0; }
+  .category-bar-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 5px; }
+  .category-bar { display: flex; height: 42px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .category-segment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 12px;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border-right: 1px solid rgba(255,255,255,0.35);
+  }
+  .category-segment:last-child { border-right: none; }
+  .category-segment strong { font-size: 13px; font-weight: 700; }
+  .category-segment.is-dimmed { opacity: 0.4; }
+
+  .filter-row { display: flex; align-items: flex-end; gap: 28px; margin: 10px 0; }
+  .filter-item { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; font-weight: 700; color: #333; }
+  .filter-item select[data-filter] { display: none; }
+  .filter-item .multi-select { position: relative; min-width: 160px; }
+  .filter-item .multi-select-toggle {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    padding: 4px 20px 5px 0;
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .filter-item .multi-select-toggle::after { content: '▾'; position: absolute; right: 4px; color: #777; }
+  .filter-item .multi-select-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    min-width: 170px;
+    max-height: 190px;
+    overflow-y: auto;
+    z-index: 25;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+  }
+  .filter-item .multi-select.is-open .multi-select-menu { display: block; }
+  .filter-item .multi-select-option { display: flex; align-items: center; gap: 6px; padding: 5px 4px; font-size: 11px; font-weight: 400; white-space: nowrap; cursor: pointer; }
+  .filter-item .multi-select-option:hover { background: #e6f0fa; }
+  .clear-filters { border: 0; background: transparent; color: #555; text-decoration: underline; cursor: pointer; font-style: italic; font-size: 11.5px; padding: 0 0 6px; }
+
+  #status {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  #dashboard {
+    height: calc(100vh - var(--topbar-height) - 190px);
+    min-height: 460px;
+    display: grid;
+    grid-template-columns: minmax(360px, 1fr) minmax(420px, 1.3fr);
+    gap: 10px;
+  }
+  .visual {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    min-width: 0;
+    min-height: 0;
+  }
+  #wheelContainer {
+    padding: 4px;
+    overflow: hidden;
+  }
+  #wheelView {
+    width: 100%;
+    height: 100%;
+  }
+  #clusterContainer {
+    overflow: hidden;
+    padding: 0;
+  }
+  #clusterScroll {
+    height: 100%;
+    overflow: auto;
+  }
+  .cluster-table {
+    border-collapse: collapse;
+    width: 1600px;
+    background: #fff;
+    table-layout: fixed;
+  }
+  .cluster-table th, .cluster-table td {
+    border: 1px solid #eee;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 11.5px;
+    vertical-align: top;
+  }
+  .cluster-table th {
+    background: #4d4d4d;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    font-size: 11px;
+  }
+  .cluster-table col.col-id { width: 34px; }
+  .cluster-table col.col-cluster { width: 150px; }
+  .cluster-table col.col-statement { width: 230px; }
+  .cluster-table col.col-areas { width: 128px; }
+  .cluster-table col.col-impact { width: 76px; }
+  .cluster-table col.col-time { width: 90px; }
+  .cluster-table col.col-why { width: 220px; }
+  .cluster-table col.col-action { width: 80px; }
+  .cluster-table col.col-actiondetail { width: 220px; }
+  .cluster-table col.col-enterprise { width: 200px; }
+  .cluster-table col.col-triggers { width: 200px; }
+  .cluster-table td.cluster-id { color: var(--burgundy); font-weight: 700; }
+  .cluster-table td.cluster-name { font-weight: 700; color: #333; }
+  .cluster-table td.cluster-why,
+  .cluster-table td.cluster-action-detail,
+  .cluster-table td.cluster-enterprise-impact,
+  .cluster-table td.cluster-triggers { white-space: pre-line; }
+  .cluster-table tbody tr { cursor: pointer; }
+  .cluster-table tbody tr:nth-child(even) { background: #fafafa; }
+  .cluster-table tbody tr:hover { background: #eef5fc; }
+  .cluster-table tbody tr.selected { background: #d7e8f8; }
+  .cluster-table tbody tr.is-dimmed { opacity: 0.35; }
+  .cluster-areas { display: inline-flex; gap: 4px; flex-wrap: nowrap; align-items: center; }
+  .cluster-area-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #d5d5d5;
+    background: #fff;
+    color: #fff;
+  }
+  .cluster-area-icon.is-yes { border-color: #1b2a4a; background: #1b2a4a; }
+  .cluster-area-icon svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .cluster-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .impact-cell { text-align: center; font-weight: 700; }
+  .impact-cell.level-verylow { background: #eaf3fb; color: #1b2a4a; }
+  .impact-cell.level-low { background: #bcdcf3; color: #1b2a4a; }
+  .impact-cell.level-medium { background: #4fa3dc; color: #fff; }
+  .impact-cell.level-high { background: #1c5fa1; color: #fff; }
+  .impact-cell.level-veryhigh { background: #0c2b4e; color: #fff; }
+
+  .detail-panel {
+    height: 640px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .detail-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #222;
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+    background: #f7f7f7;
+  }
+  #detailScroll {
+    flex: 1;
+    overflow: auto;
+  }
+  .detail-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1200px;
+    background: #fff;
+    table-layout: fixed;
+  }
+  .detail-table th, .detail-table td {
+    border: 1px solid #eee;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 11.5px;
+    vertical-align: top;
+  }
+  .detail-table th {
+    background: #fff;
+    color: var(--burgundy);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    font-size: 11px;
+    border-bottom: 2px solid var(--burgundy);
+  }
+  /* Narrow, fixed-content columns stay a set pixel width; the text-heavy columns
+     share the rest of the table as percentages, so they grow with the window. */
+  .detail-table col.col-erid { width: 50px; }
+  .detail-table col.col-areas { width: 128px; }
+  .detail-table col.col-impact { width: 76px; }
+  .detail-table col.col-priority { width: 70px; }
+  .detail-table col.col-time { width: 90px; }
+  .detail-table col.col-risk { width: 13%; }
+  .detail-table col.col-statement { width: 17%; }
+  .detail-table col.col-set { width: 11%; }
+  .detail-table col.col-category { width: 11%; }
+  .detail-table col.col-why { width: 17%; }
+  .detail-table col.col-enterprise { width: 16%; }
+  .detail-table col.col-triggers { width: 15%; }
+  .detail-table td.detail-erid { color: var(--burgundy); font-weight: 700; }
+  .detail-table td.detail-risk-name { font-weight: 700; color: #333; }
+  .detail-table td.detail-why,
+  .detail-table td.detail-enterprise-impact,
+  .detail-table td.detail-triggers { white-space: pre-line; }
+  .detail-table tbody tr { cursor: pointer; }
+  .detail-table tbody tr:nth-child(even) { background: #fafafa; }
+  .detail-table tbody tr:hover { background: #eef5fc; }
+  .detail-table tbody tr.selected { background: #d7e8f8; }
+
+  @media (max-width: 900px) {
+    .dashboard-topbar { grid-template-columns: 1fr; margin: 0 -20px 10px; }
+    .strategy-impact-panel { flex-direction: column; gap: 14px; }
+    .brand-right { align-items: flex-start; }
+    .filter-row { flex-wrap: wrap; gap: 14px; }
+    #dashboard {
+      height: auto;
+      grid-template-columns: 1fr;
+      grid-template-rows: 420px 480px;
+    }
+  }
+</style>
+</head>
+<body class="risk-wheel-page">
+
+<header class="dashboard-topbar">
+  <div class="brand-panel">
+    <div class="brand-identity">
+      <div class="brand-logo-row">
+        <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+        <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+      </div>
+      <div class="brand-meta">
+        <span>Nexus</span>
+        <span>Emerging Risk Wheel</span>
+        <span class="refresh-line">Data refreshed: UTC <time id="refreshDateTime"></time></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="strategy-impact-panel" aria-label="Strategy key and potential impact legend">
+    <div class="strategy-key">
+      <span class="legend-title">Strategy key</span>
+      <div class="strategy-key-grid">
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg></span>Science and Innovation</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg></span>People and Sustainability</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg></span>Growth and Therapy Area Leadership</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg></span>Achieve Group Financial Targets</span>
+      </div>
+    </div>
+    <div class="impact-legend">
+      <span class="legend-title">Potential Impact</span>
+      <div class="impact-scale">
+        <span class="impact-pill level-verylow">Very Low</span>
+        <span class="impact-pill level-low">Low</span>
+        <span class="impact-pill level-medium">Medium</span>
+        <span class="impact-pill level-high">High</span>
+        <span class="impact-pill level-veryhigh">Very High</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="brand-panel brand-right">
+    <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+  </div>
+</header>
+
+<div class="category-bar-row">
+  <div class="category-bar-title">Count of Emerging Risk by Thematic Category</div>
+  <div class="category-bar" id="categoryBar"></div>
+</div>
+
+<div class="filter-row" id="filterRow">
+  <label class="filter-item">Priority Level
+    <select data-filter="priority" multiple><option value="All">All</option></select>
+  </label>
+  <label class="filter-item">Time to Active Management
+    <select data-filter="time" multiple><option value="All">All</option></select>
+  </label>
+  <label class="filter-item">Potential Impact
+    <select data-filter="impact" multiple><option value="All">All</option></select>
+  </label>
+  <button class="clear-filters" id="clearWheelFilters" type="button">Clear filters</button>
+</div>
+
+<div id="status">Loading data.json...</div>
+<div id="dashboard">
+  <section id="wheelContainer" class="visual">
+    <div id="wheelView"></div>
+  </section>
+  <section id="clusterContainer" class="visual">
+    <div id="clusterScroll">
+      <table class="cluster-table">
+        <colgroup>
+          <col class="col-id"><col class="col-cluster"><col class="col-statement">
+          <col class="col-areas"><col class="col-impact"><col class="col-time"><col class="col-why">
+          <col class="col-action"><col class="col-actiondetail"><col class="col-enterprise"><col class="col-triggers">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>ID</th><th>Cluster</th><th>Risk Statement</th><th>Strategic Areas</th><th>Potential Impact</th>
+            <th>Time to Active Management</th><th>Why Emerging</th><th>Action</th><th>Action Detail</th>
+            <th>Potential Enterprise Impact</th><th>Key Active Triggers</th>
+          </tr>
+        </thead>
+        <tbody id="clusterTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="detail-panel visual" aria-label="Emerging Risk Detail">
+  <div class="detail-title">Emerging Risk Detail</div>
+  <div id="detailScroll">
+    <table class="detail-table">
+      <colgroup>
+        <col class="col-erid"><col class="col-risk"><col class="col-statement"><col class="col-set"><col class="col-category">
+        <col class="col-areas"><col class="col-impact"><col class="col-priority"><col class="col-time">
+        <col class="col-why"><col class="col-enterprise"><col class="col-triggers">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>ER_ID</th><th>Emerging Risk</th><th>Risk Statement</th><th>Related SET Areas</th><th>Thematic Category</th>
+          <th>Strategic Areas</th><th>Potential Impact</th><th>Priority Level</th><th>Time to Active Management</th>
+          <th>Why Emerging Now</th><th>Potential Enterprise Impact</th><th>Key Active Risk Triggers</th>
+        </tr>
+      </thead>
+      <tbody id="detailTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+  }).format(new Date());
+
+  const DATA_SOURCES = ['data/e_dim_risk.json', 'data.json'];
+  const CLUSTER_SOURCE = 'data/e_bridge_risk_clusters.json';
+
+  // Ctrl/Cmd-click adds to the wheel's multi-select; a plain click replaces it (or clears if re-clicking the only selection).
+  vega.expressionFunction('toggleInArray', (arr, value, additive) => {
+    const current = Array.isArray(arr) ? arr.slice() : [];
+    const idx = current.indexOf(value);
+    if (additive) {
+      if (idx >= 0) current.splice(idx, 1); else current.push(value);
+      return current;
+    }
+    return (current.length === 1 && current[0] === value) ? [] : [value];
+  });
+
+  // --- Your ported Deneb/Vega spec, unchanged except the "dataset" values,
+  // which we fill in below from your real Power BI export. ---
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "padding": -4,
+    "autosize": {"type": "pad", "resize": true},
+    "signals": [
+      {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
+      {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
+      {"name": "width", "update": "pbiContainerWidth"},
+      {"name": "height", "update": "pbiContainerHeight"},
+      {"name": "cx", "update": "width/2"},
+      {"name": "cy", "update": "height/2"},
+      {"name": "outerR", "update": "min(width,height)/1.8 - 90"},
+      {"name": "innerHoleR", "update": "outerR*0.1"},
+      {"name": "rotationDeg", "value": 0},
+      {"name": "rotationRad", "update": "rotationDeg*PI/180"},
+      {"name": "bandRadii", "update": "[innerHoleR, innerHoleR+(outerR-innerHoleR)*0.25, innerHoleR+(outerR-innerHoleR)*0.5, innerHoleR+(outerR-innerHoleR)*0.75, outerR]"},
+      {"name": "topSpanDeg", "value": 38},
+      {"name": "topSpan", "update": "topSpanDeg*PI/180"},
+      {"name": "categorySpan", "update": "(2*PI - topSpan)/5"},
+      {"name": "categoryRotate", "value": 0},
+      {"name": "selected", "value": [], "on": [
+        {"events": "@dotMark:click", "update": "toggleInArray(selected, datum['Emerging Risk'], event.ctrlKey || event.metaKey)"},
+        {"events": "@background:click", "update": "[]"}
+      ]},
+      {"name": "zoomedCategory", "value": null, "on": [
+        {"events": "@zoomIcon:click", "update": "datum.catClean === zoomedCategory ? null : datum.catClean"}
+      ]},
+      {"name": "baseColors", "value": ["#f2a900","#e2136e","#a3236e","#b5c400","#37325c"]},
+      {"name": "wedgeOpacity", "value": 0.35},
+      {"name": "labelColor", "value": "#000000"},
+      {"name": "zoomWeight", "value": 10000},
+      {"name": "categoryNamesOrdered", "value": ["Operations, Manufacturing and Supply Network","Regulatory, Legal and Policy","Science, Technology and Data","Societal, Environmental and Trust","Geopolitical, Macro and Security"]},
+      {"name": "categoryWeightsOrdered", "value": [1,1,1,1,1]},
+      {"name": "categoryZoomWeightsOrdered", "value": [null,null,null,null,null]},
+      {"name": "zoomedOriginalIdx", "update": "indexof(categoryNamesOrdered, zoomedCategory)"},
+      {"name": "zoomedSlot", "update": "zoomedCategory == null || zoomedOriginalIdx < 0 ? -1 : ((zoomedOriginalIdx + categoryRotate) % 5 + 5) % 5"},
+      {"name": "slotWeights", "update": "[(0 == zoomedSlot ? (isValid(categoryZoomWeightsOrdered[((0 - categoryRotate + 5) % 5)]) ? categoryZoomWeightsOrdered[((0 - categoryRotate + 5) % 5)] : zoomWeight) : categoryWeightsOrdered[((0 - categoryRotate + 5) % 5)]), (1 == zoomedSlot ? (isValid(categoryZoomWeightsOrdered[((1 - categoryRotate + 5) % 5)]) ? categoryZoomWeightsOrdered[((1 - categoryRotate + 5) % 5)] : zoomWeight) : categoryWeightsOrdered[((1 - categoryRotate + 5) % 5)]), (2 == zoomedSlot ? (isValid(categoryZoomWeightsOrdered[((2 - categoryRotate + 5) % 5)]) ? categoryZoomWeightsOrdered[((2 - categoryRotate + 5) % 5)] : zoomWeight) : categoryWeightsOrdered[((2 - categoryRotate + 5) % 5)]), (3 == zoomedSlot ? (isValid(categoryZoomWeightsOrdered[((3 - categoryRotate + 5) % 5)]) ? categoryZoomWeightsOrdered[((3 - categoryRotate + 5) % 5)] : zoomWeight) : categoryWeightsOrdered[((3 - categoryRotate + 5) % 5)]), (4 == zoomedSlot ? (isValid(categoryZoomWeightsOrdered[((4 - categoryRotate + 5) % 5)]) ? categoryZoomWeightsOrdered[((4 - categoryRotate + 5) % 5)] : zoomWeight) : categoryWeightsOrdered[((4 - categoryRotate + 5) % 5)])]"},
+      {"name": "totalSlotWeight", "update": "slotWeights[0]+slotWeights[1]+slotWeights[2]+slotWeights[3]+slotWeights[4]"},
+      {"name": "slotCumWeights", "update": "[0, (slotWeights[0]), (slotWeights[0]+slotWeights[1]), (slotWeights[0]+slotWeights[1]+slotWeights[2]), (slotWeights[0]+slotWeights[1]+slotWeights[2]+slotWeights[3]), (slotWeights[0]+slotWeights[1]+slotWeights[2]+slotWeights[3]+slotWeights[4])]"},
+      {"name": "slotAngleBounds", "update": "[(-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[0]/totalSlotWeight)*(2*PI - topSpan), (-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[1]/totalSlotWeight)*(2*PI - topSpan), (-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[2]/totalSlotWeight)*(2*PI - topSpan), (-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[3]/totalSlotWeight)*(2*PI - topSpan), (-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[4]/totalSlotWeight)*(2*PI - topSpan), (-PI/2 + rotationRad + topSpan/2) + (slotCumWeights[5]/totalSlotWeight)*(2*PI - topSpan)]"}
+    ],
+    "data": [
+      {"name": "dataset", "values": []},
+      {
+        "name": "categories",
+        "transform": [
+          {"type": "formula", "as": "idx", "expr": "((datum.idx + categoryRotate+0) % 5 + 5) % 5"},
+          {"type": "formula", "as": "angleStart", "expr": "slotAngleBounds[datum.idx]"},
+          {"type": "formula", "as": "angleEnd", "expr": "slotAngleBounds[datum.idx+1]"},
+          {"type": "formula", "as": "midAngle", "expr": "(datum.angleStart+datum.angleEnd)/2"},
+          {"type": "formula", "as": "midAngleDeg", "expr": "datum.midAngle*180/PI"},
+          {"type": "formula", "as": "labelAngle", "expr": "( ( (datum.midAngleDeg+90) % 360 + 360) % 360 > 90 && ( ( (datum.midAngleDeg+90) % 360 + 360) % 360) < 270 ) ? datum.midAngleDeg+270 : datum.midAngleDeg+90"},
+          {"type": "formula", "as": "labelX", "expr": "cx + (outerR+22)*cos(datum.midAngle)"},
+          {"type": "formula", "as": "labelY", "expr": "cy + (outerR+22)*sin(datum.midAngle)"},
+          {"type": "formula", "as": "lineX2", "expr": "cx + outerR*cos(datum.angleStart)"},
+          {"type": "formula", "as": "lineY2", "expr": "cy + outerR*sin(datum.angleStart)"},
+          {"type": "formula", "as": "arcStart", "expr": "datum.angleStart + PI/2"},
+          {"type": "formula", "as": "arcEnd", "expr": "datum.angleEnd + PI/2"},
+          {"type": "formula", "as": "zoomIconX", "expr": "cx + (outerR+38)*cos(datum.midAngle)"},
+          {"type": "formula", "as": "zoomIconY", "expr": "cy + (outerR+38)*sin(datum.midAngle)"},
+          {"type": "formula", "as": "baseHex", "expr": "baseColors[datum.idx]"},
+          {"type": "formula", "as": "rBase", "expr": "parseInt(slice(datum.baseHex,1,3),16)"},
+          {"type": "formula", "as": "gBase", "expr": "parseInt(slice(datum.baseHex,3,5),16)"},
+          {"type": "formula", "as": "bBase", "expr": "parseInt(slice(datum.baseHex,5,7),16)"},
+          {"type": "formula", "as": "shade0", "expr": "'rgb(' + round(datum.rBase+(255-datum.rBase)*0.62) + ',' + round(datum.gBase+(255-datum.gBase)*0.62) + ',' + round(datum.bBase+(255-datum.bBase)*0.62) + ')'"},
+          {"type": "formula", "as": "shade1", "expr": "'rgb(' + round(datum.rBase+(255-datum.rBase)*0.40) + ',' + round(datum.gBase+(255-datum.gBase)*0.40) + ',' + round(datum.bBase+(255-datum.bBase)*0.40) + ')'"},
+          {"type": "formula", "as": "shade2", "expr": "'rgb(' + round(datum.rBase+(255-datum.rBase)*0.18) + ',' + round(datum.gBase+(255-datum.gBase)*0.18) + ',' + round(datum.bBase+(255-datum.bBase)*0.18) + ')'"},
+          {"type": "formula", "as": "shade3", "expr": "datum.baseHex"}
+        ],
+        "values": [
+          {"catClean": "Operations, Manufacturing and Supply Network", "idx": 0, "weight": 1},
+          {"catClean": "Regulatory, Legal and Policy", "idx": 1, "weight": 1},
+          {"catClean": "Science, Technology and Data", "idx": 2, "weight": 1},
+          {"catClean": "Societal, Environmental and Trust", "idx": 3, "weight": 1},
+          {"catClean": "Geopolitical, Macro and Security", "idx": 4, "weight": 1}
+        ]
+      },
+      {
+        "name": "topWedge",
+        "values": [{}],
+        "transform": [
+          {"type": "formula", "as": "angleStart", "expr": "-PI/2 + rotationRad - topSpan/2"},
+          {"type": "formula", "as": "angleEnd", "expr": "-PI/2 + rotationRad + topSpan/2"},
+          {"type": "formula", "as": "arcStart", "expr": "datum.angleStart + PI/2"},
+          {"type": "formula", "as": "arcEnd", "expr": "datum.angleEnd + PI/2"}
+        ]
+      },
+      {
+        "name": "topWedgeLines",
+        "values": [{"a": "start"}],
+        "transform": [
+          {"type": "formula", "as": "angle", "expr": "-PI/2 + rotationRad - topSpan/2"},
+          {"type": "formula", "as": "lineX2", "expr": "cx + outerR*cos(datum.angle)"},
+          {"type": "formula", "as": "lineY2", "expr": "cy + outerR*sin(datum.angle)"}
+        ]
+      },
+      {
+        "name": "plotData",
+        "source": "dataset",
+        "transform": [
+          {"type": "window", "ops": ["row_number"], "as": ["rowNum"]},
+          {"type": "formula", "as": "catClean", "expr": "trim(datum['Thematic Category'])"},
+          {"type": "formula", "as": "timeNorm", "expr": "lower(trim(datum['Time to Active Management']))"},
+          {"type": "formula", "as": "timeIndex", "expr": "indexof(['1-3 years','3-5 years','5-10 years','10+ years'], datum.timeNorm)"},
+          {"type": "formula", "as": "originalCatIdx", "expr": "indexof(categoryNamesOrdered, datum.catClean)"},
+          {"type": "formula", "as": "catSlot", "expr": "datum.originalCatIdx < 0 ? -1 : ((datum.originalCatIdx + categoryRotate) % 5 + 5) % 5"},
+          {"type": "formula", "as": "catAngleStart", "expr": "datum.catSlot < 0 ? 0 : slotAngleBounds[datum.catSlot]"},
+          {"type": "formula", "as": "catAngleEnd", "expr": "datum.catSlot < 0 ? 0.001 : slotAngleBounds[datum.catSlot+1]"},
+          {"type": "formula", "as": "dotColor", "expr": "datum.catSlot < 0 ? '#999999' : baseColors[datum.catSlot]"},
+          {"type": "formula", "as": "rand1", "expr": "(zoomedCategory != null && datum.catClean == zoomedCategory) ? abs(sin(datum.rowNum*15.234)*51234.321) % 1 : abs(sin(datum.rowNum*12.9899)*43759.5453) % 1"},
+          {"type": "formula", "as": "rand2", "expr": "(zoomedCategory != null && datum.catClean == zoomedCategory) ? abs(sin(datum.rowNum*88.123+7.2)*77123.456) % 1 : abs(sin(datum.rowNum*78.239+4.5)*93779.234) % 1"},
+          {"type": "formula", "as": "angle", "expr": "datum.catAngleStart + (datum.catAngleEnd-datum.catAngleStart)*((zoomedCategory != null && datum.catClean == zoomedCategory) ? (0.03+0.94*datum.rand1) : (0.15+0.7*datum.rand1))"},
+          {"type": "formula", "as": "timeIndexSafe", "expr": "datum.timeIndex < 0 ? 3 : datum.timeIndex"},
+          {"type": "formula", "as": "rInner2", "expr": "bandRadii[datum.timeIndexSafe]-1"},
+          {"type": "formula", "as": "rOuter2", "expr": "bandRadii[datum.timeIndexSafe+1]"},
+          {"type": "formula", "as": "radius", "expr": "datum.rInner2 + (datum.rOuter2-datum.rInner2)*(0.2+0.5*datum.rand2)"},
+          {"type": "formula", "as": "targetX", "expr": "cx + datum.radius*cos(datum.angle)"},
+          {"type": "formula", "as": "targetY", "expr": "cy + datum.radius*sin(datum.angle)"},
+          {"type": "formula", "as": "baseSize", "expr": "scale('sizeScale', datum['Overall Risk'])"},
+          {"type": "formula", "as": "ptRadius", "expr": "sqrt(datum.baseSize/PI) -5"},
+          {"type": "formula", "as": "x", "expr": "datum.targetX"},
+          {"type": "formula", "as": "y", "expr": "datum.targetY"},
+          {"type": "formula", "as": "dotLabel", "expr": "(zoomedCategory != null && datum.catClean == zoomedCategory) ? (length(datum['Emerging Risk']) > 25 ? slice(datum['Emerging Risk'],0,25) + '......' : datum['Emerging Risk']) : (length(datum['Emerging Risk']) > 15 ? slice(datum['Emerging Risk'],0,15) + '......' : datum['Emerging Risk'])"},
+          {"type": "formula", "as": "vx", "expr": "0"},
+          {"type": "formula", "as": "vy", "expr": "0"},
+          {"type": "force", "static": true, "iterations": 600, "forces": [
+            {"force": "collide", "radius": {"field": "ptRadius"}, "strength": 0.7, "iterations": 1},
+            {"force": "x", "x": {"field": "targetX"}, "strength": 0.25},
+            {"force": "y", "y": {"field": "targetY"}, "strength": 0.25}
+          ], "as": ["x","y","vx","vy"]},
+          {"type": "formula", "as": "fx", "expr": "datum.x"},
+          {"type": "formula", "as": "fy", "expr": "datum.y"},
+          {"type": "formula", "as": "rClamped", "expr": "max(datum.rInner2 + datum.ptRadius + 2, min(datum.rOuter2 - datum.ptRadius - 2, sqrt(pow(datum.fx-cx,2)+pow(datum.fy-cy,2))))"},
+          {"type": "formula", "as": "thetaRaw", "expr": "atan2(datum.fy-cy, datum.fx-cx)"},
+          {"type": "formula", "as": "sectorSpanRow", "expr": "datum.catAngleEnd - datum.catAngleStart"},
+          {"type": "formula", "as": "deltaRaw", "expr": "((datum.thetaRaw - datum.catAngleStart) % (2*PI) + 2*PI) % (2*PI)"},
+          {"type": "formula", "as": "angMarginDyn", "expr": "min((datum.ptRadius+2)/max(datum.rClamped,1), datum.sectorSpanRow/2 - 0.001)"},
+          {"type": "formula", "as": "deltaClamped", "expr": "max(datum.angMarginDyn, min(datum.sectorSpanRow - datum.angMarginDyn, datum.deltaRaw))"},
+          {"type": "formula", "as": "thetaClamped", "expr": "datum.catAngleStart + datum.deltaClamped"},
+          {"type": "formula", "as": "x", "expr": "isValid(datum.thetaClamped) && isValid(datum.rClamped) ? cx + datum.rClamped*cos(datum.thetaClamped) : cx"},
+          {"type": "formula", "as": "y", "expr": "isValid(datum.thetaClamped) && isValid(datum.rClamped) ? cy + datum.rClamped*sin(datum.thetaClamped) : cy"}
+        ]
+      },
+      {"name": "visibleData", "source": "plotData", "transform": [
+        {"type": "filter", "expr": "zoomedCategory == null || datum.catClean == zoomedCategory"}
+      ]},
+      {"name": "rings", "values": [{"idx":0},{"idx":1},{"idx":2},{"idx":3},{"idx":4}], "transform": [{"type":"formula","as":"r","expr":"bandRadii[datum.idx]"}]},
+      {
+        "name": "timeLabels",
+        "values": [{"label":"1-3 years","idx":0},{"label":"3-5 years","idx":1},{"label":"5-10 years","idx":2},{"label":"10+ years","idx":3}],
+        "transform": [
+          {"type": "formula", "as": "rMid", "expr": "(bandRadii[datum.idx]+bandRadii[datum.idx+1])/2"},
+          {"type": "formula", "as": "wedgeAngle", "expr": "-PI/2 + rotationRad"},
+          {"type": "formula", "as": "lx", "expr": "cx + datum.rMid*cos(datum.wedgeAngle)"},
+          {"type": "formula", "as": "ly", "expr": "cy + datum.rMid*sin(datum.wedgeAngle)"}
+        ]
+      },
+      {"name": "singleton", "values": [{}]},
+      {
+        "name": "labelData",
+        "source": "plotData",
+        "transform": [
+          {"type": "formula", "as": "estLabelW", "expr": "length(datum.dotLabel) * 4.6 * datum.zoomTextFactor"},
+          {"type": "formula", "as": "effPtRadius", "expr": "datum.ptRadius * (zoomedCategory != null && datum.catClean == zoomedCategory ? sqrt(1.4) : 1)"},
+          {"type": "formula", "as": "zoomTextFactor", "expr": "zoomedCategory != null && datum.catClean == zoomedCategory ? 1.5 : 1"},
+          {"type": "formula", "as": "estLabelH", "expr": "10 * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.5 : 1)"},
+          {"type": "formula", "as": "labelBoxR", "expr": "sqrt(pow(datum.estLabelW/2,2) + pow(datum.estLabelH/2,2))"},
+          {"type": "formula", "as": "initLX", "expr": "datum.x"},
+          {"type": "formula", "as": "initLY", "expr": "datum.y + datum.effPtRadius + 9"},
+          {"type": "formula", "as": "lx", "expr": "datum.initLX"},
+          {"type": "formula", "as": "ly", "expr": "datum.initLY"},
+          {
+            "type": "force", "static": true, "iterations": 300,
+            "forces": [
+              {"force": "collide", "radius": {"field": "labelBoxR"}, "strength": 0.85, "iterations": 2},
+              {"force": "x", "x": {"field": "initLX"}, "strength": 0.12},
+              {"force": "y", "y": {"field": "initLY"}, "strength": 0.12}
+            ],
+            "as": ["lx","ly","lvx","lvy"]
+          }
+        ]
+      }
+    ],
+    "scales": [
+      {"name": "sizeScale", "type": "ordinal", "domain": ["Very Low","Watch","Medium","High","Very High"], "range": [80,220,420,680,1000]}
+    ],
+    "marks": [
+      {"type": "rect", "name": "background", "encode": {"enter": {"x":{"value":0},"y":{"value":0},"width":{"signal":"width"},"height":{"signal":"height"},"fill":{"value":"transparent"}}}},
+      {"type": "arc", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"innerRadius":{"signal":"bandRadii[0]"},"outerRadius":{"signal":"bandRadii[1]"},"fill":{"field":"shade0"},"stroke":{"value":null}}, "update": {"startAngle":{"field":"arcStart"},"endAngle":{"field":"arcEnd"},"fillOpacity":{"signal":"zoomedCategory == null ? wedgeOpacity : (datum.catClean == zoomedCategory ? 0.5 : 0)"}}}},
+      {"type": "arc", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"innerRadius":{"signal":"bandRadii[1]"},"outerRadius":{"signal":"bandRadii[2]"},"fill":{"field":"shade1"},"stroke":{"value":null}}, "update": {"startAngle":{"field":"arcStart"},"endAngle":{"field":"arcEnd"},"fillOpacity":{"signal":"zoomedCategory == null ? wedgeOpacity : (datum.catClean == zoomedCategory ? 0.5 : 0)"}}}},
+      {"type": "arc", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"innerRadius":{"signal":"bandRadii[2]"},"outerRadius":{"signal":"bandRadii[3]"},"fill":{"field":"shade2"},"stroke":{"value":null}}, "update": {"startAngle":{"field":"arcStart"},"endAngle":{"field":"arcEnd"},"fillOpacity":{"signal":"zoomedCategory == null ? wedgeOpacity : (datum.catClean == zoomedCategory ? 0.5 : 0)"}}}},
+      {"type": "arc", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"innerRadius":{"signal":"bandRadii[3]"},"outerRadius":{"signal":"bandRadii[4]"},"fill":{"field":"shade3"},"stroke":{"value":null}}, "update": {"startAngle":{"field":"arcStart"},"endAngle":{"field":"arcEnd"},"fillOpacity":{"signal":"zoomedCategory == null ? wedgeOpacity : (datum.catClean == zoomedCategory ? 0.5 : 0)"}}}},
+      {"type": "arc", "from": {"data": "topWedge"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"startAngle":{"field":"arcStart"},"endAngle":{"field":"arcEnd"},"innerRadius":{"signal":"innerHoleR"},"outerRadius":{"signal":"outerR"},"fill":{"value":"#7f96a8"},"fillOpacity":{"value":0.85},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":2}}}},
+      {"type": "arc", "from": {"data": "rings"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"startAngle":{"value":0},"endAngle":{"signal":"2*PI"},"innerRadius":{"field":"r"},"outerRadius":{"field":"r"},"stroke":{"value":"#cccccc"},"strokeWidth":{"value":1},"fill":{"value":null}}}},
+      {"type": "rule", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"x2":{"field":"lineX2"},"y2":{"field":"lineY2"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":2}}, "update": {"opacity":{"signal":"zoomedCategory == null ? 1 : 0"}}}},
+      {"type": "rule", "from": {"data": "topWedgeLines"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"x2":{"field":"lineX2"},"y2":{"field":"lineY2"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":2}}}},
+      {"type": "arc", "from": {"data": "singleton"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"startAngle":{"value":0},"endAngle":{"signal":"2*PI"},"innerRadius":{"value":0},"outerRadius":{"signal":"innerHoleR"},"fill":{"value":"#ffffff"},"stroke":{"value":"#e0e0e0"}}}},
+      {"type": "symbol", "name": "dotMark", "from": {"data": "plotData"}, "encode": {"enter": {"x":{"field":"x"},"y":{"field":"y"},"fill":{"field":"dotColor"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":1},"cursor":{"value":"pointer"},"tooltip":{"signal":"{'Risk': datum['Emerging Risk'], 'Category': datum['Thematic Category'], 'Time Horizon': datum['Time to Active Management'], 'Overall Risk': datum['Overall Risk']}"}}, "update": {"size":{"signal":"datum.baseSize * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.4 : 0.3)"},"fillOpacity":{"signal":"length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.9 : 0.15"},"opacity":{"signal":"zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0"},"x":{"field":"x"},"y":{"field":"y"}}}},
+      {"type": "rule", "from": {"data": "labelData"}, "encode": {"enter": {"stroke":{"value":"#bbbbbb"},"strokeWidth":{"value":0.75}}, "update": {"x":{"field":"x"},"y":{"field":"y"},"x2":{"field":"lx"},"y2":{"field":"ly"},"opacity":{"signal":"(zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0) * (length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.7 : 0.1)"}}}},
+      {"type": "text", "from": {"data": "labelData"}, "encode": {"enter": {"x":{"field":"lx"},"y":{"field":"ly"},"text":{"field":"dotLabel"},"align":{"value":"center"},"baseline":{"value":"middle"},"fill":{"signal":"labelColor"}}, "update": {"opacity":{"signal":"(zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0) * (length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.85 : 0.15)"},"fontSize":{"signal":"8 * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.5 : 1.4)"},"x":{"field":"lx"},"y":{"field":"ly"}}}},
+      {"type": "text", "from": {"data": "singleton"}, "encode": {"enter": {"align":{"value":"center"},"baseline":{"value":"middle"},"fontSize":{"value":20},"fontWeight":{"value":"bold"},"fill":{"value":"#222"}}, "update": {"x":{"signal":"cx"},"y":{"signal":"cy"},"text":{"signal":"format(length(data('visibleData')), 'd')"}}}},
+      {"type": "text", "from": {"data": "categories"}, "encode": {"enter": {"x":{"field":"labelX"},"y":{"field":"labelY"},"text":{"field":"catClean"},"angle":{"field":"labelAngle"},"align":{"value":"center"},"baseline":{"value":"middle"},"fontWeight":{"value":"bold"},"fill":{"value":"#333"},"limit":{"value":1700}}, "update": {"opacity":{"signal":"zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0"},"fontSize":{"signal":"10.5 * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.6 : 1.3)"}}}},
+      {"type": "text", "from": {"data": "timeLabels"}, "encode": {"enter": {"x":{"field":"lx"},"y":{"field":"ly"},"text":{"field":"label"},"align":{"value":"center"},"baseline":{"value":"middle"},"fontWeight":{"value":"bold"},"fill":{"value":"#000000"},"dy":{"value":-9}}, "update": {"fontSize":{"signal":"zoomedCategory != null ? 12 : 11"}}}},
+      {"type": "text", "name": "zoomIcon", "from": {"data": "categories"}, "encode": {"enter": {"x":{"field":"zoomIconX"},"y":{"field":"zoomIconY"},"text":{"value":"🔍"},"align":{"value":"center"},"baseline":{"value":"middle"},"fontSize":{"value":15},"cursor":{"value":"pointer"}}, "update": {"opacity":{"signal":"zoomedCategory == null ? 0.35 : (datum.catClean == zoomedCategory ? 0.35 : 0)"}}}}
+    ]
+  };
+
+  let rows = [];
+  let wheelView;
+  let selectedCategories = [];        // thematic categories selected via the category bar (ctrl-click to add more)
+  let selectedRisks = [];             // risk names highlighted on the wheel (ctrl-click to add more)
+  let dotHighlightClusterIds = [];    // soft highlight on the cluster table from wheel-dot selection (doesn't filter)
+  const filters = { priority: ['All'], time: ['All'], impact: ['All'], clusterIds: [] };
+
+  const categoryOf = row => row['Thematic Category'] ?? row.category ?? row.ThematicCategory ?? 'Uncategorized';
+  const riskNameOf = row => row['Emerging Risk'] ?? row.riskName ?? row.EmergingRisk ?? row.ER_ID ?? '';
+  const priorityOf = row => row['Overall Risk'] ?? row.overallRisk ?? row.OverallRisk ?? '';
+  const timeOf = row => row['Time to Active Management'] ?? row.timeToActive ?? row.TimeToActiveManagement ?? '';
+  const impactOf = row => row['Potential Impact'] ?? row.potentialImpact ?? '';
+
+  const CATEGORY_COLORS = {
+    'Operations, Manufacturing and Supply Network': '#f2a900',
+    'Regulatory, Legal and Policy': '#e2136e',
+    'Science, Technology and Data': '#a3236e',
+    'Societal, Environmental and Trust': '#b5c400',
+    'Geopolitical, Macro and Security': '#37325c'
+  };
+  const IMPACT_RANK = { 'Very High': 5, 'High': 4, 'Medium': 3, 'Low': 2, 'Very Low': 1 };
+  const IMPACT_CLASS = { 'Very High': 'level-veryhigh', 'High': 'level-high', 'Medium': 'level-medium', 'Low': 'level-low', 'Very Low': 'level-verylow' };
+  // Same icon shapes/toggle logic as the Summary page's .strategic-area-icon (risk-matrix.html),
+  // just recolored blue via CSS for this page instead of burgundy.
+  const STRATEGIC_AREAS = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+  const STRATEGIC_ICONS = [
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+    '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+  ];
+
+  async function fetchFirstAvailable(paths) {
+    let lastErr;
+    for (const path of paths) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (err) { lastErr = err; }
+    }
+    throw lastErr;
+  }
+
+  function updateMultiSelectLabel(dropdown, selected) {
+    const label = selected.includes('All') ? 'All' : selected.length === 1 ? selected[0] : `${selected.length} selected`;
+    dropdown.querySelector('.multi-select-toggle').textContent = label;
+  }
+
+  function populateFilterOptions() {
+    const priorityOrder = ['High', 'Medium', 'Watch', 'Low'];
+    const timeOrder = ['1-3 years', '3-5 years', '5-10 years', '10+ years'];
+    const impactOrder = ['Very High', 'High', 'Medium', 'Low', 'Very Low'];
+    const orderedUnique = (order, actualValues) => {
+      const set = new Set(actualValues.filter(Boolean));
+      const known = order.filter(v => set.has(v));
+      const extra = [...set].filter(v => !order.includes(v)).sort();
+      return [...known, ...extra];
+    };
+    const optionsByFilter = {
+      priority: orderedUnique(priorityOrder, rows.map(priorityOf)),
+      time: orderedUnique(timeOrder, rows.map(timeOf)),
+      impact: orderedUnique(impactOrder, rows.map(impactOf))
+    };
+
+    document.querySelectorAll('#filterRow [data-filter]').forEach(select => {
+      const key = select.dataset.filter;
+      const values = optionsByFilter[key] || [];
+      select.innerHTML = '<option value="All">All</option>' + values.map(v => `<option value="${v}">${v}</option>`).join('');
+
+      const dropdown = document.createElement('div');
+      dropdown.className = 'multi-select';
+      dropdown.innerHTML = `<button class="multi-select-toggle" type="button" aria-haspopup="listbox">All</button><div class="multi-select-menu" role="listbox"></div>`;
+      const menu = dropdown.querySelector('.multi-select-menu');
+      [...select.options].forEach(option => {
+        const label = document.createElement('label');
+        label.className = 'multi-select-option';
+        label.innerHTML = `<input type="checkbox" value="${option.value}"> <span>${option.textContent}</span>`;
+        label.querySelector('input').checked = filters[key].includes(option.value);
+        label.querySelector('input').addEventListener('change', event => {
+          const checkboxes = [...menu.querySelectorAll('input')];
+          if (event.target.value === 'All' && event.target.checked) {
+            checkboxes.forEach(input => { input.checked = input.value === 'All'; });
+          } else if (event.target.value !== 'All' && event.target.checked) {
+            menu.querySelector('input[value="All"]').checked = false;
+          }
+          const selected = checkboxes.filter(input => input.checked).map(input => input.value);
+          filters[key] = selected.length ? selected : ['All'];
+          [...select.options].forEach(option => { option.selected = filters[key].includes(option.value); });
+          updateMultiSelectLabel(dropdown, filters[key]);
+          refresh();
+        });
+        menu.appendChild(label);
+      });
+      select.parentElement.appendChild(dropdown);
+      dropdown.addEventListener('click', event => event.stopPropagation());
+      updateMultiSelectLabel(dropdown, filters[key]);
+      dropdown.querySelector('.multi-select-toggle').addEventListener('click', event => {
+        event.stopPropagation();
+        document.querySelectorAll('.multi-select.is-open').forEach(item => { if (item !== dropdown) item.classList.remove('is-open'); });
+        dropdown.classList.toggle('is-open');
+      });
+    });
+  }
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.multi-select.is-open').forEach(item => item.classList.remove('is-open'));
+  });
+
+  function applyFilters(list) {
+    const matches = (selected, value) => selected.includes('All') || selected.includes(value);
+    return list.filter(row =>
+      matches(filters.priority, priorityOf(row)) &&
+      matches(filters.time, timeOf(row)) &&
+      matches(filters.impact, impactOf(row)) &&
+      (filters.clusterIds.length === 0 || filters.clusterIds.includes(String(row['Cluster Mapping'])))
+    );
+  }
+
+  function renderCategoryBar(filteredRows) {
+    const counts = {};
+    filteredRows.forEach(row => { counts[categoryOf(row)] = (counts[categoryOf(row)] || 0) + 1; });
+    const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const bar = document.getElementById('categoryBar');
+    bar.innerHTML = '';
+    entries.forEach(([name, count]) => {
+      const seg = document.createElement('div');
+      seg.className = 'category-segment' + (selectedCategories.length && !selectedCategories.includes(name) ? ' is-dimmed' : '');
+      seg.style.flexGrow = count;
+      seg.style.background = CATEGORY_COLORS[name] || '#666';
+      seg.innerHTML = `${name}<strong>${count}</strong>`;
+      seg.addEventListener('click', event => toggleCategory(name, event.ctrlKey || event.metaKey));
+      bar.appendChild(seg);
+    });
+  }
+
+  // e_bridge_risk_clusters.json is a bridge table: one row per (cluster, mapped emerging risk),
+  // so the cluster-level fields repeat once per member risk — dedupe down to one row per Cluster ID.
+  function buildClusterRows(bridgeRows) {
+    const seen = new Map();
+    bridgeRows.forEach(row => {
+      const id = row['Cluster ID'];
+      if (id == null || seen.has(id)) return;
+      seen.set(id, row);
+    });
+    return [...seen.values()]
+      .sort((a, b) => Number(a['Cluster ID']) - Number(b['Cluster ID']))
+      .map(row => ({
+        id: row['Cluster ID'],
+        cluster: row['Cluster'] || '',
+        riskStatement: row['Risk Statement'] || '',
+        whyEmerging: row['Why Emerging'] || '',
+        potentialImpact: row['Potential Impact Rating'] || '',
+        timeToActive: row['Time to Active Management'] || '',
+        action: row['Action'] || '',
+        actionDetail: row['Action Detail'] || '',
+        potentialEnterpriseImpact: row['Potential Enterprise Impact'] || '',
+        keyActiveTriggers: row['Key Active Triggers'] || '',
+        areas: STRATEGIC_AREAS.map(area => String(row[area] ?? '').toLowerCase() === 'yes')
+      }));
+  }
+
+  function renderClusterTable(clusters) {
+    const tbody = document.getElementById('clusterTableBody');
+    tbody.innerHTML = '';
+    clusters.forEach(c => {
+      const tr = document.createElement('tr');
+      tr.dataset.clusterId = c.id;
+      const impactClass = IMPACT_CLASS[c.potentialImpact] || '';
+      const areasHtml = c.areas.map((yes, i) =>
+        `<span class="cluster-area-icon${yes ? ' is-yes' : ''}" title="${STRATEGIC_AREAS[i]}: ${yes ? 'Yes' : 'No'}">${yes ? STRATEGIC_ICONS[i] : ''}</span>`
+      ).join('');
+      tr.innerHTML = `
+        <td class="cluster-id">${c.id}</td>
+        <td class="cluster-name">${c.cluster}</td>
+        <td>${c.riskStatement}</td>
+        <td><span class="cluster-areas">${areasHtml}</span></td>
+        <td class="impact-cell ${impactClass}">${c.potentialImpact}</td>
+        <td>${c.timeToActive}</td>
+        <td class="cluster-why">${c.whyEmerging}</td>
+        <td>${c.action}</td>
+        <td class="cluster-action-detail">${c.actionDetail}</td>
+        <td class="cluster-enterprise-impact">${c.potentialEnterpriseImpact}</td>
+        <td class="cluster-triggers">${c.keyActiveTriggers}</td>
+      `;
+      tr.addEventListener('click', event => selectClusterRow(c.id, event.ctrlKey || event.metaKey));
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderDetailTable(detailRows) {
+    const tbody = document.getElementById('detailTableBody');
+    tbody.innerHTML = '';
+    let firstMatch = null;
+    detailRows.forEach(row => {
+      const riskName = riskNameOf(row);
+      const potentialImpact = row['Potential Impact'] || '';
+      const impactClass = IMPACT_CLASS[potentialImpact] || '';
+      const areas = STRATEGIC_AREAS.map(area => String(row[area] ?? '').toLowerCase() === 'yes');
+      const areasHtml = areas.map((yes, i) =>
+        `<span class="cluster-area-icon${yes ? ' is-yes' : ''}" title="${STRATEGIC_AREAS[i]}: ${yes ? 'Yes' : 'No'}">${yes ? STRATEGIC_ICONS[i] : ''}</span>`
+      ).join('');
+      const tr = document.createElement('tr');
+      const isSelected = selectedRisks.includes(riskName);
+      tr.classList.toggle('selected', isSelected);
+      if (isSelected && !firstMatch) firstMatch = tr;
+      tr.innerHTML = `
+        <td class="detail-erid">${row['ER_ID'] ?? ''}</td>
+        <td class="detail-risk-name">${riskName}</td>
+        <td>${row['Risk Statement'] || ''}</td>
+        <td>${row['SET Risk Owner'] || ''}</td>
+        <td>${categoryOf(row)}</td>
+        <td><span class="cluster-areas">${areasHtml}</span></td>
+        <td class="impact-cell ${impactClass}">${potentialImpact}</td>
+        <td>${priorityOf(row)}</td>
+        <td>${timeOf(row)}</td>
+        <td class="detail-why">${row['Why Emerging Now'] || ''}</td>
+        <td class="detail-enterprise-impact">${row['Potential Enterprise Impact'] || ''}</td>
+        <td class="detail-triggers">${row['Key Active Risk Triggers'] || ''}</td>
+      `;
+      tr.addEventListener('click', event => selectDetailRow(riskName, event.ctrlKey || event.metaKey));
+      tbody.appendChild(tr);
+    });
+    if (firstMatch) firstMatch.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  function clusterIdsForRisks(riskNames) {
+    return [...new Set(riskNames.map(name => {
+      const row = rows.find(item => riskNameOf(item) === name);
+      return row ? String(row['Cluster Mapping']) : null;
+    }).filter(Boolean))];
+  }
+
+  function selectDetailRow(riskName, additive) {
+    if (additive) {
+      const idx = selectedRisks.indexOf(riskName);
+      if (idx >= 0) selectedRisks.splice(idx, 1); else selectedRisks.push(riskName);
+    } else {
+      selectedRisks = (selectedRisks.length === 1 && selectedRisks[0] === riskName) ? [] : [riskName];
+    }
+    dotHighlightClusterIds = clusterIdsForRisks(selectedRisks);
+    refresh();
+  }
+
+  // Keep the cluster table's "selected" rows in sync with whichever cross-filter is active:
+  // an explicit row click (filters.clusterIds) takes priority over a soft wheel-dot highlight.
+  function syncClusterRowHighlight() {
+    const activeIds = filters.clusterIds.length ? filters.clusterIds : dotHighlightClusterIds;
+    let firstMatch = null;
+    document.querySelectorAll('#clusterTableBody tr').forEach(tr => {
+      const isMatch = activeIds.includes(String(tr.dataset.clusterId));
+      tr.classList.toggle('selected', isMatch);
+      if (isMatch && !firstMatch) firstMatch = tr;
+    });
+    if (firstMatch) firstMatch.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  function updateClusterDimming() {
+    document.querySelectorAll('#clusterTableBody tr').forEach(tr => {
+      const clusterId = tr.dataset.clusterId;
+      const hasCategory = selectedCategories.length === 0 || rows.some(r =>
+        String(r['Cluster Mapping']) === String(clusterId) && selectedCategories.includes(categoryOf(r))
+      );
+      tr.classList.toggle('is-dimmed', !hasCategory);
+    });
+  }
+
+  function refresh() {
+    const baseFiltered = applyFilters(rows);
+    const categoryFiltered = selectedCategories.length
+      ? baseFiltered.filter(row => selectedCategories.includes(categoryOf(row)))
+      : baseFiltered;
+
+    renderCategoryBar(baseFiltered);
+    updateClusterDimming();
+    syncClusterRowHighlight();
+    renderDetailTable(categoryFiltered);
+
+    const mapped = categoryFiltered.map(row => ({
+      "Emerging Risk": riskNameOf(row),
+      "Overall Risk": priorityOf(row),
+      "Thematic Category": categoryOf(row),
+      "Time to Active Management": timeOf(row) || '10+ years'
+    }));
+    const zoomTarget = selectedCategories.length === 1 ? selectedCategories[0] : null;
+    wheelView.change('dataset', vega.changeset().remove(() => true).insert(mapped))
+      .signal('zoomedCategory', zoomTarget)
+      .signal('selected', selectedRisks)
+      .run();
+
+    document.getElementById('status').textContent = selectedCategories.length
+      ? `Showing ${categoryFiltered.length} of ${baseFiltered.length} filtered risks in ${selectedCategories.join(', ')}.`
+      : `Loaded ${baseFiltered.length} of ${rows.length} risks. Ctrl-click a wheel dot, category segment, cluster row, or detail row to multi-select.`;
+  }
+
+  function toggleCategory(category, additive) {
+    if (additive) {
+      const idx = selectedCategories.indexOf(category);
+      if (idx >= 0) selectedCategories.splice(idx, 1); else selectedCategories.push(category);
+    } else {
+      selectedCategories = (selectedCategories.length === 1 && selectedCategories[0] === category) ? [] : [category];
+      selectedRisks = [];
+      filters.clusterIds = [];
+      dotHighlightClusterIds = [];
+    }
+    refresh();
+  }
+
+  function selectClusterRow(clusterId, additive) {
+    const key = String(clusterId);
+    if (additive) {
+      const idx = filters.clusterIds.indexOf(key);
+      if (idx >= 0) filters.clusterIds.splice(idx, 1); else filters.clusterIds.push(key);
+    } else {
+      filters.clusterIds = (filters.clusterIds.length === 1 && filters.clusterIds[0] === key) ? [] : [key];
+      selectedCategories = [];
+      selectedRisks = [];
+    }
+    dotHighlightClusterIds = [];
+    refresh();
+  }
+
+  Promise.all([
+    fetchFirstAvailable(DATA_SOURCES),
+    fetch(CLUSTER_SOURCE)
+      .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      .catch(err => { console.error('Cluster data failed to load:', err); return null; })
+  ])
+    .then(([data, clusterData]) => {
+      rows = data.rows?.body || data.rows || data;
+      const bridgeRows = clusterData ? (clusterData.rows?.body || clusterData.rows?.rows || clusterData.rows || clusterData) : [];
+      renderClusterTable(buildClusterRows(bridgeRows));
+      populateFilterOptions();
+      return vegaEmbed('#wheelView', spec, { actions: false });
+    })
+    .then(result => {
+      wheelView = result.view;
+
+      // vega's own containerSize()+window:resize combo only re-measures on a raw browser
+      // resize, so it can be left showing a stale (clipped/off-center) layout after the grid
+      // reflows for other reasons (header text wrapping, filter changes, etc). Watch the actual
+      // container box instead so the wheel always matches its real, current size.
+      const wheelContainerEl = document.getElementById('wheelContainer');
+      let resizeFrame = null;
+      new ResizeObserver(entries => {
+        if (resizeFrame) cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(() => {
+          const { width, height } = entries[0].contentRect;
+          if (width > 0 && height > 0) {
+            wheelView.signal('pbiContainerWidth', Math.round(width))
+              .signal('pbiContainerHeight', Math.round(height))
+              .run();
+          }
+        });
+      }).observe(wheelContainerEl);
+
+      wheelView.addSignalListener('selected', (_, value) => {
+        const arr = value || [];
+        if (JSON.stringify(arr) === JSON.stringify(selectedRisks)) return;
+        selectedRisks = arr;
+        dotHighlightClusterIds = clusterIdsForRisks(selectedRisks);
+        refresh();
+      });
+      wheelView.addSignalListener('zoomedCategory', (_, value) => {
+        const currentZoom = selectedCategories.length === 1 ? selectedCategories[0] : null;
+        if (value === currentZoom) return;
+        selectedCategories = value ? [value] : [];
+        selectedRisks = [];
+        dotHighlightClusterIds = [];
+        filters.clusterIds = [];
+        refresh();
+      });
+      document.getElementById('clearWheelFilters').addEventListener('click', () => {
+        filters.priority = ['All'];
+        filters.time = ['All'];
+        filters.impact = ['All'];
+        filters.clusterIds = [];
+        dotHighlightClusterIds = [];
+        selectedCategories = [];
+        selectedRisks = [];
+        document.querySelectorAll('#filterRow [data-filter]').forEach(select => {
+          [...select.options].forEach(option => { option.selected = option.value === 'All'; });
+          const dropdown = select.parentElement.querySelector('.multi-select');
+          dropdown.querySelectorAll('input').forEach(input => { input.checked = input.value === 'All'; });
+          updateMultiSelectLabel(dropdown, ['All']);
+        });
+        refresh();
+      });
+      refresh();
+    })
+    .catch(err => {
+      document.getElementById('status').textContent =
+        'Failed to load — ' + err.message +
+        ' (make sure data/e_dim_risk.json or data.json is in place, and that you\'re using a local server, not opening the file directly with file://)';
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>

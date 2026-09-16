@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Risk Data Test Table</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f5f5f5;
+  }
+  h1 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  #status {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  th {
+    background: #333;
+    color: #fff;
+    position: sticky;
+    top: 0;
+  }
+  tr:nth-child(even) {
+    background: #fafafa;
+  }
+  .risk-high { color: #b00020; font-weight: bold; }
+  .risk-medium { color: #b8860b; font-weight: bold; }
+  .risk-watch { color: #555; }
+</style>
+</head>
+<body>
+
+<h1>Risk Data Test Table</h1>
+<div id="status">Loading data.json...</div>
+<table id="riskTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>Emerging Risk</th>
+      <th>Overall Risk</th>
+      <th>Thematic Category</th>
+    </tr>
+  </thead>
+  <tbody id="riskTableBody"></tbody>
+</table>
+
+<script>
+  // Point this at whatever filename you downloaded from SharePoint,
+  // placed in the same folder as this HTML file.
+  const DATA_FILE = 'data.json';
+
+  fetch(DATA_FILE)
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      // Expecting shape: { "rows": [ { riskName, overallRisk, category }, ... ] }
+      const rows = data.rows.body || data.rows || data; // fallback in case it's a bare array
+      const selectedCategory = new URLSearchParams(window.location.search).get('category');
+      const visibleRows = selectedCategory
+        ? rows.filter(r => (r.category ?? r.ThematicCategory ?? '') === selectedCategory)
+        : rows;
+
+      const tbody = document.getElementById('riskTableBody');
+      visibleRows.forEach(r => {
+        const tr = document.createElement('tr');
+
+        const riskCell = document.createElement('td');
+        riskCell.textContent = r.riskName ?? r.ER_ID ?? r.EmergingRisk ?? '';
+
+        const overallCell = document.createElement('td');
+        const level = (r.overallRisk || '').toLowerCase();
+        overallCell.textContent = r.overallRisk ?? '';
+        if (level === 'high') overallCell.className = 'risk-high';
+        else if (level === 'medium') overallCell.className = 'risk-medium';
+        else if (level === 'watch') overallCell.className = 'risk-watch';
+
+        const categoryCell = document.createElement('td');
+        categoryCell.textContent = r.category ?? r.ThematicCategory ?? '';
+
+        tr.appendChild(riskCell);
+        tr.appendChild(overallCell);
+        tr.appendChild(categoryCell);
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('status').textContent = selectedCategory
+        ? `Showing ${visibleRows.length} risks in ${selectedCategory}.`
+        : `Loaded ${rows.length} rows.`;
+      document.getElementById('riskTable').style.display = 'table';
+    })
+    .catch(err => {
+      document.getElementById('status').textContent =
+        'Failed to load data.json — ' + err.message +
+        ' (make sure data.json is in the same folder as this file, and that you\'re using a local server, not opening the file directly with file://)';
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>
