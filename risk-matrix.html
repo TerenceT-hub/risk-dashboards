@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/risk-detail-card.js"></script>
 <style>
   .risk-matrix-page {
     --topbar-height: 132px;
@@ -619,6 +620,48 @@ function updateKpis() {
   document.getElementById('kpiPrincipal').textContent = principal;
 }
 
+const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+const STRATEGIC_AREA_ICONS = [
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+  '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+];
+const TREND_ICONS = {
+  Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+  Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+  Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+};
+const RISK_LEVEL_ABBR = { 'Very High': 'VH', High: 'H', Medium: 'M', Low: 'L', 'Very Low': 'VL' };
+
+function strategicAreasHtml(row) {
+  return [row['Science and Innovation'], row['People and Sustainability'], row['Growth and Therapy Area Leadership'], row['Achieve Group Financial Targets']]
+    .map((areaValue, areaIndex) => {
+      const isYes = String(areaValue ?? '').toLowerCase() === 'yes';
+      return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${STRATEGIC_AREA_NAMES[areaIndex]}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[areaIndex] : ''}</span>`;
+    }).join('');
+}
+
+function showRiskDetailCardForRow(row, x, y) {
+  const trend = String(row['Trend'] ?? 'Unchanged');
+  RiskDetailCard.show(x, y, {
+    title: row['Enduring Risk'],
+    accent: '#830051',
+    sections: [
+      { label: 'Risk Category', value: row['Risk Category'] },
+      { label: 'Risk Statement', value: row['Risk Statement'] }
+    ],
+    metrics: [
+      { label: 'Current Impact', value: RISK_LEVEL_ABBR[row['Current Impact_Level']] ?? row['Current Impact_Level'] },
+      { label: 'Current Probability', value: RISK_LEVEL_ABBR[row['Current Likelihood_Level']] ?? row['Current Likelihood_Level'] },
+      { label: 'Linked KAR', value: row['Count of Linked KAR'] },
+      { label: 'Trend', value: `<span class="trend-icon" style="width:26px;height:26px;">${TREND_ICONS[trend] ?? TREND_ICONS.Unchanged}</span>` }
+    ],
+    owner: row['SET Risk Owner'],
+    areasHtml: strategicAreasHtml(row)
+  });
+}
+
 function renderSummaryTable() {
   const filteredRows = getFilteredEpRows();
   const visibleRows = currentTab === 'all'
@@ -654,25 +697,7 @@ function renderSummaryTable() {
        row['Growth and Therapy Area Leadership'], row['Achieve Group Financial Targets']],
       row['Count of Linked KAR'], row['SET Risk Owner'], row['Trend'],
     ];
-    const strategicAreaIcons = [
-      '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
-      '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
-      '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
-      '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
-    ];
     const trend = String(row['Trend'] ?? 'Unchanged');
-    const trendIcons = {
-      Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
-      Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
-      Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
-    };
-    const riskLevelLabels = {
-      'Very High': 'VH',
-      High: 'H',
-      Medium: 'M',
-      Low: 'L',
-      'Very Low': 'VL'
-    };
     values.forEach((value, index) => {
       const cell = document.createElement('td');
       if (index >= 3 && index <= 6) {
@@ -681,23 +706,24 @@ function renderSummaryTable() {
       }
       if (index === 7) {
         cell.className = 'strategic-area-cell';
-        const areaNames = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
-        cell.setAttribute('aria-label', areaNames.map((name, areaIndex) => `${value[areaIndex] ?? 'No'}: ${name}`).join('; '));
-        cell.innerHTML = `<span class="strategic-area-icons">${value.map((areaValue, areaIndex) => {
-          const isYes = String(areaValue ?? '').toLowerCase() === 'yes';
-          return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${areaNames[areaIndex]}: ${isYes ? 'Yes' : 'No'}">${isYes ? strategicAreaIcons[areaIndex] : ''}</span>`;
-        }).join('')}</span>`;
+        cell.setAttribute('aria-label', STRATEGIC_AREA_NAMES.map((name, areaIndex) => `${value[areaIndex] ?? 'No'}: ${name}`).join('; '));
+        cell.innerHTML = `<span class="strategic-area-icons">${strategicAreasHtml(row)}</span>`;
       } else if (index === 10) {
         cell.className = 'trend-cell';
         cell.setAttribute('aria-label', trend);
-        cell.innerHTML = `<span class="trend-icon" title="${trend}">${trendIcons[trend] ?? trendIcons.Unchanged}</span>`;
+        cell.innerHTML = `<span class="trend-icon" title="${trend}">${TREND_ICONS[trend] ?? TREND_ICONS.Unchanged}</span>`;
       } else {
         cell.textContent = index >= 3 && index <= 6
-          ? (riskLevelLabels[value] ?? value ?? '')
+          ? (RISK_LEVEL_ABBR[value] ?? value ?? '')
           : (value ?? '');
       }
       tr.appendChild(cell);
     });
+
+    tr.addEventListener('mouseenter', (event) => showRiskDetailCardForRow(row, event.clientX, event.clientY));
+    tr.addEventListener('mousemove', (event) => RiskDetailCard.reposition(event.clientX, event.clientY));
+    tr.addEventListener('mouseleave', () => RiskDetailCard.hide());
+
     tbody.appendChild(tr);
   });
 }
@@ -726,6 +752,11 @@ const matrixSpec = {
       {"events": "@riskPill:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"},
       {"events": "@pillClickArea:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"},
       {"events": "@pillArrowIcon:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"}
+    ]},
+    {"name": "hoveredPill", "value": null, "on": [
+      {"events": "@pillClickArea:mouseover", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+      {"events": "@pillClickArea:mousemove", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+      {"events": "@pillClickArea:mouseout", "update": "null"}
     ]},
     {"name": "pr5", "update": "length(data('probRank5')) ? peek(data('probRank5')).rowCount : 0"},
     {"name": "pr4", "update": "length(data('probRank4')) ? peek(data('probRank4')).rowCount : 0"},
@@ -1105,7 +1136,13 @@ Promise.all([
   renderSummaryTable();
 
   return Promise.all([
-    vegaEmbed('#matrixView', matrixSpec, { actions: false }).then(res => { matrixView = res.view; }),
+    vegaEmbed('#matrixView', matrixSpec, { actions: false }).then(res => {
+      matrixView = res.view;
+      matrixView.addSignalListener('hoveredPill', (_, value) => {
+        if (value && value.datum) showRiskDetailCardForRow(value.datum, value.x, value.y);
+        else RiskDetailCard.hide();
+      });
+    }),
     vegaEmbed('#sankeyView', sankeySpec, { actions: false }).then(res => { sankeyView = res.view; })
   ]);
 }).then(() => {

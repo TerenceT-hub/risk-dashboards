@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/risk-detail-card.js"></script>
 <style>
   :root { --burgundy: #800020; }
   * { box-sizing: border-box; }
@@ -490,6 +491,11 @@
       {"name": "zoomedCategory", "value": null, "on": [
         {"events": "@zoomIcon:click", "update": "datum.catClean === zoomedCategory ? null : datum.catClean"}
       ]},
+      {"name": "hoveredDot", "value": null, "on": [
+        {"events": "@dotMark:mouseover", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+        {"events": "@dotMark:mousemove", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+        {"events": "@dotMark:mouseout", "update": "null"}
+      ]},
       {"name": "baseColors", "value": ["#f2a900","#e2136e","#a3236e","#b5c400","#37325c"]},
       {"name": "wedgeOpacity", "value": 0.35},
       {"name": "labelColor", "value": "#000000"},
@@ -660,7 +666,7 @@
       {"type": "rule", "from": {"data": "categories"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"x2":{"field":"lineX2"},"y2":{"field":"lineY2"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":2}}, "update": {"opacity":{"signal":"zoomedCategory == null ? 1 : 0"}}}},
       {"type": "rule", "from": {"data": "topWedgeLines"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"x2":{"field":"lineX2"},"y2":{"field":"lineY2"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":2}}}},
       {"type": "arc", "from": {"data": "singleton"}, "encode": {"enter": {"x":{"signal":"cx"},"y":{"signal":"cy"},"startAngle":{"value":0},"endAngle":{"signal":"2*PI"},"innerRadius":{"value":0},"outerRadius":{"signal":"innerHoleR"},"fill":{"value":"#ffffff"},"stroke":{"value":"#e0e0e0"}}}},
-      {"type": "symbol", "name": "dotMark", "from": {"data": "plotData"}, "encode": {"enter": {"x":{"field":"x"},"y":{"field":"y"},"fill":{"field":"dotColor"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":1},"cursor":{"value":"pointer"},"tooltip":{"signal":"{'Risk': datum['Emerging Risk'], 'Category': datum['Thematic Category'], 'Time Horizon': datum['Time to Active Management'], 'Overall Risk': datum['Overall Risk']}"}}, "update": {"size":{"signal":"datum.baseSize * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.4 : 0.3)"},"fillOpacity":{"signal":"length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.9 : 0.15"},"opacity":{"signal":"zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0"},"x":{"field":"x"},"y":{"field":"y"}}}},
+      {"type": "symbol", "name": "dotMark", "from": {"data": "plotData"}, "encode": {"enter": {"x":{"field":"x"},"y":{"field":"y"},"fill":{"field":"dotColor"},"stroke":{"value":"#ffffff"},"strokeWidth":{"value":1},"cursor":{"value":"pointer"}}, "update": {"size":{"signal":"datum.baseSize * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.4 : 0.3)"},"fillOpacity":{"signal":"length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.9 : 0.15"},"opacity":{"signal":"zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0"},"x":{"field":"x"},"y":{"field":"y"}}}},
       {"type": "rule", "from": {"data": "labelData"}, "encode": {"enter": {"stroke":{"value":"#bbbbbb"},"strokeWidth":{"value":0.75}}, "update": {"x":{"field":"x"},"y":{"field":"y"},"x2":{"field":"lx"},"y2":{"field":"ly"},"opacity":{"signal":"(zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0) * (length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.7 : 0.1)"}}}},
       {"type": "text", "from": {"data": "labelData"}, "encode": {"enter": {"x":{"field":"lx"},"y":{"field":"ly"},"text":{"field":"dotLabel"},"align":{"value":"center"},"baseline":{"value":"middle"},"fill":{"signal":"labelColor"}}, "update": {"opacity":{"signal":"(zoomedCategory == null || datum.catClean == zoomedCategory ? 1 : 0) * (length(selected) === 0 || indexof(selected, datum['Emerging Risk']) >= 0 ? 0.85 : 0.15)"},"fontSize":{"signal":"8 * (zoomedCategory != null && datum.catClean == zoomedCategory ? 1.5 : 1.4)"},"x":{"field":"lx"},"y":{"field":"ly"}}}},
       {"type": "text", "from": {"data": "singleton"}, "encode": {"enter": {"align":{"value":"center"},"baseline":{"value":"middle"},"fontSize":{"value":20},"fontWeight":{"value":"bold"},"fill":{"value":"#222"}}, "update": {"x":{"signal":"cx"},"y":{"signal":"cy"},"text":{"signal":"format(length(data('visibleData')), 'd')"}}}},
@@ -701,6 +707,32 @@
     '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
     '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
   ];
+
+  function emergingRiskAreasHtml(row) {
+    return STRATEGIC_AREAS.map((area, i) => {
+      const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+      return `<span class="cluster-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_ICONS[i] : ''}</span>`;
+    }).join('');
+  }
+
+  function showRiskDetailCardForEmergingRisk(row, x, y) {
+    RiskDetailCard.show(x, y, {
+      title: riskNameOf(row),
+      accent: '#1b2a4a',
+      sections: [
+        { label: 'Thematic Category', value: categoryOf(row) },
+        { label: 'Risk Statement', value: row['Risk Statement'] }
+      ],
+      metrics: [
+        { label: 'Potential Impact', value: row['Potential Impact'] },
+        { label: 'Priority Level', value: priorityOf(row) },
+        { label: 'Time to Active', value: timeOf(row) },
+        { label: 'Cluster', value: row['ER_Cluster'] }
+      ],
+      owner: row['SET Risk Owner'],
+      areasHtml: emergingRiskAreasHtml(row)
+    });
+  }
 
   async function fetchFirstAvailable(paths) {
     let lastErr;
@@ -891,6 +923,9 @@
         <td class="detail-triggers">${row['Key Active Risk Triggers'] || ''}</td>
       `;
       tr.addEventListener('click', event => selectDetailRow(riskName, event.ctrlKey || event.metaKey));
+      tr.addEventListener('mouseenter', event => showRiskDetailCardForEmergingRisk(row, event.clientX, event.clientY));
+      tr.addEventListener('mousemove', event => RiskDetailCard.reposition(event.clientX, event.clientY));
+      tr.addEventListener('mouseleave', () => RiskDetailCard.hide());
       tbody.appendChild(tr);
     });
     if (firstMatch) firstMatch.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -1007,6 +1042,10 @@
     })
     .then(result => {
       wheelView = result.view;
+      wheelView.addSignalListener('hoveredDot', (_, value) => {
+        if (value && value.datum) showRiskDetailCardForEmergingRisk(value.datum, value.x, value.y);
+        else RiskDetailCard.hide();
+      });
 
       // vega's own containerSize()+window:resize combo only re-measures on a raw browser
       // resize, so it can be left showing a stale (clipped/off-center) layout after the grid
