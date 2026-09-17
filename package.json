@@ -1,0 +1,14 @@
+{
+  "name": "risk-dashboard-data-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Watches Data File.xlsx and regenerates Risk_Test's JSON data files, then auto-commits and pushes to GitHub.",
+  "scripts": {
+    "refresh": "node refresh-data.js",
+    "watch": "node watch-and-sync.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "xlsx": "^0.18.5"
+  }
+}

@@ -1,1 +1,78 @@
-{"rows":{"rows":[{"KAR_ID":1,"Key Active Risk":"Information Technology and Cyber Security","SET Risk Owner":"EVP Operations & IT","Risk Statement":"Risk of a cyber incident that causes a major disruption to business operations. IT resilience risks materialise – including the capability to recover systems following an outage","Current Impact":"VH","Current Likelihood":"H","Trend":"Stable"},{"KAR_ID":2,"Key Active Risk":"Data Security, AI and Information Governance","SET Risk Owner":"SVP - Chief Digital, Data & AI Officer; EVP Operations & IT","Risk Statement":"Failures in data loss prevention and / or insufficient data quality to support growth ambitions, data privacy breaches and risks regarding AI execution and governance","Current Impact":"H","Current Likelihood":"H","Trend":"Stable"},{"KAR_ID":3,"Key Active Risk":"Pricing and Access to Medicines","SET Risk Owner":"CFO, Commercial EVPs","Risk Statement":"Risks of tariffs and other government policies that impact pricing and / or access to medicines across various markets. Growing economic pressures have an impact on government healthcare budgets","Current Impact":"M","Current Likelihood":"H","Trend":"Stable"},{"KAR_ID":4,"Key Active Risk":"Strategic Execution and Pipeline Delivery","SET Risk Owner":"CEO, SET","Risk Statement":"Failure to fully execute on key elements of the company strategy – including pipeline execution risk (e.g. new modalities) and the implementation of major IT and capital programmes","Current Impact":"H","Current Likelihood":"M","Trend":"Stable"},{"KAR_ID":5,"Key Active Risk":"Rapid Evolution of Regulation and Increased Regulatory Scrutiny","SET Risk Owner":"SET","Risk Statement":"Risks relating to complex, fast moving, conflicting and fragmented regulations impacting on the ability of global businesses to operate at scale","Current Impact":"H","Current Likelihood":"M","Trend":"Stable"},{"KAR_ID":6,"Key Active Risk":"Supply Chain Capability","SET Risk Owner":"EVP Operations & IT","Risk Statement":"Failure to meet commercial demand (both now and in the future) and maintain supply of compliant, quality medicines","Current Impact":"H","Current Likelihood":"M","Trend":"Stable"},{"KAR_ID":7,"Key Active Risk":"Response to global / regional conflict","SET Risk Owner":"EVP International","Risk Statement":"Risks relating to Geopolitical tensions and operating in conflict zones including trade sanctions","Current Impact":"L","Current Likelihood":"M","Trend":"Stable"},{"KAR_ID":8,"Key Active Risk":"Key Legal and Litigation Matters","SET Risk Owner":"General Counsel","Risk Statement":"Risks relating to patents protections,  government investigations and commercial litigation","Current Impact":"M","Current Likelihood":"L","Trend":"Stable"}]}}
+{
+  "rows": {
+    "rows": [
+      {
+        "KAR_ID": 1,
+        "Key Active Risk": "Information Technology and Cyber Security",
+        "SET Risk Owner": "EVP Operations & IT",
+        "Risk Statement": "Risk of a cyber incident that causes a major disruption to business operations. IT resilience risks materialise – including the capability to recover systems following an outage ",
+        "Current Impact": "VH",
+        "Current Likelihood": "H",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 2,
+        "Key Active Risk": "Data Security, AI and Information Governance",
+        "SET Risk Owner": "SVP - Chief Digital, Data & AI Officer; EVP Operations & IT",
+        "Risk Statement": "Failures in data loss prevention and / or insufficient data quality to support growth ambitions, data privacy breaches and risks regarding AI execution and governance  ",
+        "Current Impact": "H",
+        "Current Likelihood": "H",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 3,
+        "Key Active Risk": "Pricing and Access to Medicines",
+        "SET Risk Owner": "CFO, Commercial EVPs",
+        "Risk Statement": "Risks of tariffs and other government policies that impact pricing and / or access to medicines across various markets. Growing economic pressures have an impact on government healthcare budgets",
+        "Current Impact": "M",
+        "Current Likelihood": "H",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 4,
+        "Key Active Risk": "Strategic Execution and Pipeline Delivery",
+        "SET Risk Owner": "CEO, SET",
+        "Risk Statement": "Failure to fully execute on key elements of the company strategy – including pipeline execution risk (e.g. new modalities) and the implementation of major IT and capital programmes ",
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 5,
+        "Key Active Risk": "Rapid Evolution of Regulation and Increased Regulatory Scrutiny",
+        "SET Risk Owner": "SET",
+        "Risk Statement": "Risks relating to complex, fast moving, conflicting and fragmented regulations impacting on the ability of global businesses to operate at scale",
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 6,
+        "Key Active Risk": "Supply Chain Capability",
+        "SET Risk Owner": "EVP Operations & IT",
+        "Risk Statement": "Failure to meet commercial demand (both now and in the future) and maintain supply of compliant, quality medicines",
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 7,
+        "Key Active Risk": "Response to global / regional conflict ",
+        "SET Risk Owner": "EVP International",
+        "Risk Statement": "Risks relating to Geopolitical tensions and operating in conflict zones including trade sanctions  ",
+        "Current Impact": "L",
+        "Current Likelihood": "M",
+        "Trend": "Stable"
+      },
+      {
+        "KAR_ID": 8,
+        "Key Active Risk": "Key Legal and Litigation Matters",
+        "SET Risk Owner": "General Counsel",
+        "Risk Statement": "Risks relating to patents protections,  government investigations and commercial litigation",
+        "Current Impact": "M",
+        "Current Likelihood": "L",
+        "Trend": "Stable"
+      }
+    ]
+  }
+}
