@@ -163,27 +163,21 @@
   }
 
   #printAllContainer { display: none; }
-  .print-page-header { display: none; }
+  .print-report-title th { text-align: left; font-size: 12px; font-weight: 700; color: var(--burgundy); background: #fff; border: none; padding: 0 6px 8px; }
+  .print-report-title span { color: #666; font-weight: 400; font-style: italic; }
 
   @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
     .site-nav, .dashboard-topbar, #status, .table-scroll { display: none !important; }
     #printAllContainer { display: block !important; }
     body.kar-table-page { background: #fff; padding: 0; }
     @page { size: A3 landscape; margin: 10mm; }
-    .print-page { page-break-after: always; }
-    .print-page:last-child { page-break-after: auto; }
-    .print-page-header {
-      display: block;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 6px;
-    }
-    .print-page-header span { color: #666; font-weight: 400; font-style: italic; }
-    .print-page .kar-table { width: 100%; min-width: 0; font-size: 9px; }
-    .print-page .kar-table th, .print-page .kar-table td { padding: 4px 6px; font-size: 9px; }
-    .print-page .kar-table th { position: static; }
+    /* No manual page breaks here -- rows pack onto each printed page until they don't fit,
+       then flow onto the next one; the thead repeats on every page automatically. */
+    #printAllContainer .kar-table { width: 100%; min-width: 0; font-size: 9px; }
+    #printAllContainer .kar-table th, #printAllContainer .kar-table td { padding: 4px 6px; font-size: 9px; }
+    #printAllContainer .kar-table thead { display: table-header-group; }
+    #printAllContainer .kar-table tbody tr { break-inside: avoid; page-break-inside: avoid; }
   }
 </style>
 </head>
@@ -371,36 +365,30 @@
   }
 
   // Builds one <table> per on-screen page (same PAGE_SIZE chunks as renderPage) so the
-  // exported PDF mirrors the pagination the user sees on screen, one page of rows per PDF page.
+  // One continuous table with every row -- the print CSS (thead as table-header-group,
+  // tbody tr { break-inside: avoid }) lets the browser pack as many rows as fit on each
+  // printed page and only overflow to the next one when a row genuinely doesn't fit,
+  // repeating the header (title + columns) on every page automatically.
   function exportToPdf() {
-    const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
     const container = document.getElementById('printAllContainer');
     container.innerHTML = '';
 
-    for (let p = 1; p <= totalPages; p++) {
-      const start = (p - 1) * PAGE_SIZE;
-      const pageRows = rows.slice(start, start + PAGE_SIZE);
+    const table = document.createElement('table');
+    table.className = 'kar-table';
+    table.appendChild(document.querySelector('.kar-table colgroup').cloneNode(true));
 
-      const pageDiv = document.createElement('div');
-      pageDiv.className = 'print-page';
+    const thead = document.querySelector('.kar-table thead').cloneNode(true);
+    const titleRow = document.createElement('tr');
+    titleRow.className = 'print-report-title';
+    titleRow.innerHTML = `<th colspan="9">Key Active Risk Table <span>| Data refreshed: UTC ${document.getElementById('refreshDateTime').textContent}</span></th>`;
+    thead.insertBefore(titleRow, thead.firstChild);
+    table.appendChild(thead);
 
-      const header = document.createElement('div');
-      header.className = 'print-page-header';
-      header.innerHTML = `Key Active Risk Table — Page ${p} of ${totalPages} <span>| Data refreshed: UTC ${document.getElementById('refreshDateTime').textContent}</span>`;
-      pageDiv.appendChild(header);
+    const tbody = document.createElement('tbody');
+    rows.forEach(row => tbody.appendChild(renderRow(row)));
+    table.appendChild(tbody);
 
-      const table = document.createElement('table');
-      table.className = 'kar-table';
-      table.appendChild(document.querySelector('.kar-table colgroup').cloneNode(true));
-      table.appendChild(document.querySelector('.kar-table thead').cloneNode(true));
-      const tbody = document.createElement('tbody');
-      pageRows.forEach(row => tbody.appendChild(renderRow(row)));
-      table.appendChild(tbody);
-      pageDiv.appendChild(table);
-
-      container.appendChild(pageDiv);
-    }
-
+    container.appendChild(table);
     window.print();
   }
 
