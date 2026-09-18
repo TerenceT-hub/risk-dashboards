@@ -15,8 +15,11 @@
         "Overall Risk": "VH",
         "Trend": "Stable",
         "Action": "Mitigate \r\n• Q1 cyber incident root cause analysis and learning from recent attacks on other companies\r\n• Cyber Transformation programme, informed by NIST Framework maturity assessment, including reducing vulnerabilities, improving threat detection and response capability and continued maturing of cyber governance \r\n• Evolution of defences in reponse to AI enabled attacks\r\n• IT Disaster Recovery programme",
+        "Quarterly Update": "• Risk remains elevated, persistent and evolving. Threat intelligence and increasingly capable AI underscore the challenges including system interdependencies, recovery sequencing, third‑party exposures and the use of unapproved tools\r\n•  Learnings review following the response to a cyber incident in Q1  \r\n• Audit Committee agenda includes an update from the CISO on a cyber incident at another large company in the sector along with AZ's Cyber Transformation Programme, informed by a maturity assessment, including reducing vulnerabilities, strengthening of infrastructure and continued governance enhancements\r\n• Preparations for Exercise Carbon, which will simulate escalation of a cyber incident (and associated business impacts), to SET and the Audit Committee in October ",
+        "KAR Mitigation List": "• Strategic projects focussed on the visibility of technology assets, reduction in vulnerabilities, threat detection and response capability\n• Rapid enhancement of governance aligned to refreshed strategy including, Connected Factory Governance, the Cyber Security & Risk Forum and Cyber Regulatory Steerco, to monitor strategy and compliance across the complex regulatory landscape\n• ITDR programme transitioning from assessing test and restore capacity for individual applications to addressing the complexities of sequenced restoring of multiple applications following an incident",
         "Linked Principal Risk Count": 1,
-        "Linked Principal Risks": "Failure in Information technology or cyber security"
+        "Linked Principal Risks": "Failure in Information technology or cyber security",
+        "Linked Principal Risk IDs": "12"
       },
       {
         "KAR_ID": 2,
@@ -32,8 +35,11 @@
         "Overall Risk": "H",
         "Trend": "Stable",
         "Action": "Mitigate  \r\n• Progress governance and monitoring enhancements\r\n• Deliver Data Loss Prevention projects including targeted control framework roll out  \r\n• Q1 cyber incident root cause analysis and embedding of learnings\r\n• Audit Committee Deep Dive (July)",
+        "Quarterly Update": "• Data Enterprise Council (DEC) introduced to drive greater focus on the utilisation of unique data assets as a source of competitive advantage, to strengthen governance and to monitor progress\r\n• Data Loss Prevention enhancements underway, including implementation of a strengthened control framework\r\n• Enterprise AI teams and strategy increasingly established with roles being filled at pace\r\n• EU formally adopted amendments in the Digital Omnibus package, delaying key compliance deadlines for high-risk artificial intelligence systems to December 2027\r\n• Export controls imposed, and subsequently removed, on certain frontier AI models emphasising geopolitical impact on access\r\n",
+        "KAR Mitigation List": "• Data Enablement Council (incorporating AI governance) in place and maturing to drive regulatory compliance and to monitor scaling of compliance and governance of data and information protection\n• Project Streamline rebooted with an \"AI first\" approach to AI governance to accelerate and simplify compliance across multiple regulatory domains (including data privacy)\n• Closure of remaining actions from GIA’s EU AI Act report linked to evolving EU legislation to maintain a proportionate approach\n• Data security and information governance enhancements including strengthened control frameworks and the refresh of SET Area Data Office Forums",
         "Linked Principal Risk Count": 2,
-        "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements; Failure in Information technology or cyber security"
+        "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements; Failure in Information technology or cyber security",
+        "Linked Principal Risk IDs": "12, 13"
       },
       {
         "KAR_ID": 3,
@@ -49,8 +55,11 @@
         "Overall Risk": "M",
         "Trend": "Stable",
         "Action": "Monitor\r\n• Implementation of MFN pricing regime\r\n• Audit Committee Deep Dive (October)",
+        "Quarterly Update": "•  Intensifying global focus on drug pricing, affordability, and market access\r\n• Inflation Reduction Act implementation and MFN impacts incorporated into planning cycles and market strategies including assessments of launch implications in MFN-basket markets. Good progress on MFN audit ready data for provision to the US government\r\n• U.S. Trade Representative investigation into pricing of innovative medicines in Germany and the approval of competitor products within the EU and UK, based primarily on Chinese patient data illustrative of the convergence of pricing/access risks with geopolitics  \r\n",
+        "KAR Mitigation List": "• Pricing and launch strategy impacts incorporated into latest forecasts and assessed during MTP/LTP\n• Preparation of pricing information for MFN reference countries, with auditable support\n• Continued government advocacy focused on pricing for innovative medicines, alongside broader policy matters",
         "Linked Principal Risk Count": 5,
-        "Linked Principal Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations"
+        "Linked Principal Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "1, 2, 5, 19, 20"
       },
       {
         "KAR_ID": 4,
@@ -66,8 +75,11 @@
         "Overall Risk": "M",
         "Trend": "Stable",
         "Action": "Monitor \r\n• Embedded risk management in transformation and capital programmes\r\n• Implementing lessons learned from Axial Mexico go-live\r\n• Audit Committee Deep Dives (December)",
+        "Quarterly Update": "• Catalyst rich period continues with multiple clinical read‑outs, alongside preparation for upcoming product launches\r\n• New modalities introduce requirements for novel materials and new manufacturing processes, with a focus on sustained supply\r\n• Multiple enterprise scale transformations (e.g. Transforming Care, Axial, CRM and major Capex programmes) continue, each with a range of execution risks being actively monitored and managed\r\n• Lessons learned from Axial deployment in Mexico being collated and fed into future plans\r\n",
+        "KAR Mitigation List": "• Existing, enterprise level Pipeline to Product Governance\n• Close monitoring and SET sponsorship in place for all enterprise-wide transformation and capital programmes, with embedded risk workstreams\n• Operations, procurement, supply chain and capital strategies adapting to the requirements of new modalities",
         "Linked Principal Risk Count": 3,
-        "Linked Principal Risks": "Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations"
+        "Linked Principal Risks": "Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "5, 19, 20"
       },
       {
         "KAR_ID": 5,
@@ -83,8 +95,11 @@
         "Overall Risk": "M",
         "Trend": "Stable",
         "Action": "Monitor\r\n• Readiness for compliance with new regulations across various domains\r\n• Changes in regulatory landscape",
+        "Quarterly Update": "• Regulatory complexity persists impacting on globalised operating models increasing compliance risk and operational complexity. \r\n• Areas include cyber, data, commercial, environmental and employment domains, with cross‑border implications requiring coordinated responses\r\n• New supply chain security laws in China currently being assessed but could potentially conflict with laws in other jurisdictions and existing global processes\r\n• Proposed amendments to US COINS Act could potentially prohibit U.S. investments, joint ventures, and licensing deals in Chinese biotech and pharmaceutical industries \r\n",
+        "KAR Mitigation List": "• Regulatory compliance programmes continue across multiple teams (e.g., NIS2, US and China data transfer regulations, EU Pay Transparency)\n• Project Streamline rebooted with an \"AI first\" approach to AI governance accelerating and simplifying compliance across multiple regulatory domains",
         "Linked Principal Risk Count": 1,
-        "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements"
+        "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements",
+        "Linked Principal Risk IDs": "13"
       },
       {
         "KAR_ID": 6,
@@ -100,8 +115,11 @@
         "Overall Risk": "M",
         "Trend": "Stable",
         "Action": "Monitor\r\n• Progress in delivery of capital programmes\r\n• N-Tier mapping project\r\n• Audit Committee Deep Dive (October)",
+        "Quarterly Update": "• Continued complexity in new‑capacity investment decisions given growth objectives, regional manufacturing needs, and modality specific requirements\r\n• Supply risks actively managed with increased emphasis on deeper‑tier supplier visibility and network resilience \r\n• “N‑tier mapping” programme advancing to enhance visibility beyond Tier 1 suppliers as a strategic enabler for resilience and compliance; design options and business case read‑out in Q3",
+        "KAR Mitigation List": "• Supply chain mapping and Operations resilience programme progressing to enable proactive network design and more agile response to disruptions\n• “N‑tier mapping” programme progressing including  business case finalisation",
         "Linked Principal Risk Count": 1,
-        "Linked Principal Risks": "Failure to maintain supply of compliant, quality medicines"
+        "Linked Principal Risks": "Failure to maintain supply of compliant, quality medicines",
+        "Linked Principal Risk IDs": "8"
       },
       {
         "KAR_ID": 7,
@@ -117,8 +135,11 @@
         "Overall Risk": "L",
         "Trend": "Stable",
         "Action": "Monitor\r\n• Preparedness in impacted locations ",
+        "Quarterly Update": "• Continued monitoring of situation in the Middle East with continued focus on employee safety and maintaining supply  of medicines to patients\r\n• Regional and local Incident Management Teams and Business Continuity Plans on standby should they be required to be reactivated",
+        "KAR Mitigation List": "• Ongoing monitoring of the global environment and targeted reviews of existing Business Continuity Plans",
         "Linked Principal Risk Count": 1,
-        "Linked Principal Risks": "Failure to achieve strategic plans or meet targets or expectations"
+        "Linked Principal Risks": "Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "20"
       },
       {
         "KAR_ID": 8,
@@ -134,8 +155,11 @@
         "Overall Risk": "L",
         "Trend": "Stable",
         "Action": "Monitor\r\n• Ongoing legal matters",
+        "Quarterly Update": "• Continued legal response to enforce our patents and defend litigation matters",
+        "KAR Mitigation List": "• Continued robust defence of patents and other legal matters across multiple jurisdictions",
         "Linked Principal Risk Count": 3,
-        "Linked Principal Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to obtain, defend and enforce effective IP protection or IP challenges by 3rd parties; Adverse outcome of litigation and / or governmental investigations"
+        "Linked Principal Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to obtain, defend and enforce effective IP protection or IP challenges by 3rd parties; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "3, 23, 24"
       }
     ]
   }

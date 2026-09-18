@@ -26,6 +26,38 @@ function writeWrapped(filePath, rows, key) {
   console.log(`  wrote ${filePath} (${rows.length} rows)`);
 }
 
+// The Key Active Risks sheet's "Linked Principal Risk N" columns are free text and drift out
+// of sync with the Enduring & Principal Risks sheet's canonical names (e.g. missing "or AI"),
+// so an exact-string lookup misses real matches. Score by shared significant words instead.
+const MATCH_STOPWORDS = new Set(['with', 'that', 'this', 'from', 'into', 'their', 'which', 'also', 'failure', 'and', 'or', 'to', 'of', 'in', 'by', 'a', 'an', 'the', 'is', 'are', 'for', 'our', 'on', 'as', 'at', 'be']);
+function significantWords(text) {
+  return String(text || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter((w) => w.length >= 2 && !MATCH_STOPWORDS.has(w));
+}
+function resolveEnduringRiskNumber(linkedName, epRaw) {
+  const target = significantWords(linkedName);
+  let best = null;
+  let bestScore = 0;
+  for (const ep of epRaw) {
+    if (String(ep['Enduring Risk']).trim().toLowerCase() === String(linkedName).trim().toLowerCase()) return Number(ep['Enduring Risk Number']);
+    const overlap = target.filter((w) => significantWords(ep['Enduring Risk']).includes(w)).length;
+    if (overlap > bestScore) { bestScore = overlap; best = ep; }
+  }
+  return best ? Number(best['Enduring Risk Number']) : null;
+}
+
+const MITIGATION_COLS = [1, 2, 3, 4, 5, 6];
+function buildMitigationList(r) {
+  return MITIGATION_COLS
+    .map((n) => {
+      const text = String(r[`Mitigation ${n}`] || '').trim();
+      if (!text) return null;
+      const update = String(r[`Mitigation ${n} Update`] || '').trim();
+      return `• ${text}${update ? ` (Update: ${update})` : ''}`;
+    })
+    .filter(Boolean)
+    .join('\n');
+}
+
 function refresh() {
   console.log(`Reading ${SOURCE_WORKBOOK} ...`);
   const workbook = XLSX.readFile(SOURCE_WORKBOOK);
@@ -147,6 +179,9 @@ function refresh() {
     const linkedPrincipalRisks = LINKED_PRINCIPAL_RISK_COLS
       .map((col) => r[col])
       .filter((v) => v !== undefined && v !== null && String(v).trim() !== '');
+    const linkedPrincipalRiskIds = [...new Set(
+      linkedPrincipalRisks.map((name) => resolveEnduringRiskNumber(name, epRaw)).filter((id) => id != null)
+    )].sort((a, b) => a - b);
     return {
       'KAR_ID': i + 1,
       'Key Active Risk': r['Key Active Risk'],
@@ -161,8 +196,11 @@ function refresh() {
       'Overall Risk': r['Overall Risk'],
       'Trend': r['Trend'],
       'Action': r['Action'] || '',
+      'Quarterly Update': r['Quarterly Update'] || '',
+      'KAR Mitigation List': buildMitigationList(r),
       'Linked Principal Risk Count': linkedPrincipalRisks.length,
-      'Linked Principal Risks': linkedPrincipalRisks.join('; ')
+      'Linked Principal Risks': linkedPrincipalRisks.join('; '),
+      'Linked Principal Risk IDs': linkedPrincipalRiskIds.join(', ')
     };
   });
   writeWrapped(path.join(DATA_FOLDER, 'k-dim-risk.json'), karRows, 'rows');
