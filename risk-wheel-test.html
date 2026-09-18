@@ -679,8 +679,9 @@
   let rows = [];
   let wheelView;
   let selectedCategories = [];        // thematic categories selected via the category bar (ctrl-click to add more)
-  let selectedRisks = [];             // risk names highlighted on the wheel (ctrl-click to add more)
-  let dotHighlightClusterIds = [];    // soft highlight on the cluster table from wheel-dot selection (doesn't filter)
+  let selectedRisks = [];             // risk names selected via the wheel or the detail table (ctrl-click to add more)
+  let selectedRiskSource = null;      // 'wheel' | 'detail' | null — whichever picked selectedRisks stays fully visible; the other one filters
+  let dotHighlightClusterIds = [];    // cluster ids implied by selectedRisks — used to filter the cluster table
   const filters = { priority: ['All'], time: ['All'], impact: ['All'], clusterIds: [] };
 
   const categoryOf = row => row['Thematic Category'] ?? row.category ?? row.ThematicCategory ?? 'Uncategorized';
@@ -893,10 +894,15 @@
   }
 
   function renderDetailTable(detailRows) {
+    // If the current risk selection came from the wheel, the detail table is an "other"
+    // visual and should be filtered down to the match. If it came from the detail table
+    // itself (or there's no selection), keep the full list and just highlight the match.
+    const hideMode = selectedRisks.length > 0 && selectedRiskSource !== 'detail';
+    const rowsToRender = hideMode ? detailRows.filter(row => selectedRisks.includes(riskNameOf(row))) : detailRows;
     const tbody = document.getElementById('detailTableBody');
     tbody.innerHTML = '';
     let firstMatch = null;
-    detailRows.forEach(row => {
+    rowsToRender.forEach(row => {
       const riskName = riskNameOf(row);
       const potentialImpact = row['Potential Impact'] || '';
       const impactClass = IMPACT_CLASS[potentialImpact] || '';
@@ -905,7 +911,7 @@
         `<span class="cluster-area-icon${yes ? ' is-yes' : ''}" title="${STRATEGIC_AREAS[i]}: ${yes ? 'Yes' : 'No'}">${yes ? STRATEGIC_ICONS[i] : ''}</span>`
       ).join('');
       const tr = document.createElement('tr');
-      const isSelected = selectedRisks.includes(riskName);
+      const isSelected = !hideMode && selectedRisks.includes(riskName);
       tr.classList.toggle('selected', isSelected);
       if (isSelected && !firstMatch) firstMatch = tr;
       tr.innerHTML = `
@@ -945,18 +951,23 @@
     } else {
       selectedRisks = (selectedRisks.length === 1 && selectedRisks[0] === riskName) ? [] : [riskName];
     }
+    selectedRiskSource = selectedRisks.length ? 'detail' : null;
     dotHighlightClusterIds = clusterIdsForRisks(selectedRisks);
     refresh();
   }
 
-  // Keep the cluster table's "selected" rows in sync with whichever cross-filter is active:
-  // an explicit row click (filters.clusterIds) takes priority over a soft wheel-dot highlight.
+  // Keep the cluster table in sync with whichever cross-filter is active. An explicit row
+  // click on this table itself (filters.clusterIds) just highlights — the cluster table stays
+  // a full picker. A risk selection from the wheel or the detail table is an "other" visual
+  // for the cluster table, so it actually filters (hides) non-matching rows, not just highlights.
   function syncClusterRowHighlight() {
+    const hideMode = filters.clusterIds.length === 0 && dotHighlightClusterIds.length > 0;
     const activeIds = filters.clusterIds.length ? filters.clusterIds : dotHighlightClusterIds;
     let firstMatch = null;
     document.querySelectorAll('#clusterTableBody tr').forEach(tr => {
       const isMatch = activeIds.includes(String(tr.dataset.clusterId));
-      tr.classList.toggle('selected', isMatch);
+      tr.classList.toggle('selected', isMatch && !hideMode);
+      tr.style.display = (hideMode && !isMatch) ? 'none' : '';
       if (isMatch && !firstMatch) firstMatch = tr;
     });
     if (firstMatch) firstMatch.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -1007,6 +1018,7 @@
     } else {
       selectedCategories = (selectedCategories.length === 1 && selectedCategories[0] === category) ? [] : [category];
       selectedRisks = [];
+      selectedRiskSource = null;
       filters.clusterIds = [];
       dotHighlightClusterIds = [];
     }
@@ -1023,6 +1035,7 @@
       selectedCategories = [];
       selectedRisks = [];
     }
+    selectedRiskSource = null;
     dotHighlightClusterIds = [];
     refresh();
   }
@@ -1069,6 +1082,7 @@
         const arr = value || [];
         if (JSON.stringify(arr) === JSON.stringify(selectedRisks)) return;
         selectedRisks = arr;
+        selectedRiskSource = arr.length ? 'wheel' : null;
         dotHighlightClusterIds = clusterIdsForRisks(selectedRisks);
         refresh();
       });
@@ -1077,6 +1091,7 @@
         if (value === currentZoom) return;
         selectedCategories = value ? [value] : [];
         selectedRisks = [];
+        selectedRiskSource = null;
         dotHighlightClusterIds = [];
         filters.clusterIds = [];
         refresh();
@@ -1089,6 +1104,7 @@
         dotHighlightClusterIds = [];
         selectedCategories = [];
         selectedRisks = [];
+        selectedRiskSource = null;
         document.querySelectorAll('#filterRow [data-filter]').forEach(select => {
           [...select.options].forEach(option => { option.selected = option.value === 'All'; });
           const dropdown = select.parentElement.querySelector('.multi-select');
