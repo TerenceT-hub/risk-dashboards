@@ -50,6 +50,19 @@
     font-weight: 700;
   }
 
+  .export-pdf-button {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 14px;
+    background: var(--burgundy);
+    color: #fff;
+    border: none;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
   .pagination { display: flex; gap: 6px; }
   .page-btn {
     width: 30px;
@@ -148,6 +161,30 @@
   @media (max-width: 1100px) {
     .dashboard-topbar { justify-content: flex-start; }
   }
+
+  #printAllContainer { display: none; }
+  .print-page-header { display: none; }
+
+  @media print {
+    .site-nav, .dashboard-topbar, #status, .table-scroll { display: none !important; }
+    #printAllContainer { display: block !important; }
+    body.kar-table-page { background: #fff; padding: 0; }
+    @page { size: A3 landscape; margin: 10mm; }
+    .print-page { page-break-after: always; }
+    .print-page:last-child { page-break-after: auto; }
+    .print-page-header {
+      display: block;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 6px;
+    }
+    .print-page-header span { color: #666; font-weight: 400; font-style: italic; }
+    .print-page .kar-table { width: 100%; min-width: 0; font-size: 9px; }
+    .print-page .kar-table th, .print-page .kar-table td { padding: 4px 6px; font-size: 9px; }
+    .print-page .kar-table th { position: static; }
+  }
 </style>
 </head>
 <body class="kar-table-page">
@@ -176,6 +213,8 @@
   </div>
 
   <div class="pagination" id="pagination"></div>
+
+  <button class="export-pdf-button" type="button" id="exportPdfBtn">Export to PDF</button>
 
   <div class="strategy-key">
     <span class="legend-title">Strategy key</span>
@@ -222,6 +261,8 @@
     <tbody id="karTableBody"></tbody>
   </table>
 </div>
+
+<div id="printAllContainer"></div>
 
 <script>
   document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
@@ -328,6 +369,42 @@
 
     document.getElementById('status').textContent = `Showing ${pageRows.length} of ${rows.length} key active risks (page ${currentPage} of ${totalPages}).`;
   }
+
+  // Builds one <table> per on-screen page (same PAGE_SIZE chunks as renderPage) so the
+  // exported PDF mirrors the pagination the user sees on screen, one page of rows per PDF page.
+  function exportToPdf() {
+    const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+    const container = document.getElementById('printAllContainer');
+    container.innerHTML = '';
+
+    for (let p = 1; p <= totalPages; p++) {
+      const start = (p - 1) * PAGE_SIZE;
+      const pageRows = rows.slice(start, start + PAGE_SIZE);
+
+      const pageDiv = document.createElement('div');
+      pageDiv.className = 'print-page';
+
+      const header = document.createElement('div');
+      header.className = 'print-page-header';
+      header.innerHTML = `Key Active Risk Table — Page ${p} of ${totalPages} <span>| Data refreshed: UTC ${document.getElementById('refreshDateTime').textContent}</span>`;
+      pageDiv.appendChild(header);
+
+      const table = document.createElement('table');
+      table.className = 'kar-table';
+      table.appendChild(document.querySelector('.kar-table colgroup').cloneNode(true));
+      table.appendChild(document.querySelector('.kar-table thead').cloneNode(true));
+      const tbody = document.createElement('tbody');
+      pageRows.forEach(row => tbody.appendChild(renderRow(row)));
+      table.appendChild(tbody);
+      pageDiv.appendChild(table);
+
+      container.appendChild(pageDiv);
+    }
+
+    window.print();
+  }
+
+  document.getElementById('exportPdfBtn').addEventListener('click', exportToPdf);
 
   fetch(DATA_SOURCE)
     .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
