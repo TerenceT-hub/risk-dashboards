@@ -142,15 +142,29 @@ function refresh() {
 
   // ---- Key Active Risks -> k-dim-risk.json ----
   console.log('Building k-dim-risk.json...');
-  const karRows = karRaw.map((r, i) => ({
-    'KAR_ID': i + 1,
-    'Key Active Risk': r['Key Active Risk'],
-    'SET Risk Owner': r['SET Risk Owner'],
-    'Risk Statement': r['Risk Statement'],
-    'Current Impact': r['Current Impact'],
-    'Current Likelihood': r['Current Likelihood'],
-    'Trend': r['Trend']
-  }));
+  const LINKED_PRINCIPAL_RISK_COLS = ['Linked Principal Risk 1', 'Linked Principal Risk 2', 'Linked Principal Risk 3', 'Linked Principal Risk 4', 'Linked Principal Risk 5'];
+  const karRows = karRaw.map((r, i) => {
+    const linkedPrincipalRisks = LINKED_PRINCIPAL_RISK_COLS
+      .map((col) => r[col])
+      .filter((v) => v !== undefined && v !== null && String(v).trim() !== '');
+    return {
+      'KAR_ID': i + 1,
+      'Key Active Risk': r['Key Active Risk'],
+      'SET Risk Owner': r['SET Risk Owner'],
+      'Risk Statement': r['Risk Statement'],
+      'Science and Innovation': r['Science and Innovation'],
+      'People and Sustainability': r['People and Sustainability'],
+      'Growth and Therapy Area Leadership': r['Growth and Therapy Area Leadership'],
+      'Achieve Group Financial Targets': r['Achieve Group Financial Targets'],
+      'Current Impact': r['Current Impact'],
+      'Current Likelihood': r['Current Likelihood'],
+      'Overall Risk': r['Overall Risk'],
+      'Trend': r['Trend'],
+      'Action': r['Action'] || '',
+      'Linked Principal Risk Count': linkedPrincipalRisks.length,
+      'Linked Principal Risks': linkedPrincipalRisks.join('; ')
+    };
+  });
   writeWrapped(path.join(DATA_FOLDER, 'k-dim-risk.json'), karRows, 'rows');
 
   console.log('Done.');

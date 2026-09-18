@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Key Active Risk Summary Cards</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  :root { --burgundy: #800020; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body.kar-cards-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px 24px;
+    background: #f5f5f5;
+  }
+  .kar-cards-page { --topbar-height: 96px; }
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(560px, 2.4fr) minmax(230px, 0.8fr);
+    gap: 18px;
+    align-items: center;
+    margin: 0 -20px 14px;
+    padding: 8px 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .brand-panel { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .refresh-line time { text-decoration: underline; }
+  .homepage-button {
+    display: inline-flex;
+    box-sizing: border-box;
+    width: fit-content;
+    height: 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    background: #830051;
+    color: #fff;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .brand-right { align-items: flex-end; justify-content: center; }
+  .brand-right-image { width: 190px; max-height: 65px; }
+
+  .legend-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .legend-title { display: block; font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1b1b1b; }
+  .strategy-key-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 6px 20px; }
+  .strategy-key-item { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; color: #333; max-width: 150px; line-height: 1.2; }
+  .strategy-key-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    background: #830051;
+    color: #fff;
+  }
+  .strategy-key-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategy-key-icon svg.fill-icon { fill: currentColor; stroke: none; }
+
+  .trend-key-list { display: flex; flex-direction: column; gap: 5px; }
+  .trend-key-item { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; color: #333; white-space: nowrap; }
+  .trend-key-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    background: #E50073;
+    color: #fff;
+  }
+  .trend-key-icon svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  .overall-risk-scale { display: flex; }
+  .overall-risk-pill { display: flex; align-items: center; justify-content: center; min-width: 58px; padding: 8px 9px; font-size: 10.5px; font-weight: 700; }
+  .overall-risk-pill.level-vl { background: #FBECF3; color: #5c1f4a; }
+  .overall-risk-pill.level-l { background: #F9D6E6; color: #5c1f4a; }
+  .overall-risk-pill.level-m { background: #D36AA2; color: #fff; }
+  .overall-risk-pill.level-h { background: #A1005B; color: #fff; }
+  .overall-risk-pill.level-vh { background: #6A003C; color: #fff; }
+
+  #status { font-size: 13px; color: #666; margin: 4px 0 10px; }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .kar-card { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.12); display: flex; flex-direction: column; }
+  .kar-card-header { padding: 10px 14px; }
+  .kar-card-title { font-weight: 700; font-size: 13px; }
+  .kar-card-owner { font-style: italic; font-size: 11px; margin-top: 3px; }
+  .kar-card-body { padding: 12px 14px; flex: 1; }
+  .kar-card-label { color: var(--burgundy); font-weight: 700; font-size: 11px; margin-bottom: 3px; }
+  .kar-card-label + .kar-card-label { margin-top: 10px; }
+  .kar-card-statement { font-size: 11.5px; color: #333; line-height: 1.4; margin-bottom: 4px; }
+  .kar-card-action-category { font-weight: 700; font-size: 11.5px; color: #222; margin: 2px 0 2px; }
+  .kar-card-action-detail { font-size: 11px; color: #333; white-space: pre-line; line-height: 1.45; }
+  .kar-card-metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
+  .kar-card-metric { padding: 10px 6px; text-align: center; border-right: 1px solid #eee; }
+  .kar-card-metric:last-child { border-right: none; }
+  .kar-card-metric-label { font-size: 9.5px; color: #666; margin-bottom: 4px; line-height: 1.2; }
+  .kar-card-metric-value { font-weight: 700; font-size: 14px; color: var(--burgundy); }
+  .kar-card-icons { display: flex; justify-content: space-between; padding: 10px 12px 14px; border-top: 1px solid #eee; gap: 4px; }
+  .kar-card-icon-item { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1 1 0; min-width: 0; }
+  .kar-card-icon-caption { font-size: 9.5px; text-align: center; line-height: 1.15; color: #444; }
+
+  .strategic-area-icon {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid #c9c9c9;
+    background: #fff;
+    color: #fff;
+  }
+  .strategic-area-icon.is-yes { border-color: #830051; background: #830051; }
+  .strategic-area-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .trend-icon {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #E50073;
+    color: #fff;
+  }
+  .trend-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  @media (max-width: 1300px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .dashboard-topbar { grid-template-columns: 1fr; margin: 0 -20px 10px; }
+    .legend-row { flex-direction: column; gap: 14px; }
+    .brand-right { align-items: flex-start; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="kar-cards-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-matrix.html">Key Active Risks</a>
+  <a href="risk-summary-cards.html" class="active">Key Active Risk Summary Cards</a>
+  <a href="#">Enduring &amp; Principal Risks</a>
+  <a href="#">Material Controls</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-panel">
+    <div class="brand-identity">
+      <div class="brand-logo-row">
+        <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+        <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+      </div>
+      <div class="brand-meta">
+        <span>Nexus</span>
+        <span>Key Active Risk Summary Cards</span>
+        <span class="refresh-line">Data refreshed: UTC <time id="refreshDateTime"></time></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="legend-row" aria-label="Strategy key, trend key and overall risk rating legend">
+    <div class="strategy-key">
+      <span class="legend-title">Strategy key</span>
+      <div class="strategy-key-grid">
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg></span>Science and Innovation</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg></span>People and Sustainability</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg></span>Growth and Therapy Area Leadership</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg></span>Achieve Group Financial Targets</span>
+      </div>
+    </div>
+    <div class="trend-key">
+      <span class="legend-title">Trend key</span>
+      <div class="trend-key-list">
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg></span>Increasing risk</span>
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg></span>Decreasing risk</span>
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg></span>Unchanged</span>
+      </div>
+    </div>
+    <div class="overall-risk-legend">
+      <span class="legend-title">Overall risk rating</span>
+      <div class="overall-risk-scale">
+        <span class="overall-risk-pill level-vl">Very Low</span>
+        <span class="overall-risk-pill level-l">Low</span>
+        <span class="overall-risk-pill level-m">Medium</span>
+        <span class="overall-risk-pill level-h">High</span>
+        <span class="overall-risk-pill level-vh">Very High</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="brand-panel brand-right">
+    <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+  </div>
+</header>
+
+<div id="status">Loading data/k-dim-risk.json...</div>
+<div class="card-grid" id="cardGrid"></div>
+
+<script>
+  document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+  }).format(new Date());
+
+  const DATA_SOURCE = 'data/k-dim-risk.json';
+
+  const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+  const STRATEGIC_AREA_ICONS = [
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+    '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+  ];
+  const TREND_ICONS = {
+    Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+    Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+    Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+  };
+  // The source sheet uses "Stable" where the rest of the dashboard says "Unchanged" -- same icon either way.
+  const TREND_ALIAS = { Stable: 'Unchanged', Increasing: 'Increasing', Decreasing: 'Decreasing', Unchanged: 'Unchanged' };
+  const OVERALL_RISK_COLOR = { VH: '#6A003C', H: '#A1005B', M: '#D36AA2', L: '#F9D6E6', VL: '#FBECF3' };
+  // Matches the summary-table convention on risk-matrix.html: only the two darkest tiers get white text.
+  const OVERALL_RISK_TEXT = { VH: '#fff', H: '#fff', M: '#333', L: '#333', VL: '#333' };
+
+  function actionParts(actionRaw) {
+    const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
+    return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
+  }
+
+  function strategicAreaIconsHtml(row) {
+    return STRATEGIC_AREA_NAMES.map((area, i) => {
+      const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+      return `
+        <div class="kar-card-icon-item">
+          <span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>
+          <span class="kar-card-icon-caption">${area}</span>
+        </div>`;
+    }).join('');
+  }
+
+  function trendIconHtml(row) {
+    const trendRaw = row['Trend'] || 'Unchanged';
+    const trend = TREND_ALIAS[trendRaw] || 'Unchanged';
+    return `
+      <div class="kar-card-icon-item">
+        <span class="trend-icon" title="${trendRaw}">${TREND_ICONS[trend]}</span>
+        <span class="kar-card-icon-caption">Trend</span>
+      </div>`;
+  }
+
+  function renderCard(row) {
+    const overallAbbr = row['Overall Risk'] || '';
+    const headerColor = OVERALL_RISK_COLOR[overallAbbr] || '#999';
+    const headerText = OVERALL_RISK_TEXT[overallAbbr] || '#333';
+    const { category, detail } = actionParts(row['Action']);
+
+    const card = document.createElement('div');
+    card.className = 'kar-card';
+    card.innerHTML = `
+      <div class="kar-card-header" style="background:${headerColor}; color:${headerText};">
+        <div class="kar-card-title">${row['Key Active Risk'] || ''}</div>
+        <div class="kar-card-owner">Risk Owner(s): ${row['SET Risk Owner'] || ''}</div>
+      </div>
+      <div class="kar-card-body">
+        <div class="kar-card-label">Risk Statement</div>
+        <div class="kar-card-statement">${row['Risk Statement'] || ''}</div>
+        <div class="kar-card-label">Action</div>
+        <div class="kar-card-action-category">${category}</div>
+        <div class="kar-card-action-detail">${detail}</div>
+      </div>
+      <div class="kar-card-metrics">
+        <div class="kar-card-metric">
+          <div class="kar-card-metric-label">Current Impact</div>
+          <div class="kar-card-metric-value">${row['Current Impact'] || ''}</div>
+        </div>
+        <div class="kar-card-metric">
+          <div class="kar-card-metric-label">Current Probability</div>
+          <div class="kar-card-metric-value">${row['Current Likelihood'] || ''}</div>
+        </div>
+        <div class="kar-card-metric">
+          <div class="kar-card-metric-label">Linked Principal Risk</div>
+          <div class="kar-card-metric-value">${row['Linked Principal Risk Count'] ?? ''}</div>
+        </div>
+      </div>
+      <div class="kar-card-icons">
+        ${strategicAreaIconsHtml(row)}
+        ${trendIconHtml(row)}
+      </div>
+    `;
+    return card;
+  }
+
+  fetch(DATA_SOURCE)
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(data => {
+      const rows = data.rows?.rows || data.rows || data;
+      const grid = document.getElementById('cardGrid');
+      rows.forEach(row => grid.appendChild(renderCard(row)));
+      document.getElementById('status').textContent = `Showing ${rows.length} key active risks.`;
+    })
+    .catch(err => {
+      document.getElementById('status').textContent =
+        'Failed to load — ' + err.message + ' (make sure data/k-dim-risk.json is in place, and that you\'re using a local server, not opening the file directly with file://)';
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>
