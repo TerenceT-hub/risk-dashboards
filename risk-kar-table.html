@@ -163,12 +163,12 @@
   }
 
   #printAllContainer { display: none; }
-  .print-report-title th { text-align: left; font-size: 12px; font-weight: 700; color: var(--burgundy); background: #fff; border: none; padding: 0 6px 8px; }
-  .print-report-title span { color: #666; font-weight: 400; font-style: italic; }
 
   @media print {
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-    .site-nav, .dashboard-topbar, #status, .table-scroll { display: none !important; }
+    .site-nav, #status, .table-scroll { display: none !important; }
+    .pagination, .export-pdf-button, .homepage-button { display: none !important; }
+    .dashboard-topbar { position: static !important; box-shadow: none !important; margin: 0 0 10px !important; }
     #printAllContainer { display: block !important; }
     body.kar-table-page { background: #fff; padding: 0; }
     @page { size: A3 landscape; margin: 10mm; }
@@ -364,11 +364,11 @@
     document.getElementById('status').textContent = `Showing ${pageRows.length} of ${rows.length} key active risks (page ${currentPage} of ${totalPages}).`;
   }
 
-  // Builds one <table> per on-screen page (same PAGE_SIZE chunks as renderPage) so the
   // One continuous table with every row -- the print CSS (thead as table-header-group,
   // tbody tr { break-inside: avoid }) lets the browser pack as many rows as fit on each
   // printed page and only overflow to the next one when a row genuinely doesn't fit,
-  // repeating the header (title + columns) on every page automatically.
+  // repeating the column headers on every page automatically. The branded page header
+  // (logo/title/legends) prints once at the top via the normal .dashboard-topbar markup.
   function exportToPdf() {
     const container = document.getElementById('printAllContainer');
     container.innerHTML = '';
@@ -376,13 +376,7 @@
     const table = document.createElement('table');
     table.className = 'kar-table';
     table.appendChild(document.querySelector('.kar-table colgroup').cloneNode(true));
-
-    const thead = document.querySelector('.kar-table thead').cloneNode(true);
-    const titleRow = document.createElement('tr');
-    titleRow.className = 'print-report-title';
-    titleRow.innerHTML = `<th colspan="9">Key Active Risk Table <span>| Data refreshed: UTC ${document.getElementById('refreshDateTime').textContent}</span></th>`;
-    thead.insertBefore(titleRow, thead.firstChild);
-    table.appendChild(thead);
+    table.appendChild(document.querySelector('.kar-table thead').cloneNode(true));
 
     const tbody = document.createElement('tbody');
     rows.forEach(row => tbody.appendChild(renderRow(row)));
