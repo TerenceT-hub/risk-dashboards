@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Key Active Risk Detail</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/risk-detail-card.js"></script>
+<style>
+  :root { --burgundy: #830051; --burgundy-dark: #5c1f4a; }
+  * { box-sizing: border-box; }
+  body.kar-detail-page { background: #f5f5f5; }
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(560px, 2.4fr) minmax(230px, 0.8fr);
+    gap: 18px;
+    align-items: stretch;
+    margin: 0;
+    padding: 8px 10px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+  }
+  .brand-panel { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .homepage-button {
+    display: inline-flex; box-sizing: border-box; width: fit-content; height: 36px; align-items: center; gap: 6px;
+    padding: 0 8px; background: var(--burgundy); color: #fff; text-decoration: none; font-size: 11px; font-weight: 700;
+  }
+  .filters-panel { background: #f1f1f1; border-radius: 24px; padding: 10px 18px; }
+  .filters-heading { display: flex; justify-content: space-between; align-items: center; color: #3a3a3a; font-weight: 700; font-size: 14px; }
+  .clear-filters { border: 0; background: transparent; color: #555; text-decoration: underline; cursor: pointer; font-style: italic; }
+  .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px 16px; margin-top: 5px; }
+  .filter-control { display: grid; grid-template-columns: auto 1fr; gap: 6px; align-items: center; font-size: 11px; font-weight: 700; position: relative; }
+  .filter-control select[data-filter] { display: none; }
+  .multi-select { position: relative; min-width: 0; }
+  .multi-select-toggle { width: 100%; border: 1px solid #e0e0e0; background: #fff; padding: 5px 24px 5px 7px; color: #444; font-size: 11px; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .multi-select-toggle::after { content: '▾'; position: absolute; right: 8px; color: #777; }
+  .multi-select-menu { display: none; position: absolute; top: calc(100% + 2px); left: 0; right: 0; min-width: 170px; max-height: 190px; overflow-y: auto; z-index: 25; padding: 5px; background: #fff; border: 1px solid #ccc; box-shadow: 0 3px 10px rgba(0,0,0,0.16); }
+  .multi-select.is-open .multi-select-menu { display: block; }
+  .multi-select-option { display: flex; align-items: center; gap: 6px; padding: 5px 4px; font-size: 11px; font-weight: 400; white-space: nowrap; cursor: pointer; }
+  .multi-select-option:hover { background: #f5e6ef; }
+  .brand-right { align-items: flex-end; justify-content: center; text-align: right; }
+  .brand-right-image { width: 190px; max-height: 60px; }
+  .legend-button { border: 0; background: transparent; color: #3a3a3a; cursor: pointer; font-size: 12px; margin-top: 6px; }
+  .legend-panel { display: none; position: fixed; top: 72px; right: 0; z-index: 20; width: min(560px, calc(100vw - 16px)); padding: 8px 12px 12px; background: #fff; border: 1px solid #ddd; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .legend-close { display: block; margin-left: auto; border: 0; background: transparent; color: var(--burgundy); cursor: pointer; font-size: 22px; line-height: 1; font-weight: 700; }
+  .legend-image { display: block; width: 100%; max-height: 280px; object-fit: contain; object-position: right center; }
+  .legend-panel.is-open { display: block; }
+
+  .kpi-search-row {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 24px;
+    margin: 14px clamp(16px, 4vw, 40px) 16px; background: #fff; padding: 12px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .kpi { font-size: 13px; color: #3a3a3a; }
+  .kpi strong { color: var(--burgundy-dark); font-size: 15px; }
+  .search-block { display: flex; flex-direction: column; gap: 6px; min-width: 260px; }
+  .search-box { position: relative; }
+  .search-box input { width: 100%; border: 1px solid #ccc; padding: 6px 60px 6px 10px; font-size: 12px; }
+  .search-box .search-icon-btn, .search-box .search-clear-btn { position: absolute; top: 0; bottom: 0; border: 0; background: transparent; cursor: pointer; color: #888; }
+  .search-box .search-icon-btn { right: 24px; }
+  .search-box .search-clear-btn { right: 2px; font-size: 14px; }
+  .search-scope-row { display: flex; gap: 6px; }
+  .search-scope-btn { border: 1px solid #ddd; background: #f4f4f4; color: #555; font-size: 11px; padding: 4px 10px; border-radius: 12px; cursor: pointer; }
+  .search-scope-btn.active { background: var(--burgundy); border-color: var(--burgundy); color: #fff; }
+  .view-tab-group { display: flex; gap: 2px; margin-left: auto; }
+  .view-tab { padding: 8px 16px; font-size: 12px; font-weight: 700; border: 1px solid #ccc; background: #ccc; color: #444; cursor: pointer; text-decoration: none; }
+  .view-tab.active { background: var(--burgundy); border-color: var(--burgundy); color: #fff; }
+
+  .detail-page-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; margin: 0 clamp(16px, 4vw, 40px) 24px; align-items: start; }
+  .left-column, .right-column { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .card-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; }
+  .card-panel h3 { margin: 0; padding: 8px 12px; background: var(--burgundy); color: #fff; font-size: 13px; }
+  .card-scroll { max-height: 320px; overflow: auto; }
+  .kar-summary-table, .linked-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .kar-summary-table th, .kar-summary-table td,
+  .linked-table th, .linked-table td { padding: 7px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: middle; }
+  .kar-summary-table th, .linked-table th { position: sticky; top: 0; z-index: 1; background: #f4edf2; color: var(--burgundy-dark); font-size: 11px; }
+  .sort-arrow { font-size: 9px; margin-left: 2px; }
+  .kar-summary-table tbody tr, .linked-table tbody tr { cursor: default; }
+  .kar-summary-table tbody tr[data-clickable] { cursor: pointer; }
+  .kar-summary-table tbody tr:hover, .kar-summary-table tbody tr.selected { background: #f8e6ef; }
+  .risk-level { font-weight: 700; text-align: center; }
+  .risk-level-very-high, .risk-level-high { color: #fff; }
+  .risk-level-very-high { background: #6A003C; }
+  .risk-level-high { background: #A1005B; }
+  .risk-level-medium { background: #D36AA2; }
+  .risk-level-low { background: #F9D6E6; }
+  .risk-level-very-low { background: #FBECF3; }
+  .strategic-area-icons { display: inline-flex; gap: 6px; align-items: center; }
+  .strategic-area-icon {
+    display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center;
+    border-radius: 50%; border: 2px solid #c9c9c9; background: #fff; color: #fff;
+  }
+  .strategic-area-icon.is-yes { border-color: var(--burgundy); background: var(--burgundy); }
+  .strategic-area-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+
+  #quadrantContainer { padding: 10px 12px; }
+  #quadrantView { width: 100%; height: 320px; }
+
+  .detail-panel-scroll { max-height: 640px; overflow: auto; padding: 4px 0; }
+  .detail-block { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 12px 14px; margin-bottom: 10px; }
+  .detail-block-title { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--burgundy-dark); font-size: 12.5px; margin-bottom: 6px; }
+  .detail-block-title .icon-wrap { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; color: var(--burgundy); flex: 0 0 auto; }
+  .detail-block-title .icon-wrap svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .detail-selected-name { font-size: 13px; font-weight: 700; color: #222; }
+  .detail-owner-name { font-size: 12.5px; color: #333; }
+  .detail-body-text { font-size: 12px; color: #333; line-height: 1.45; white-space: pre-line; }
+  .mitigation-list { display: flex; flex-direction: column; gap: 8px; }
+  .mitigation-item { background: #faf5f8; border: 1px solid #eee; padding: 8px 10px; font-size: 12px; color: #333; line-height: 1.4; }
+  .action-category { font-weight: 700; color: var(--burgundy); font-size: 12px; margin-bottom: 4px; }
+
+  #status { font-size: 13px; color: #666; margin: 0 clamp(16px, 4vw, 40px) 8px; }
+
+  @media (max-width: 1100px) {
+    .dashboard-topbar { grid-template-columns: 1fr; }
+    .detail-page-grid { grid-template-columns: 1fr; }
+    .brand-right { align-items: flex-start; text-align: left; }
+  }
+</style>
+</head>
+<body class="kar-detail-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-matrix.html">Key Active Risks</a>
+  <a href="risk-summary-cards.html">Key Active Risk Summary Cards</a>
+  <a href="risk-kar-table.html">Key Active Risk Table</a>
+  <a href="risk-kar-detail.html" class="active">Key Active Risk Detail</a>
+  <a href="#">Enduring &amp; Principal Risks</a>
+  <a href="#">Material Controls</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-panel">
+    <div class="brand-identity">
+      <div class="brand-logo-row">
+        <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+        <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+      </div>
+      <div class="brand-meta">
+        <span>Nexus</span>
+        <span>Key Active Risk Detail</span>
+        <span class="refresh-line">UTC <time id="refreshDateTime"></time></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="filters-panel" aria-label="Data Filters">
+    <div class="filters-heading">
+      <span>Data Filters</span>
+      <button class="clear-filters" id="clearFilters" type="button">Clear all</button>
+    </div>
+    <div class="filter-grid" id="filterGrid">
+      <label class="filter-control">Owner<select data-filter="owner" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Impact<select data-filter="impact" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Probability<select data-filter="probability" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Key Active Risk<select data-filter="karName" multiple><option value="All">All</option></select></label>
+      <label class="filter-control">Strategic Area<select data-filter="strategicArea" multiple><option value="All">All</option></select></label>
+    </div>
+  </section>
+
+  <div class="brand-panel brand-right">
+    <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+    <button class="legend-button" id="legendButton" type="button">&#9432; Click for Legend Info</button>
+  </div>
+</header>
+
+<section class="legend-panel" id="legendPanel" aria-label="Legend">
+  <button class="legend-close" id="legendClose" type="button" aria-label="Close legend">&#10005;</button>
+  <img class="legend-image" src="images/Legend.jpg" alt="Strategy and trend legend">
+</section>
+
+<div class="kpi-search-row">
+  <div class="kpi">Total Key Active Risk: <strong id="kpiTotalKar">–</strong></div>
+  <div class="kpi">Total Linked Enduring Risk: <strong id="kpiTotalLinked">–</strong></div>
+
+  <div class="search-block">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search Keywords, e.g. clinical">
+      <button class="search-icon-btn" type="button" tabindex="-1" aria-hidden="true">&#128269;</button>
+      <button class="search-clear-btn" id="searchClearBtn" type="button" title="Clear search">&#10005;</button>
+    </div>
+    <div class="search-scope-row">
+      <button class="search-scope-btn active" data-scope="Key Active Risk" type="button">Key Active Risk</button>
+      <button class="search-scope-btn" data-scope="Quarterly Update" type="button">Quarterly Update</button>
+    </div>
+  </div>
+
+  <div class="view-tab-group">
+    <a class="view-tab" href="risk-matrix.html">Enduring &amp; Principal Risk</a>
+    <span class="view-tab active">Key Active Risk</span>
+  </div>
+</div>
+
+<div id="status">Loading data...</div>
+
+<div class="detail-page-grid">
+  <div class="left-column">
+    <section class="card-panel">
+      <h3>Key Active Risk Summary</h3>
+      <div class="card-scroll">
+        <table class="kar-summary-table">
+          <colgroup>
+            <col style="width:40px"><col style="width:220px"><col style="width:90px"><col style="width:100px"><col style="width:150px"><col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>ID <span class="sort-arrow">&#9650;</span></th>
+              <th>Key Active Risk</th>
+              <th>Current Impact</th>
+              <th>Current Probability</th>
+              <th>Strategic Areas</th>
+              <th>Risk Owner</th>
+            </tr>
+          </thead>
+          <tbody id="karSummaryBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card-panel">
+      <h3>List of Linked Enduring Risk</h3>
+      <div class="card-scroll">
+        <table class="linked-table">
+          <colgroup>
+            <col style="width:50px"><col><col style="width:100px"><col style="width:110px">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>No. <span class="sort-arrow">&#9650;</span></th>
+              <th>Enduring Risk</th>
+              <th>Current Impact</th>
+              <th>Current Probability</th>
+            </tr>
+          </thead>
+          <tbody id="linkedEnduringBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div class="right-column">
+    <section class="card-panel">
+      <h3>Quadrants showing the Current Assessed (Net) Risk Levels for KAR</h3>
+      <div id="quadrantContainer">
+        <div id="quadrantView"></div>
+      </div>
+    </section>
+
+    <div class="detail-panel-scroll">
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><line x1="12" y1="9" x2="12" y2="14"/></svg></span>
+          Key Active Risk Detail of:
+        </div>
+        <div class="detail-selected-name" id="detailName">–</div>
+      </div>
+
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg></span>
+          Key Active Risk Owner
+        </div>
+        <div class="detail-owner-name" id="detailOwner">–</div>
+      </div>
+
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span>
+          Risk Statement
+        </div>
+        <div class="detail-body-text" id="detailStatement">–</div>
+      </div>
+
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 4v4h-4M6 20v-4h4"/></svg></span>
+          Quarterly Update
+        </div>
+        <div class="detail-body-text" id="detailQuarterly">–</div>
+      </div>
+
+      <div class="card-panel" style="margin-bottom:10px;">
+        <h3>Mitigation</h3>
+        <div style="padding:12px 14px;">
+          <div class="mitigation-list" id="detailMitigations"></div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="6" r="1.2" fill="currentColor" stroke="none"/><line x1="9" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="1.2" fill="currentColor" stroke="none"/><line x1="9" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="1.2" fill="currentColor" stroke="none"/><line x1="9" y1="18" x2="20" y2="18"/></svg></span>
+          Next Actions
+        </div>
+        <div class="action-category" id="detailActionCategory">–</div>
+        <div class="detail-body-text" id="detailActionBullets">–</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+vega.expressionFunction('pbiCrossFilterApply', function (event) {
+  var d = event && event.item && event.item.datum;
+  var name = d ? d['Key Active Risk'] : null;
+  setCrossFilterSelection(name);
+  return name;
+});
+vega.expressionFunction('pbiCrossFilterClear', function () {
+  // Deliberately not clearing to null -- an empty detail panel is worse UX than keeping
+  // the last-viewed risk, so background clicks / re-clicking the active pill are no-ops.
+  return currentSelection;
+});
+
+let karRowsRaw = [];
+let epRowsRaw = [];
+let linkedEnduringRows = [];
+let currentSelection = null;
+let quadrantView = null;
+let searchScope = 'Key Active Risk';
+let searchText = '';
+const activeFilters = { owner: ['All'], impact: ['All'], probability: ['All'], karName: ['All'], strategicArea: ['All'] };
+
+const LEVEL_MAP = { VH: 'Very High', H: 'High', M: 'Medium', L: 'Low', VL: 'Very Low' };
+const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+const STRATEGIC_AREA_ICONS = [
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+  '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+];
+
+function unwrapRows(payload) { return payload?.rows?.body || payload?.rows?.rows || payload?.rows || payload || []; }
+
+function levelClass(abbrOrWord) {
+  const word = LEVEL_MAP[abbrOrWord] || abbrOrWord || '';
+  return 'risk-level-' + word.toLowerCase().replace(/\s+/g, '-');
+}
+
+function strategicAreaIconsHtml(row) {
+  return STRATEGIC_AREA_NAMES.map((area, i) => {
+    const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+    return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>`;
+  }).join('');
+}
+
+function actionParts(actionRaw) {
+  const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
+  return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
+}
+
+function getFilteredKarRows() {
+  const matches = (selected, value) => selected.includes('All') || selected.includes(value);
+  return karRowsRaw.filter(row => {
+    const strategicMatch = activeFilters.strategicArea.includes('All')
+      || activeFilters.strategicArea.some(area => String(row[area] ?? '').toLowerCase() === 'yes');
+    const searchMatch = !searchText || String(row[searchScope] || '').toLowerCase().includes(searchText.toLowerCase());
+    return matches(activeFilters.owner, row['SET Risk Owner'])
+      && matches(activeFilters.impact, row['Current Impact'])
+      && matches(activeFilters.probability, row['Current Likelihood'])
+      && matches(activeFilters.karName, row['Key Active Risk'])
+      && strategicMatch
+      && searchMatch;
+  });
+}
+
+function renderKarSummaryTable() {
+  const filtered = getFilteredKarRows();
+  const tbody = document.getElementById('karSummaryBody');
+  tbody.innerHTML = '';
+  filtered.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.dataset.clickable = 'true';
+    tr.classList.toggle('selected', row['Key Active Risk'] === currentSelection);
+    tr.innerHTML = `
+      <td>${row['KAR_ID'] ?? ''}</td>
+      <td>${row['Key Active Risk'] || ''}</td>
+      <td class="risk-level ${levelClass(row['Current Impact'])}">${row['Current Impact'] || ''}</td>
+      <td class="risk-level ${levelClass(row['Current Likelihood'])}">${row['Current Likelihood'] || ''}</td>
+      <td><span class="strategic-area-icons">${strategicAreaIconsHtml(row)}</span></td>
+      <td>${row['SET Risk Owner'] || ''}</td>
+    `;
+    tr.addEventListener('click', () => setCrossFilterSelection(row['Key Active Risk']));
+    tbody.appendChild(tr);
+  });
+}
+
+function renderLinkedEnduringTable() {
+  const tbody = document.getElementById('linkedEnduringBody');
+  tbody.innerHTML = '';
+  linkedEnduringRows.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row['Enduring Risk Number']}</td>
+      <td>${row['Enduring Risk']}</td>
+      <td class="risk-level ${levelClass(row['Current Impact_Level'])}">${row['Current Impact_Level'] || ''}</td>
+      <td class="risk-level ${levelClass(row['Current Likelihood_Level'])}">${row['Current Likelihood_Level'] || ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderDetailPanel(name) {
+  const row = karRowsRaw.find(r => r['Key Active Risk'] === name) || karRowsRaw[0];
+  if (!row) return;
+  document.getElementById('detailName').textContent = row['Key Active Risk'] || '';
+  document.getElementById('detailOwner').textContent = row['SET Risk Owner'] || '';
+  document.getElementById('detailStatement').textContent = row['Risk Statement'] || '';
+  document.getElementById('detailQuarterly').textContent = row['Quarterly Update'] || '';
+
+  const { category, detail } = actionParts(row['Action']);
+  document.getElementById('detailActionCategory').textContent = category;
+  document.getElementById('detailActionBullets').textContent = detail;
+
+  const mitigations = String(row['KAR Mitigation List'] || '')
+    .split('\n')
+    .map(line => line.replace(/^•\s*/, '').trim())
+    .filter(Boolean);
+  document.getElementById('detailMitigations').innerHTML =
+    mitigations.map(m => `<div class="mitigation-item">${m}</div>`).join('') || '<div class="mitigation-item">No mitigations recorded.</div>';
+}
+
+function buildQuadrantRows() {
+  return getFilteredKarRows().map(row => ({
+    'Key Active Risk': row['Key Active Risk'],
+    'Impact': LEVEL_MAP[row['Current Impact']] || row['Current Impact'],
+    'Probability': LEVEL_MAP[row['Current Likelihood']] || row['Current Likelihood'],
+    '__selected__': currentSelection == null ? undefined : (row['Key Active Risk'] === currentSelection ? 'on' : 'off')
+  }));
+}
+
+function setCrossFilterSelection(name) {
+  if (name != null) currentSelection = name;
+  else if (currentSelection == null && karRowsRaw.length) currentSelection = karRowsRaw[0]['Key Active Risk'];
+  renderKarSummaryTable();
+  renderDetailPanel(currentSelection);
+  if (quadrantView) {
+    quadrantView.change('dataset', vega.changeset().remove(() => true).insert(buildQuadrantRows())).run();
+  }
+}
+
+function renderFilteredViews() {
+  renderKarSummaryTable();
+  if (quadrantView) {
+    quadrantView.change('dataset', vega.changeset().remove(() => true).insert(buildQuadrantRows())).run();
+  }
+}
+
+function updateMultiSelectLabel(dropdown, selected) {
+  const label = selected.includes('All') ? 'All' : selected.length === 1 ? selected[0] : `${selected.length} selected`;
+  dropdown.querySelector('.multi-select-toggle').textContent = label;
+}
+
+function populateFilters() {
+  const options = {
+    owner: [...new Set(karRowsRaw.map(row => row['SET Risk Owner']))].sort(),
+    impact: [...new Set(karRowsRaw.map(row => row['Current Impact']))].sort(),
+    probability: [...new Set(karRowsRaw.map(row => row['Current Likelihood']))].sort(),
+    karName: [...new Set(karRowsRaw.map(row => row['Key Active Risk']))].sort(),
+    strategicArea: STRATEGIC_AREA_NAMES
+  };
+  document.querySelectorAll('[data-filter]').forEach(select => {
+    const values = options[select.dataset.filter] || [];
+    select.innerHTML = '<option value="All">All</option>' + values.map(value => `<option value="${value}">${value}</option>`).join('');
+    const dropdown = document.createElement('div');
+    dropdown.className = 'multi-select';
+    dropdown.innerHTML = `<button class="multi-select-toggle" type="button" aria-haspopup="listbox">All</button><div class="multi-select-menu" role="listbox"></div>`;
+    const menu = dropdown.querySelector('.multi-select-menu');
+    [...select.options].forEach(option => {
+      const label = document.createElement('label');
+      label.className = 'multi-select-option';
+      label.innerHTML = `<input type="checkbox" value="${option.value}"> <span>${option.textContent}</span>`;
+      label.querySelector('input').checked = activeFilters[select.dataset.filter].includes(option.value);
+      label.querySelector('input').addEventListener('change', event => {
+        const checkboxes = [...menu.querySelectorAll('input')];
+        if (event.target.value === 'All' && event.target.checked) {
+          checkboxes.forEach(input => { input.checked = input.value === 'All'; });
+        } else if (event.target.value !== 'All' && event.target.checked) {
+          menu.querySelector('input[value="All"]').checked = false;
+        }
+        const selected = checkboxes.filter(input => input.checked).map(input => input.value);
+        activeFilters[select.dataset.filter] = selected.length ? selected : ['All'];
+        [...select.options].forEach(option => { option.selected = activeFilters[select.dataset.filter].includes(option.value); });
+        updateMultiSelectLabel(dropdown, activeFilters[select.dataset.filter]);
+        renderFilteredViews();
+      });
+      menu.appendChild(label);
+    });
+    select.parentElement.appendChild(dropdown);
+    dropdown.addEventListener('click', event => event.stopPropagation());
+    updateMultiSelectLabel(dropdown, activeFilters[select.dataset.filter]);
+    dropdown.querySelector('.multi-select-toggle').addEventListener('click', event => {
+      event.stopPropagation();
+      document.querySelectorAll('.multi-select.is-open').forEach(item => { if (item !== dropdown) item.classList.remove('is-open'); });
+      dropdown.classList.toggle('is-open');
+    });
+  });
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.multi-select.is-open').forEach(item => item.classList.remove('is-open'));
+});
+
+document.getElementById('clearFilters').addEventListener('click', () => {
+  Object.keys(activeFilters).forEach(key => { activeFilters[key] = ['All']; });
+  document.querySelectorAll('[data-filter]').forEach(select => {
+    [...select.options].forEach(option => { option.selected = option.value === 'All'; });
+    const dropdown = select.parentElement.querySelector('.multi-select');
+    dropdown.querySelectorAll('input').forEach(input => { input.checked = input.value === 'All'; });
+    updateMultiSelectLabel(dropdown, ['All']);
+  });
+  renderFilteredViews();
+});
+
+document.getElementById('legendButton').addEventListener('click', () => {
+  document.getElementById('legendPanel').classList.toggle('is-open');
+});
+document.getElementById('legendClose').addEventListener('click', () => {
+  document.getElementById('legendPanel').classList.remove('is-open');
+});
+
+document.getElementById('searchInput').addEventListener('input', event => {
+  searchText = event.target.value.trim();
+  renderFilteredViews();
+});
+document.getElementById('searchClearBtn').addEventListener('click', () => {
+  searchText = '';
+  document.getElementById('searchInput').value = '';
+  renderFilteredViews();
+});
+document.querySelectorAll('.search-scope-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.search-scope-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    searchScope = btn.dataset.scope;
+    renderFilteredViews();
+  });
+});
+
+document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+}).format(new Date());
+
+// ---- Quadrant spec (ported from Deneb), container-size signals added to match this app's other pages ----
+const quadrantSpec = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"left": 0, "right": 20, "top": 10, "bottom": 20},
+  "width": {"signal": "pbiContainerWidth"},
+  "height": {"signal": "pbiContainerHeight"},
+  "signals": [
+    {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
+    {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
+    {"name": "pillHeight", "update": "15 * sizeScale"},
+    {"name": "pillGap", "update": "1.4 * sizeScale"},
+    {"name": "plotLeft", "value": 72},
+    {"name": "plotRight", "update": "width"},
+    {"name": "plotTop", "value": 1},
+    {"name": "plotBottom", "update": "height - 10"},
+    {"name": "probDomain", "value": ["Very High", "High", "Medium", "Low", "Very Low"]},
+    {"name": "impactDomain", "value": ["Very Low", "Low", "Medium", "High", "Very High"]},
+    {"name": "sizeScale", "update": "max(0.5, min(pbiContainerWidth / 700, pbiContainerHeight / 400))"},
+    {"name": "clearSelection", "on": [{"events": "click[!event.item]", "update": "pbiCrossFilterClear()"}]},
+    {"name": "toggleSelection", "on": [{"events": "@riskPill:click, @riskPillText:click", "update": "datum.__selected__ === 'on' ? pbiCrossFilterClear() : pbiCrossFilterApply(event)"}]},
+    {"name": "pr5", "update": "length(data('probRank5')) ? peek(data('probRank5')).rowCount : 0"},
+    {"name": "pr4", "update": "length(data('probRank4')) ? peek(data('probRank4')).rowCount : 0"},
+    {"name": "pr3", "update": "length(data('probRank3')) ? peek(data('probRank3')).rowCount : 0"},
+    {"name": "pr2", "update": "length(data('probRank2')) ? peek(data('probRank2')).rowCount : 0"},
+    {"name": "ic1", "update": "length(data('impactRank1')) ? peek(data('impactRank1')).colCount : 0"},
+    {"name": "ic2", "update": "length(data('impactRank2')) ? peek(data('impactRank2')).colCount : 0"},
+    {"name": "ic3", "update": "length(data('impactRank3')) ? peek(data('impactRank3')).colCount : 0"},
+    {"name": "ic4", "update": "length(data('impactRank4')) ? peek(data('impactRank4')).colCount : 0"}
+  ],
+  "data": [
+    {"name": "levels", "values": [
+      {"level": "Very Low", "rank": 1}, {"level": "Low", "rank": 2}, {"level": "Medium", "rank": 3},
+      {"level": "High", "rank": 4}, {"level": "Very High", "rank": 5}
+    ]},
+    {"name": "dataset"},
+    {"name": "probLevelsFiltered", "source": "levels", "transform": [{"type": "filter", "expr": "indexof(probDomain, datum.level) >= 0"}]},
+    {"name": "impactLevelsFiltered", "source": "levels", "transform": [{"type": "filter", "expr": "indexof(impactDomain, datum.level) >= 0"}]},
+    {"name": "cellCounts", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(probDomain, datum.Probability) >= 0 && indexof(impactDomain, datum.Impact) >= 0"},
+      {"type": "aggregate", "groupby": ["Probability", "Impact"], "ops": ["count"], "as": ["groupCount"]}
+    ]},
+    {"name": "impactTextLen", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(impactDomain, datum.Impact) >= 0"},
+      {"type": "formula", "as": "nameLen", "expr": "length(datum['Key Active Risk'])"},
+      {"type": "aggregate", "groupby": ["Impact"], "ops": ["max"], "fields": ["nameLen"], "as": ["maxLen"]}
+    ]},
+    {"name": "rowCounts", "source": "cellCounts", "transform": [{"type": "aggregate", "groupby": ["Probability"], "ops": ["max"], "fields": ["groupCount"], "as": ["maxCount"]}]},
+    {"name": "colCounts", "source": "cellCounts", "transform": [{"type": "aggregate", "groupby": ["Impact"], "ops": ["max"], "fields": ["groupCount"], "as": ["maxCount"]}]},
+    {"name": "probRowsRaw", "source": "probLevelsFiltered", "transform": [
+      {"type": "lookup", "from": "rowCounts", "key": "Probability", "fields": ["level"], "values": ["maxCount"], "as": ["maxCount"], "default": 1},
+      {"type": "formula", "as": "labelLen", "expr": "length(datum.level)"},
+      {"type": "formula", "as": "rowCount", "expr": "max(datum.maxCount, ceil(datum.labelLen / 4))"}
+    ]},
+    {"name": "probRowTotal", "source": "probRowsRaw", "transform": [{"type": "aggregate", "ops": ["sum"], "fields": ["rowCount"], "as": ["total"]}]},
+    {"name": "probRank5", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 5"}]},
+    {"name": "probRank4", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 4"}]},
+    {"name": "probRank3", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 3"}]},
+    {"name": "probRank2", "source": "probRowsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 2"}]},
+    {"name": "probRows", "source": "probRowsRaw", "transform": [
+      {"type": "formula", "as": "y0", "expr": "plotTop + (datum.rank === 5 ? 0 : datum.rank === 4 ? pr5 : datum.rank === 3 ? pr5 + pr4 : datum.rank === 2 ? pr5 + pr4 + pr3 : pr5 + pr4 + pr3 + pr2) / peek(data('probRowTotal')).total * (plotBottom - plotTop)"},
+      {"type": "formula", "as": "y1", "expr": "datum.y0 + (datum.rowCount / peek(data('probRowTotal')).total) * (plotBottom - plotTop)"}
+    ]},
+    {"name": "impactColsRaw", "source": "impactLevelsFiltered", "transform": [
+      {"type": "lookup", "from": "colCounts", "key": "Impact", "fields": ["level"], "values": ["maxCount"], "as": ["maxCount"], "default": 1},
+      {"type": "lookup", "from": "impactTextLen", "key": "Impact", "fields": ["level"], "values": ["maxLen"], "as": ["maxLen"], "default": 0},
+      {"type": "formula", "as": "labelLen", "expr": "length(datum.level)"},
+      {"type": "formula", "as": "colCount", "expr": "max(datum.maxCount, ceil(datum.maxLen / 5), ceil(datum.labelLen / 2))"}
+    ]},
+    {"name": "impactColTotal", "source": "impactColsRaw", "transform": [{"type": "aggregate", "ops": ["sum"], "fields": ["colCount"], "as": ["total"]}]},
+    {"name": "impactRank1", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 1"}]},
+    {"name": "impactRank2", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 2"}]},
+    {"name": "impactRank3", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 3"}]},
+    {"name": "impactRank4", "source": "impactColsRaw", "transform": [{"type": "filter", "expr": "datum.rank === 4"}]},
+    {"name": "impactCols", "source": "impactColsRaw", "transform": [
+      {"type": "formula", "as": "x0", "expr": "plotLeft + (datum.rank === 1 ? 0 : datum.rank === 2 ? ic1 : datum.rank === 3 ? ic1 + ic2 : datum.rank === 4 ? ic1 + ic2 + ic3 : ic1 + ic2 + ic3 + ic4) / peek(data('impactColTotal')).total * (plotRight - plotLeft)"},
+      {"type": "formula", "as": "x1", "expr": "datum.x0 + (datum.colCount / peek(data('impactColTotal')).total) * (plotRight - plotLeft)"}
+    ]},
+    {"name": "gridCells", "source": "levels", "transform": [
+      {"type": "cross", "as": ["prob", "impact"]},
+      {"type": "formula", "as": "score", "expr": "datum.prob.rank + datum.impact.rank"},
+      {"type": "lookup", "from": "probRows", "key": "level", "fields": ["prob.level"], "values": ["y0", "y1"], "as": ["probY0", "probY1"]},
+      {"type": "lookup", "from": "impactCols", "key": "level", "fields": ["impact.level"], "values": ["x0", "x1"], "as": ["impactX0", "impactX1"]}
+    ]},
+    {"name": "datasetFiltered", "source": "dataset", "transform": [
+      {"type": "filter", "expr": "indexof(probDomain, datum.Probability) >= 0 && indexof(impactDomain, datum.Impact) >= 0"},
+      {"type": "lookup", "from": "probRows", "key": "level", "fields": ["Probability"], "values": ["y0", "y1"], "as": ["rowY0", "rowY1"]},
+      {"type": "lookup", "from": "impactCols", "key": "level", "fields": ["Impact"], "values": ["x0", "x1"], "as": ["colX0", "colX1"]},
+      {"type": "joinaggregate", "groupby": ["Probability", "Impact"], "ops": ["count"], "as": ["groupCount"]},
+      {"type": "window", "groupby": ["Probability", "Impact"], "ops": ["row_number"], "as": ["stackIndex"]},
+      {"type": "formula", "as": "cellWidth", "expr": "max(8 * sizeScale, datum.colX1 - datum.colX0 - (2 * sizeScale))"},
+      {"type": "formula", "as": "cellHeight", "expr": "max(1, datum.rowY1 - datum.rowY0 - (1 * sizeScale))"},
+      {"type": "formula", "as": "words", "expr": "split(datum['Key Active Risk'], ' ')"},
+      {"type": "formula", "as": "targetLineCount", "expr": "length(datum.words) <= 1 ? 1 : length(datum.words) <= 4 ? 2 : 3"},
+      {"type": "formula", "as": "wordsPerLine", "expr": "ceil(length(datum.words) / datum.targetLineCount)+1"},
+      {"type": "formula", "as": "labelLines", "expr": "datum.targetLineCount === 1 ? [datum['Key Active Risk']] : datum.targetLineCount === 2 ? [join(slice(datum.words, 0, datum.wordsPerLine), ' '), join(slice(datum.words, datum.wordsPerLine), ' ')] : [join(slice(datum.words, 0, datum.wordsPerLine), ' '), join(slice(datum.words, datum.wordsPerLine, datum.wordsPerLine * 2), ' '), join(slice(datum.words, datum.wordsPerLine *2), ' ')]"},
+      {"type": "formula", "as": "numLines", "expr": "length(datum.labelLines)"},
+      {"type": "formula", "as": "longestLineLen", "expr": "max(length(datum.labelLines[0]), datum.numLines > 1 ? length(datum.labelLines[1]) : 0, datum.numLines > 2 ? length(datum.labelLines[2]) : 0)"},
+      {"type": "formula", "as": "rawWidth", "expr": "(25 * sizeScale) + datum.longestLineLen * (4.8 * sizeScale)"},
+      {"type": "formula", "as": "fontScale", "expr": "min(1, datum.cellWidth / datum.rawWidth)"},
+      {"type": "formula", "as": "rowStep", "expr": "max(1, datum.cellHeight / datum.groupCount+0)"},
+      {"type": "formula", "as": "availablePillHeight", "expr": "max(1, datum.rowStep - (3 * sizeScale))"},
+      {"type": "formula", "as": "desiredPillHeight", "expr": "(14 + (datum.numLines -1) * 9) * sizeScale"},
+      {"type": "formula", "as": "pillRenderHeight", "expr": "min(datum.desiredPillHeight, datum.availablePillHeight)"},
+      {"type": "formula", "as": "pillFontSize", "expr": "max(2, min(18, datum.pillRenderHeight / (datum.numLines * 1.15), 12 * datum.fontScale * sizeScale))"},
+      {"type": "formula", "as": "labelWidth", "expr": "min(datum.cellWidth, datum.rawWidth)"},
+      {"type": "formula", "as": "yOffsetCalc", "expr": "(datum.stackIndex - (datum.groupCount + 1) / 2) * datum.rowStep"},
+      {"type": "formula", "as": "pillXC", "expr": "(datum.colX0 + datum.colX1) / 2"},
+      {"type": "formula", "as": "pillYC", "expr": "(datum.rowY0 + datum.rowY1+2) / 2 + datum.yOffsetCalc"}
+    ]}
+  ],
+  "scales": [
+    {"name": "cellColor", "type": "linear", "domain": [2, 10], "range": ["#FDF1F7", "#830051"]},
+    {"name": "stripColor", "type": "ordinal", "domain": ["Very Low", "Low", "Medium", "High", "Very High"], "range": ["#FBE4EF", "#F3AFD1", "#D46FAA", "#A32D74", "#830051"]}
+  ],
+  "marks": [
+    {"type": "rect", "from": {"data": "gridCells"}, "encode": {"update": {
+      "x": {"field": "impactX0"}, "x2": {"field": "impactX1"}, "y": {"field": "probY0"}, "y2": {"field": "probY1"},
+      "fill": {"scale": "cellColor", "field": "score"}, "stroke": {"value": "#FFFFFF"}, "strokeWidth": {"value": 0}
+    }}},
+    {"type": "rect", "from": {"data": "probRows"}, "encode": {"update": {
+      "x": {"value": 50}, "width": {"value": 20}, "y": {"field": "y0"}, "y2": {"field": "y1"}, "fill": {"scale": "stripColor", "field": "level"}
+    }}},
+    {"type": "text", "from": {"data": "probRows"}, "encode": {"update": {
+      "x": {"value": 60}, "y": {"signal": "(datum.y0 + datum.y1) / 2"}, "text": {"field": "level"}, "angle": {"value": -90},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"value": 8},
+      "fill": [{"test": "datum.level === 'High' || datum.level === 'Very High'", "value": "#FFFFFF"}, {"value": "#333333"}]
+    }}},
+    {"type": "rect", "from": {"data": "impactCols"}, "encode": {"update": {
+      "x": {"field": "x0"}, "x2": {"field": "x1"}, "y": {"signal": "plotBottom + 2"}, "height": {"value": 15}, "fill": {"scale": "stripColor", "field": "level"}
+    }}},
+    {"type": "text", "from": {"data": "impactCols"}, "encode": {"update": {
+      "x": {"signal": "(datum.x0 + datum.x1) / 2"}, "y": {"signal": "plotBottom + 10"}, "text": {"field": "level"},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"value": 8},
+      "fill": [{"test": "datum.level === 'High' || datum.level === 'Very High'", "value": "#FFFFFF"}, {"value": "#333333"}]
+    }}},
+    {"type": "rect", "name": "riskPill", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "xc": {"field": "pillXC"}, "yc": {"field": "pillYC"}, "width": {"field": "labelWidth"}, "height": {"field": "pillRenderHeight"},
+      "cornerRadius": {"signal": "max(1, datum.pillRenderHeight / 2)"}, "fill": {"value": "#830051"},
+      "fillOpacity": [{"test": "datum.__selected__ === 'off'", "value": 0.4}, {"value": 1}], "cursor": {"value": "pointer"}
+    }}},
+    {"type": "text", "name": "riskPillText", "from": {"data": "datasetFiltered"}, "encode": {"update": {
+      "x": {"signal": "datum.pillXC"}, "y": {"signal": "datum.pillYC-2"}, "text": {"field": "labelLines"},
+      "align": {"value": "center"}, "baseline": {"value": "middle"}, "fontSize": {"field": "pillFontSize"},
+      "lineHeight": {"signal": "datum.pillFontSize * 1.3"}, "fill": {"value": "#FFFFFF"}, "cursor": {"value": "pointer"},
+      "opacity": [
+        {"test": "datum.__selected__ === 'off'", "value": 0.4},
+        {"test": "datum.pillRenderHeight < 8 * sizeScale", "value": 0},
+        {"value": 1}
+      ]
+    }}}
+  ],
+  "config": {"view": {"stroke": null}, "font": "Segoe UI"}
+};
+
+Promise.all([
+  fetch('data/k-dim-risk.json').then(r => r.json()),
+  fetch('data/ep-dim-risktest.json').then(r => r.json())
+]).then(([karData, epData]) => {
+  karRowsRaw = unwrapRows(karData);
+  epRowsRaw = unwrapRows(epData);
+
+  const linkedIds = [...new Set(karRowsRaw.flatMap(row =>
+    String(row['Linked Principal Risk IDs'] || '').split(',').map(s => s.trim()).filter(Boolean)
+  ))].map(Number).sort((a, b) => a - b);
+  linkedEnduringRows = linkedIds
+    .map(id => epRowsRaw.find(r => Number(r['Enduring Risk Number']) === id))
+    .filter(Boolean);
+
+  document.getElementById('kpiTotalKar').textContent = karRowsRaw.length;
+  document.getElementById('kpiTotalLinked').textContent = linkedEnduringRows.length;
+
+  populateFilters();
+  renderLinkedEnduringTable();
+  currentSelection = karRowsRaw[0] ? karRowsRaw[0]['Key Active Risk'] : null;
+  renderKarSummaryTable();
+  renderDetailPanel(currentSelection);
+
+  return vegaEmbed('#quadrantView', quadrantSpec, { actions: false });
+}).then(result => {
+  quadrantView = result.view;
+  quadrantView.change('dataset', vega.changeset().insert(buildQuadrantRows())).run();
+
+  const containerEl = document.getElementById('quadrantContainer');
+  let resizeFrame = null;
+  new ResizeObserver(entries => {
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      const { width, height } = entries[0].contentRect;
+      if (width > 0 && height > 0) {
+        quadrantView.signal('pbiContainerWidth', Math.round(width)).signal('pbiContainerHeight', Math.round(height)).run();
+      }
+    });
+  }).observe(containerEl);
+
+  document.getElementById('status').textContent = '';
+}).catch(err => {
+  document.getElementById('status').textContent = 'Failed to load: ' + err.message;
+  console.error(err);
+});
+</script>
+
+</body>
+</html>
