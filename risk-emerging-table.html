@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emerging Risk Table</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  :root { --burgundy: #800020; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body.emerging-table-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px 24px;
+    background: #f5f5f5;
+  }
+  .dashboard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 -20px 14px;
+    padding: 8px 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .homepage-button {
+    display: inline-flex;
+    box-sizing: border-box;
+    width: fit-content;
+    height: 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    background: #830051;
+    color: #fff;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .export-pdf-button {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 14px;
+    background: var(--burgundy);
+    color: #fff;
+    border: none;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .pagination-block { display: flex; flex-direction: column; gap: 4px; }
+  .pagination-block-label { font-size: 10.5px; font-weight: 700; color: #1b1b1b; }
+  .pagination { display: flex; flex-wrap: wrap; gap: 5px; max-width: 420px; }
+  .range-page-btn {
+    min-width: 44px;
+    height: 26px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    background: #eee;
+    color: #555;
+    font-weight: 700;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .range-page-btn.active { border-color: var(--burgundy); background: #fff; color: var(--burgundy); }
+
+  .legend-title { display: block; font-weight: 700; font-size: 12.5px; margin-bottom: 6px; color: #1b1b1b; }
+  .strategy-key-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 5px 18px; }
+  .strategy-key-item { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #333; max-width: 140px; line-height: 1.15; }
+  .strategy-key-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: #1b2a4a; color: #fff;
+  }
+  .strategy-key-icon svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategy-key-icon svg.fill-icon { fill: currentColor; stroke: none; }
+
+  .brand-right-image { width: 180px; max-height: 60px; }
+
+  #status { font-size: 13px; color: #666; margin: 4px 0 10px; }
+
+  .table-scroll { overflow-x: auto; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .table-scroll.is-hidden { display: none; }
+  .wide-table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  .wide-table th, .wide-table td {
+    border: 1px solid #eee;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 11px;
+    vertical-align: top;
+  }
+  .wide-table th {
+    background: #fff;
+    color: var(--burgundy);
+    border-bottom: 2px solid var(--burgundy);
+    font-size: 11px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .sort-arrow { font-size: 9px; margin-left: 2px; }
+  .wide-table col.col-id { width: 45px; }
+  .wide-table col.col-name { width: 170px; }
+  .wide-table col.col-statement { width: 220px; }
+  .wide-table col.col-areas { width: 100px; }
+  .wide-table col.col-level { width: 66px; }
+  .wide-table col.col-time { width: 80px; }
+  .wide-table col.col-bullets { width: 220px; }
+  .wide-table col.col-action { width: 90px; }
+
+  .wide-table td.pre-line { white-space: pre-line; }
+  .level-cell { text-align: center; vertical-align: middle !important; font-weight: 700; font-size: 14px; }
+  .areas-row { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+  .strategic-area-icon {
+    display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center;
+    border-radius: 50%; border: 2px solid #c9c9c9; background: #fff; color: #fff; flex: 0 0 auto;
+  }
+  .strategic-area-icon.is-yes { border-color: #1b2a4a; background: #1b2a4a; }
+  .strategic-area-icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .action-category { font-weight: 700; color: var(--burgundy); font-size: 11.5px; }
+
+  @media (max-width: 1100px) {
+    .dashboard-topbar { justify-content: flex-start; }
+  }
+
+  #printAllContainer { display: none; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    .site-nav, #status, .table-scroll { display: none !important; }
+    .pagination-block, .export-pdf-button, .homepage-button { display: none !important; }
+    .dashboard-topbar { position: static !important; box-shadow: none !important; margin: 0 0 10px !important; }
+    #printAllContainer { display: block !important; }
+    body.emerging-table-page { background: #fff; padding: 0; }
+    @page { size: A3 landscape; margin: 10mm; }
+    #printAllContainer .wide-table { width: 100%; min-width: 0; font-size: 9px; }
+    #printAllContainer .wide-table th, #printAllContainer .wide-table td { padding: 4px 6px; font-size: 9px; }
+    #printAllContainer .wide-table thead { display: table-header-group; }
+    #printAllContainer .wide-table tbody tr { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="emerging-table-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-cluster-cards.html">Emerging Risk Cluster Cards</a>
+  <a href="risk-emerging-table.html" class="active">Emerging Risk Table</a>
+  <a href="risk-matrix.html">Key Active Risks</a>
+  <a href="risk-summary-cards.html">Key Active Risk Summary Cards</a>
+  <a href="risk-kar-table.html">Key Active Risk Table</a>
+  <a href="risk-kar-detail.html">Key Active Risk Detail</a>
+  <a href="#">Enduring &amp; Principal Risks</a>
+  <a href="risk-material-control.html">Material Controls</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-identity">
+    <div class="brand-logo-row">
+      <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+      <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+    </div>
+    <div class="brand-meta">
+      <span>Nexus</span>
+      <span>Emerging Risk Table</span>
+      <span class="refresh-line">Data refreshed: UTC <time id="refreshDateTime"></time></span>
+    </div>
+  </div>
+
+  <div class="pagination-block">
+    <span class="pagination-block-label">Clusters</span>
+    <div class="pagination" id="clusterPagination"></div>
+  </div>
+
+  <div class="pagination-block">
+    <span class="pagination-block-label">Details</span>
+    <div class="pagination" id="detailPagination"></div>
+  </div>
+
+  <button class="export-pdf-button" type="button" id="exportPdfBtn">Export to PDF</button>
+
+  <div class="strategy-key">
+    <span class="legend-title">Strategy key</span>
+    <div class="strategy-key-grid">
+      <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg></span>Science and Innovation</span>
+      <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg></span>People and Sustainability</span>
+      <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg></span>Growth and Therapy Area Leadership</span>
+      <span class="strategy-key-item"><span class="strategy-key-icon"><svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg></span>Achieve Group Financial Targets</span>
+    </div>
+  </div>
+
+  <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+</header>
+
+<div id="status">Loading data...</div>
+
+<div class="table-scroll" id="clustersScroll">
+  <table class="wide-table" id="clustersTable">
+    <colgroup>
+      <col class="col-id"><col class="col-name"><col class="col-statement"><col class="col-areas">
+      <col class="col-level"><col class="col-bullets"><col class="col-bullets"><col class="col-time">
+      <col class="col-action"><col class="col-bullets"><col class="col-bullets">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>ID <span class="sort-arrow">&#9650;</span></th>
+        <th>Cluster</th>
+        <th>Risk Statement</th>
+        <th>Strategic Areas</th>
+        <th>Potential Impact</th>
+        <th>Why Emerging</th>
+        <th>Potential Enterprise Impact</th>
+        <th>Time to Active Management</th>
+        <th>Action</th>
+        <th>Action Detail</th>
+        <th>Key Active Triggers</th>
+      </tr>
+    </thead>
+    <tbody id="clustersTableBody"></tbody>
+  </table>
+</div>
+
+<div class="table-scroll is-hidden" id="detailsScroll">
+  <table class="wide-table" id="detailsTable">
+    <colgroup>
+      <col class="col-id"><col class="col-name"><col class="col-name"><col class="col-statement">
+      <col class="col-bullets"><col class="col-name"><col class="col-areas"><col class="col-level">
+      <col class="col-level"><col class="col-time"><col class="col-bullets"><col class="col-bullets"><col class="col-bullets">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>ID <span class="sort-arrow">&#9650;</span></th>
+        <th>Cluster</th>
+        <th>Emerging Risk</th>
+        <th>Risk Statement</th>
+        <th>Related SET Areas</th>
+        <th>Thematic Category</th>
+        <th>Strategic Areas</th>
+        <th>Potential Impact</th>
+        <th>Priority Level</th>
+        <th>Time to Active Management</th>
+        <th>Why Emerging Now</th>
+        <th>Potential Enterprise Impact</th>
+        <th>Key Active Risk Triggers</th>
+      </tr>
+    </thead>
+    <tbody id="detailsTableBody"></tbody>
+  </table>
+</div>
+
+<div id="printAllContainer"></div>
+
+<script>
+  document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+  }).format(new Date());
+
+  const PAGE_SIZE = 5;
+  const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+  const STRATEGIC_AREA_ICONS = [
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+    '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+  ];
+  const IMPACT_COLOR = { 'Very High': '#0c2b4e', 'High': '#1c5fa1', 'Medium': '#4fa3dc', 'Low': '#bcdcf3', 'Very Low': '#eaf3fb' };
+  const IMPACT_TEXT = { 'Very High': '#fff', 'High': '#fff', 'Medium': '#fff', 'Low': '#1b2a4a', 'Very Low': '#1b2a4a' };
+
+  let clusterRows = [];
+  let detailRows = [];
+  let activeView = 'clusters'; // 'clusters' | 'details'
+  let clusterPage = 1;
+  let detailPage = 1;
+
+  function unwrapRows(payload) { return payload?.rows?.body || payload?.rows?.rows || payload?.rows || payload || []; }
+
+  function strategicAreaIconsHtml(row) {
+    return STRATEGIC_AREA_NAMES.map((area, i) => {
+      const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+      return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>`;
+    }).join('');
+  }
+
+  function impactCellHtml(impact) {
+    const bg = IMPACT_COLOR[impact] || '#999';
+    const color = IMPACT_TEXT[impact] || '#333';
+    return `<td class="level-cell" style="background:${bg}; color:${color};">${impact || ''}</td>`;
+  }
+
+  // e_bridge_risk_clusters.json is a bridge table: one row per (cluster, mapped emerging risk),
+  // so cluster-level fields repeat once per member risk -- dedupe down to one row per Cluster ID.
+  function dedupeClusterRows(rows) {
+    const seen = new Map();
+    rows.forEach(row => {
+      const id = row['Cluster ID'];
+      if (id == null || seen.has(id)) return;
+      seen.set(id, row);
+    });
+    return [...seen.values()].sort((a, b) => Number(a['Cluster ID']) - Number(b['Cluster ID']));
+  }
+
+  function renderClusterRow(row) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row['Cluster ID'] ?? ''}</td>
+      <td>${row['Cluster'] || ''}</td>
+      <td>${row['Risk Statement'] || ''}</td>
+      <td><div class="areas-row">${strategicAreaIconsHtml(row)}</div></td>
+      ${impactCellHtml(row['Potential Impact Rating'])}
+      <td class="pre-line">${row['Why Emerging'] || ''}</td>
+      <td class="pre-line">${row['Potential Enterprise Impact'] || ''}</td>
+      <td>${row['Time to Active Management'] || ''}</td>
+      <td class="action-category">${row['Action'] || ''}</td>
+      <td class="pre-line">${row['Action Detail'] || ''}</td>
+      <td class="pre-line">${row['Key Active Triggers'] || ''}</td>
+    `;
+    return tr;
+  }
+
+  function renderDetailRow(row) {
+    const cluster = clusterRows.find(c => String(c['Cluster ID']) === String(row['Cluster Mapping']));
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row['ER_ID'] ?? ''}</td>
+      <td>${row['ER_Cluster'] || ''}</td>
+      <td>${row['Emerging Risk'] || ''}</td>
+      <td>${row['Risk Statement'] || ''}</td>
+      <td class="pre-line">${cluster ? cluster['Related SET Areas'] || '' : ''}</td>
+      <td>${row['Thematic Category'] || ''}</td>
+      <td><div class="areas-row">${strategicAreaIconsHtml(row)}</div></td>
+      ${impactCellHtml(row['Potential Impact'])}
+      <td>${row['Overall Risk'] || ''}</td>
+      <td>${row['Time to Active Management'] || ''}</td>
+      <td class="pre-line">${row['Why Emerging Now'] || ''}</td>
+      <td class="pre-line">${row['Potential Enterprise Impact'] || ''}</td>
+      <td class="pre-line">${row['Key Active Risk Triggers'] || ''}</td>
+    `;
+    return tr;
+  }
+
+  function buildPagination(containerEl, totalRows, currentPage, onSelect) {
+    containerEl.innerHTML = '';
+    const totalPages = Math.max(1, Math.ceil(totalRows / PAGE_SIZE));
+    for (let p = 1; p <= totalPages; p++) {
+      const start = (p - 1) * PAGE_SIZE + 1;
+      const end = Math.min(p * PAGE_SIZE, totalRows);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'range-page-btn' + (p === currentPage ? ' active' : '');
+      btn.textContent = start === end ? `${start}` : `${start}-${end}`;
+      btn.addEventListener('click', () => onSelect(p));
+      containerEl.appendChild(btn);
+    }
+  }
+
+  function renderClustersTable() {
+    const totalPages = Math.max(1, Math.ceil(clusterRows.length / PAGE_SIZE));
+    clusterPage = Math.min(Math.max(1, clusterPage), totalPages);
+    const start = (clusterPage - 1) * PAGE_SIZE;
+    const pageRows = clusterRows.slice(start, start + PAGE_SIZE);
+    const tbody = document.getElementById('clustersTableBody');
+    tbody.innerHTML = '';
+    pageRows.forEach(row => tbody.appendChild(renderClusterRow(row)));
+    buildPagination(document.getElementById('clusterPagination'), clusterRows.length, clusterPage, p => {
+      clusterPage = p;
+      activeView = 'clusters';
+      renderActiveView();
+    });
+  }
+
+  function renderDetailsTable() {
+    const totalPages = Math.max(1, Math.ceil(detailRows.length / PAGE_SIZE));
+    detailPage = Math.min(Math.max(1, detailPage), totalPages);
+    const start = (detailPage - 1) * PAGE_SIZE;
+    const pageRows = detailRows.slice(start, start + PAGE_SIZE);
+    const tbody = document.getElementById('detailsTableBody');
+    tbody.innerHTML = '';
+    pageRows.forEach(row => tbody.appendChild(renderDetailRow(row)));
+    buildPagination(document.getElementById('detailPagination'), detailRows.length, detailPage, p => {
+      detailPage = p;
+      activeView = 'details';
+      renderActiveView();
+    });
+  }
+
+  function renderActiveView() {
+    renderClustersTable();
+    renderDetailsTable();
+    document.getElementById('clustersScroll').classList.toggle('is-hidden', activeView !== 'clusters');
+    document.getElementById('detailsScroll').classList.toggle('is-hidden', activeView !== 'details');
+    document.getElementById('status').textContent = activeView === 'clusters'
+      ? `Showing ${Math.min(PAGE_SIZE, clusterRows.length - (clusterPage - 1) * PAGE_SIZE)} of ${clusterRows.length} emerging risk clusters.`
+      : `Showing ${Math.min(PAGE_SIZE, detailRows.length - (detailPage - 1) * PAGE_SIZE)} of ${detailRows.length} emerging risks.`;
+  }
+
+  // One continuous table with every row of the currently active view -- the print CSS (thead
+  // as table-header-group, tbody tr { break-inside: avoid }) lets the browser pack as many
+  // rows as fit on each printed page and only overflow when a row genuinely doesn't fit.
+  function exportToPdf() {
+    const container = document.getElementById('printAllContainer');
+    container.innerHTML = '';
+
+    const sourceTable = activeView === 'clusters' ? document.getElementById('clustersTable') : document.getElementById('detailsTable');
+    const rows = activeView === 'clusters' ? clusterRows : detailRows;
+    const renderRow = activeView === 'clusters' ? renderClusterRow : renderDetailRow;
+
+    const table = document.createElement('table');
+    table.className = 'wide-table';
+    table.appendChild(sourceTable.querySelector('colgroup').cloneNode(true));
+    table.appendChild(sourceTable.querySelector('thead').cloneNode(true));
+
+    const tbody = document.createElement('tbody');
+    rows.forEach(row => tbody.appendChild(renderRow(row)));
+    table.appendChild(tbody);
+
+    container.appendChild(table);
+    window.print();
+  }
+
+  document.getElementById('exportPdfBtn').addEventListener('click', exportToPdf);
+
+  Promise.all([
+    fetch('data/e_bridge_risk_clusters.json').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+    fetch('data/e_dim_risk.json').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  ]).then(([clusterData, detailData]) => {
+    clusterRows = dedupeClusterRows(unwrapRows(clusterData));
+    detailRows = unwrapRows(detailData);
+    renderActiveView();
+  }).catch(err => {
+    document.getElementById('status').textContent = 'Failed to load: ' + err.message;
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
