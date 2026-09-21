@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Material Control Overview</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+  :root { --burgundy: #800020; }
+  * { box-sizing: border-box; }
+  body.material-control-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px 24px;
+    background: #f5f5f5;
+  }
+  .dashboard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin: 0 -20px 14px;
+    padding: 8px 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .homepage-button {
+    display: inline-flex; box-sizing: border-box; width: fit-content; height: 36px; align-items: center; gap: 6px;
+    padding: 0 8px; background: var(--burgundy); color: #fff; text-decoration: none; font-size: 11px; font-weight: 700;
+  }
+  .brand-right-image { width: 190px; max-height: 65px; }
+
+  #status { font-size: 13px; color: #666; margin: 0 0 10px; }
+
+  .chart-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px; }
+  .chart-panel h3 { margin: 0; padding: 8px 12px; background: #6b6b6b; color: #fff; font-size: 13px; font-weight: 700; }
+  #frequencyContainer { padding: 8px; }
+  #frequencyView { width: 100%; height: 480px; overflow: hidden; }
+
+  .control-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .control-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px; font-size: 12px; color: #333; }
+  .control-panel-header label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+  .control-scroll { max-height: 420px; overflow: auto; border-top: 1px solid #eee; }
+  .control-table { border-collapse: collapse; width: 100%; min-width: 900px; }
+  .control-table th, .control-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: top; }
+  .control-table th { position: sticky; top: 0; z-index: 1; background: #fff; color: var(--burgundy); font-size: 11px; border-bottom: 2px solid var(--burgundy); }
+  .sort-arrow { font-size: 9px; margin-left: 2px; }
+  .control-table col.col-ref { width: 100px; }
+  .control-table col.col-name { width: 200px; }
+  .control-table col.col-desc { width: auto; }
+  .control-table col.col-owner { width: 140px; }
+  .control-table col.col-linked { width: 100px; }
+  .control-table td.control-description { white-space: pre-line; }
+  .control-table th.col-hidden, .control-table td.col-hidden { display: none; }
+  .control-table tbody tr:hover { background: #f8e6ef; }
+
+  @media (max-width: 900px) {
+    .dashboard-topbar { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body class="material-control-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-matrix.html">Key Active Risks</a>
+  <a href="risk-summary-cards.html">Key Active Risk Summary Cards</a>
+  <a href="risk-kar-table.html">Key Active Risk Table</a>
+  <a href="risk-kar-detail.html">Key Active Risk Detail</a>
+  <a href="risk-material-control.html" class="active">Material Control Overview</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-identity">
+    <div class="brand-logo-row">
+      <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+      <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+    </div>
+    <div class="brand-meta">
+      <span>Nexus</span>
+      <span>Material Control Overview</span>
+      <span class="refresh-line">Data refreshed: UTC <time id="refreshDateTime"></time></span>
+    </div>
+  </div>
+  <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+</header>
+
+<div id="status">Loading data...</div>
+
+<section class="chart-panel">
+  <h3>Material Control-to-Enduring Risk Frequency Map</h3>
+  <div id="frequencyContainer">
+    <div id="frequencyView"></div>
+  </div>
+</section>
+
+<section class="control-panel">
+  <div class="control-panel-header">
+    <label><input type="checkbox" id="hideControlRefToggle"> Hide Control Reference</label>
+  </div>
+  <div class="control-scroll">
+    <table class="control-table">
+      <colgroup>
+        <col class="col-ref"><col class="col-name"><col class="col-desc"><col class="col-owner"><col class="col-linked">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="col-ref">Control Reference</th>
+          <th>Control Name</th>
+          <th>Control Description <span class="sort-arrow">&#9650;</span></th>
+          <th>Control Owner</th>
+          <th>Linked Risks</th>
+        </tr>
+      </thead>
+      <tbody id="controlTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+}).format(new Date());
+
+vega.expressionFunction('pbiCrossFilterApply', function (event) {
+  var d = event && event.item && event.item.datum;
+  if (d) {
+    if (currentSelection && currentSelection.controlName === d['Control Name'] && currentSelection.shortName === d['Short Name']) {
+      clearCrossFilterSelection();
+    } else {
+      setCrossFilterSelection(d['Control Name'], d['Short Name']);
+    }
+  }
+  return null;
+});
+vega.expressionFunction('pbiCrossFilterClear', function () {
+  clearCrossFilterSelection();
+  return null;
+});
+
+function unwrapRows(payload) { return payload?.rows?.body || payload?.rows?.rows || payload?.rows || payload || []; }
+
+let materialControlRows = [];
+let epRowsRaw = [];
+let currentSelection = null; // { controlName, shortName } | null
+let frequencyView = null;
+let hideControlRef = false;
+
+function buildFrequencyPairs() {
+  return materialControlRows.flatMap(mc => {
+    const ids = String(mc['Linked Enduring Risk IDs'] || '').split(',').map(s => s.trim()).filter(Boolean);
+    return ids.map(id => {
+      const ep = epRowsRaw.find(r => String(r['Enduring Risk Number']) === id);
+      if (!ep) return null;
+      const isMatch = currentSelection && mc['Control Name'] === currentSelection.controlName && ep['Short Name'] === currentSelection.shortName;
+      return {
+        'Control Name': mc['Control Name'],
+        'Short Name': ep['Short Name'],
+        '__selected__': currentSelection ? (isMatch ? 'on' : 'off') : undefined
+      };
+    }).filter(Boolean);
+  });
+}
+
+function renderControlTable() {
+  const rowsToRender = currentSelection
+    ? materialControlRows.filter(mc => mc['Control Name'] === currentSelection.controlName)
+    : materialControlRows;
+  const tbody = document.getElementById('controlTableBody');
+  tbody.innerHTML = '';
+  rowsToRender.forEach(mc => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="${hideControlRef ? 'col-hidden' : ''}">${mc['Control Reference'] || ''}</td>
+      <td>${mc['Control Name'] || ''}</td>
+      <td class="control-description">${mc['Control Description'] || ''}</td>
+      <td>${mc['Control Owner'] || ''}</td>
+      <td>${mc['Linked Enduring Risk IDs'] || ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.querySelector('.control-table th.col-ref').classList.toggle('col-hidden', hideControlRef);
+}
+
+function setCrossFilterSelection(controlName, shortName) {
+  currentSelection = { controlName, shortName };
+  renderControlTable();
+  if (frequencyView) frequencyView.change('dataset', vega.changeset().remove(() => true).insert(buildFrequencyPairs())).run();
+}
+
+function clearCrossFilterSelection() {
+  currentSelection = null;
+  renderControlTable();
+  if (frequencyView) frequencyView.change('dataset', vega.changeset().remove(() => true).insert(buildFrequencyPairs())).run();
+}
+
+document.getElementById('hideControlRefToggle').addEventListener('change', event => {
+  hideControlRef = event.target.checked;
+  renderControlTable();
+});
+
+// ---- Frequency map spec (ported from Deneb), container-size signals added to match this app's other pages ----
+const frequencySpec = {
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": {"type": "fit", "contains": "padding"},
+  "padding": {"left": 5, "right": 5, "top": 5, "bottom": 5},
+  "width": {"signal": "pbiContainerWidth - 25"},
+  "height": {"signal": "pbiContainerHeight - 0"},
+  "signals": [
+    {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
+    {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
+    {"name": "clearSelection", "on": [{"events": "click[!event.item]", "update": "pbiCrossFilterClear()"}]},
+    {"name": "toggleSelection", "on": [{"events": "@dotMark:click", "update": "pbiCrossFilterApply(event)"}]}
+  ],
+  "data": [
+    {"name": "dataset"},
+    {"name": "flagged", "source": "dataset", "transform": [
+      {"type": "formula", "as": "selectedFlag", "expr": "datum.__selected__ === 'on' ? 1 : 0"}
+    ]},
+    {"name": "grouped", "source": "flagged", "transform": [
+      {"type": "aggregate", "groupby": ["Control Name", "Short Name"], "fields": [null, "selectedFlag"], "ops": ["count", "sum"], "as": ["Record Count", "Selected Count"]}
+    ]},
+    {"name": "totals", "source": "flagged", "transform": [
+      {"type": "aggregate", "fields": [null, "selectedFlag"], "ops": ["count", "sum"], "as": ["TotalCount", "TotalSelected"]}
+    ]}
+  ],
+  "scales": [
+    {"name": "xscale", "type": "band", "domain": {"data": "grouped", "field": "Control Name"}, "range": "width", "padding": 0.4, "round": true},
+    {"name": "yscale", "type": "band", "domain": {"data": "grouped", "field": "Short Name"}, "range": "height", "padding": 0.4, "round": true}
+  ],
+  "axes": [
+    {"orient": "bottom", "scale": "xscale", "title": "Material Control", "labelAngle": -45, "labelAlign": "right", "labelBaseline": "top", "labelLimit": 300, "labelOverlap": false, "labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#E6E6E6", "gridOpacity": 0.7, "labelColor": "#000000", "titleColor": "#000000"},
+    {"orient": "left", "scale": "yscale", "title": "Enduring Risk", "labelLimit": 220, "labelOverlap": false, "labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#E6E6E6", "gridOpacity": 1, "labelColor": "#000000", "titleColor": "#000000"}
+  ],
+  "marks": [
+    {"type": "symbol", "name": "dotMark", "from": {"data": "grouped"}, "encode": {
+      "enter": {
+        "shape": {"value": "circle"}, "size": {"value": 150}, "fill": {"value": "#808080"}, "stroke": {"value": "#000000"}, "strokeWidth": {"value": 1},
+        "tooltip": {"signal": "{'Control Name': datum['Control Name'], 'Short Name': datum['Short Name']}"}
+      },
+      "update": {
+        "x": {"scale": "xscale", "field": "Control Name", "band": 0.5},
+        "y": {"scale": "yscale", "field": "Short Name", "band": 0.5},
+        "fillOpacity": [{"test": "datum['Selected Count'] === 0 && data('totals')[0].TotalSelected > 0", "value": 0.25}, {"value": 0.9}],
+        "cursor": {"value": "pointer"}
+      }
+    }}
+  ],
+  "config": {"view": {"stroke": null}, "font": "Segoe UI"}
+};
+
+Promise.all([
+  fetch('data/material-control.json').then(r => r.json()),
+  fetch('data/ep-dim-risktest.json').then(r => r.json())
+]).then(([mcData, epData]) => {
+  materialControlRows = unwrapRows(mcData);
+  epRowsRaw = unwrapRows(epData);
+  renderControlTable();
+  return vegaEmbed('#frequencyView', frequencySpec, { actions: false });
+}).then(result => {
+  frequencyView = result.view;
+  frequencyView.change('dataset', vega.changeset().insert(buildFrequencyPairs())).run();
+
+  const containerEl = document.getElementById('frequencyView');
+  let resizeFrame = null;
+  new ResizeObserver(entries => {
+    if (resizeFrame) cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      const { width, height } = entries[0].contentRect;
+      if (width > 0 && height > 0) {
+        frequencyView.signal('pbiContainerWidth', Math.round(width)).signal('pbiContainerHeight', Math.round(height)).run();
+      }
+    });
+  }).observe(containerEl);
+
+  document.getElementById('status').textContent = '';
+}).catch(err => {
+  document.getElementById('status').textContent = 'Failed to load: ' + err.message;
+  console.error(err);
+});
+</script>
+
+</body>
+</html>
