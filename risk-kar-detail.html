@@ -86,8 +86,9 @@
   .kar-summary-table th, .linked-table th { position: sticky; top: 0; z-index: 1; background: #f4edf2; color: var(--burgundy-dark); font-size: 11px; }
   .sort-arrow { font-size: 9px; margin-left: 2px; }
   .kar-summary-table tbody tr, .linked-table tbody tr { cursor: default; }
-  .kar-summary-table tbody tr[data-clickable] { cursor: pointer; }
-  .kar-summary-table tbody tr:hover, .kar-summary-table tbody tr.selected { background: #f8e6ef; }
+  .kar-summary-table tbody tr[data-clickable], .linked-table tbody tr[data-clickable] { cursor: pointer; }
+  .kar-summary-table tbody tr:hover, .kar-summary-table tbody tr.selected,
+  .linked-table tbody tr:hover, .linked-table tbody tr.selected { background: #f8e6ef; }
   .risk-level { font-weight: 700; text-align: center; }
   .risk-level-very-high, .risk-level-high { color: #fff; }
   .risk-level-very-high { background: #6A003C; }
@@ -328,7 +329,9 @@ let karRowsRaw = [];
 let epRowsRaw = [];
 let linkedEnduringRows = [];
 let currentSelection = null;
-let selectionSource = null; // 'quadrant' | 'summary' | null -- whichever picked the selection stays a full picker; the other visuals filter
+let selectionSource = null; // 'quadrant' | 'summary' | 'linked' | null -- whichever picked the selection stays a full picker; the other visuals filter
+let filterKarNames = null; // Set of Key Active Risk names currently in scope, or null for no filter
+let selectedEnduringId = null; // Enduring Risk Number highlighted in the linked-risk table, when selectionSource === 'linked'
 let quadrantView = null;
 let searchScope = 'Key Active Risk';
 let searchText = '';
@@ -379,18 +382,17 @@ function getFilteredKarRows() {
 
 function renderKarSummaryTable() {
   const filtered = getFilteredKarRows();
-  // The quadrant is the "picker" here: a click there should filter this table down to the
-  // match, same as clicking a table row filters the linked-risk table below. But this table
-  // is also its own picker (rows are clickable), so it doesn't filter itself when it's the
-  // source of the selection -- only when the quadrant chart is.
-  const hideMode = selectionSource === 'quadrant';
-  const rowsToRender = hideMode ? filtered.filter(row => row['Key Active Risk'] === currentSelection) : filtered;
+  // This table is its own picker (rows are clickable), so it doesn't filter itself when it's
+  // the source of the selection -- only when the quadrant chart or the linked-risk table is.
+  const hideMode = selectionSource === 'quadrant' || selectionSource === 'linked';
+  const rowsToRender = hideMode && filterKarNames ? filtered.filter(row => filterKarNames.has(row['Key Active Risk'])) : filtered;
   const tbody = document.getElementById('karSummaryBody');
   tbody.innerHTML = '';
   rowsToRender.forEach(row => {
     const tr = document.createElement('tr');
     tr.dataset.clickable = 'true';
-    tr.classList.toggle('selected', selectionSource != null && row['Key Active Risk'] === currentSelection);
+    const isCurrent = row['Key Active Risk'] === currentSelection;
+    tr.classList.toggle('selected', selectionSource === 'summary' && isCurrent);
     tr.innerHTML = `
       <td>${row['KAR_ID'] ?? ''}</td>
       <td>${row['Key Active Risk'] || ''}</td>
@@ -399,38 +401,73 @@ function renderKarSummaryTable() {
       <td><span class="strategic-area-icons">${strategicAreaIconsHtml(row)}</span></td>
       <td>${row['SET Risk Owner'] || ''}</td>
     `;
-    tr.addEventListener('click', () => setCrossFilterSelection(row['Key Active Risk'], 'summary'));
+    tr.addEventListener('click', () => {
+      if (selectionSource === 'summary' && isCurrent) clearCrossFilterSelection();
+      else setCrossFilterSelection(row['Key Active Risk'], 'summary');
+    });
     tbody.appendChild(tr);
   });
+}
+
+function linkedPrincipalRiskIds(karRow) {
+  return String(karRow['Linked Principal Risk IDs'] || '').split(',').map(s => s.trim()).filter(Boolean).map(Number);
 }
 
 function linkedEnduringRowsFor(karName) {
   const karRow = karRowsRaw.find(r => r['Key Active Risk'] === karName);
   if (!karRow) return [];
-  const ids = String(karRow['Linked Principal Risk IDs'] || '').split(',').map(s => s.trim()).filter(Boolean).map(Number);
-  return ids
+  return linkedPrincipalRiskIds(karRow)
     .map(id => epRowsRaw.find(r => Number(r['Enduring Risk Number']) === id))
     .filter(Boolean)
     .sort((a, b) => a['Enduring Risk Number'] - b['Enduring Risk Number']);
 }
 
+function karNamesLinkedToEnduring(enduringId) {
+  return karRowsRaw
+    .filter(row => linkedPrincipalRiskIds(row).includes(enduringId))
+    .map(row => row['Key Active Risk']);
+}
+
 function renderLinkedEnduringTable() {
-  // Global deduped list by default (matches the "Total Linked Enduring Risk" KPI); once
-  // something is actively selected (from either the quadrant or the summary table), this
-  // table -- which is never itself a click source -- filters down to just that risk's links.
-  const rowsToRender = selectionSource == null ? linkedEnduringRows : linkedEnduringRowsFor(currentSelection);
+  // Global deduped list by default (matches the "Total Linked Enduring Risk" KPI) -- also
+  // shown when this table is itself the click source, since it's a picker too. Filters down
+  // to just the selected risk's own links when the quadrant or summary table is the source.
+  const hideMode = selectionSource === 'quadrant' || selectionSource === 'summary';
+  const rowsToRender = hideMode ? linkedEnduringRowsFor(currentSelection) : linkedEnduringRows;
   const tbody = document.getElementById('linkedEnduringBody');
   tbody.innerHTML = '';
   rowsToRender.forEach(row => {
+    const enduringId = Number(row['Enduring Risk Number']);
+    const isCurrent = selectionSource === 'linked' && selectedEnduringId === enduringId;
     const tr = document.createElement('tr');
+    tr.dataset.clickable = 'true';
+    tr.classList.toggle('selected', isCurrent);
     tr.innerHTML = `
       <td>${row['Enduring Risk Number']}</td>
       <td>${row['Enduring Risk']}</td>
       <td class="risk-level ${levelClass(row['Current Impact_Level'])}">${row['Current Impact_Level'] || ''}</td>
       <td class="risk-level ${levelClass(row['Current Likelihood_Level'])}">${row['Current Likelihood_Level'] || ''}</td>
     `;
+    tr.addEventListener('click', () => {
+      if (isCurrent) clearCrossFilterSelection();
+      else selectEnduringRisk(enduringId);
+    });
     tbody.appendChild(tr);
   });
+}
+
+function selectEnduringRisk(enduringId) {
+  const karNames = karNamesLinkedToEnduring(enduringId);
+  selectionSource = 'linked';
+  selectedEnduringId = enduringId;
+  filterKarNames = new Set(karNames);
+  if (karNames.length) currentSelection = karNames[0];
+  renderKarSummaryTable();
+  renderLinkedEnduringTable();
+  renderDetailPanel(currentSelection);
+  if (quadrantView) {
+    quadrantView.change('dataset', vega.changeset().remove(() => true).insert(buildQuadrantRows())).run();
+  }
 }
 
 function renderDetailPanel(name) {
@@ -458,7 +495,7 @@ function buildQuadrantRows() {
     'Key Active Risk': row['Key Active Risk'],
     'Impact': LEVEL_MAP[row['Current Impact']] || row['Current Impact'],
     'Probability': LEVEL_MAP[row['Current Likelihood']] || row['Current Likelihood'],
-    '__selected__': selectionSource == null ? undefined : (row['Key Active Risk'] === currentSelection ? 'on' : 'off')
+    '__selected__': (selectionSource == null || !filterKarNames) ? undefined : (filterKarNames.has(row['Key Active Risk']) ? 'on' : 'off')
   }));
 }
 
@@ -466,6 +503,8 @@ function setCrossFilterSelection(name, source) {
   if (name != null) {
     currentSelection = name;
     selectionSource = source || selectionSource || 'summary';
+    filterKarNames = new Set([name]);
+    selectedEnduringId = null;
   } else if (currentSelection == null && karRowsRaw.length) {
     currentSelection = karRowsRaw[0]['Key Active Risk'];
   }
@@ -478,9 +517,11 @@ function setCrossFilterSelection(name, source) {
 }
 
 function clearCrossFilterSelection() {
-  // Background click / re-clicking the active pill: drop the filtering and dimming, but
-  // keep showing the last-viewed risk in the detail panel rather than leaving it blank.
+  // Background click / re-clicking the active pill or row: drop the filtering and dimming,
+  // but keep showing the last-viewed risk in the detail panel rather than leaving it blank.
   selectionSource = null;
+  filterKarNames = null;
+  selectedEnduringId = null;
   renderKarSummaryTable();
   renderLinkedEnduringTable();
   if (quadrantView) {

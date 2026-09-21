@@ -88,7 +88,7 @@
   .kpi { font-size: 14px; color: var(--charcoal); }
   .kpi strong { color: var(--maroon-dark); font-size: 16px; }
 
-  .tab-group { display: flex; gap: 2px; position: absolute; left: 50%; transform: translateX(-100%); margin-left: -8px; }
+  .tab-group { display: flex; gap: 2px; }
   .tab-btn {
     padding: 8px 18px;
     font-size: 13px;
@@ -101,7 +101,7 @@
   .tab-btn.active { background: var(--maroon); color: #fff; }
   .tab-btn[data-tab="Principal"].active { background: #D4A017; border-color: #D4A017; color: #000; }
 
-  .toggle-group { display: flex; gap: 2px; position: absolute; left: 50%; margin-left: 8px; }
+  .toggle-group { display: flex; gap: 2px; }
   .toggle-btn {
     padding: 8px 16px;
     font-size: 13px;
@@ -112,6 +112,16 @@
     cursor: pointer;
   }
   .toggle-btn.active { background: #333; color: #fff; }
+
+  .search-block { display: flex; flex-direction: column; gap: 6px; min-width: 240px; }
+  .search-box { position: relative; }
+  .search-box input { width: 100%; border: 1px solid #ccc; padding: 6px 60px 6px 10px; font-size: 12px; }
+  .search-box .search-icon-btn, .search-box .search-clear-btn { position: absolute; top: 0; bottom: 0; border: 0; background: transparent; cursor: pointer; color: #888; }
+  .search-box .search-icon-btn { right: 24px; }
+  .search-box .search-clear-btn { right: 2px; font-size: 14px; }
+  .search-scope-row { display: flex; gap: 6px; }
+  .search-scope-btn { border: 1px solid #ddd; background: #f4f4f4; color: #555; font-size: 11px; padding: 4px 10px; border-radius: 12px; cursor: pointer; }
+  .search-scope-btn.active { background: var(--maroon); border-color: var(--maroon); color: #fff; }
 
   .view-tab-group { display: flex; gap: 2px; margin-left: auto; }
   .view-tab { padding: 8px 16px; font-size: 12px; font-weight: 700; border: 1px solid #ccc; background: #ccc; color: #444; cursor: pointer; text-decoration: none; }
@@ -276,8 +286,7 @@
     .filter-grid { grid-template-columns: 1fr 1fr; }
     .legend-panel.is-open { grid-template-columns: 1fr; }
     .kpi-row { gap: 12px; padding: 12px; }
-    .tab-group, .toggle-group { width: 100%; position: static; transform: none; margin: 0; }
-    .tab-group { margin-left: 0; }
+    .tab-group, .toggle-group { width: 100%; }
     .tab-btn, .toggle-btn { flex: 1; padding-inline: 8px; }
     .view-tab-group { width: 100%; margin-left: 0; }
     .view-tab { flex: 1; text-align: center; }
@@ -365,6 +374,19 @@
     <button class="toggle-btn" data-mode="Gross">Gross</button>
   </div>
 
+  <div class="search-block">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search Keywords, e.g. clinical">
+      <button class="search-icon-btn" type="button" tabindex="-1" aria-hidden="true">&#128269;</button>
+      <button class="search-clear-btn" id="searchClearBtn" type="button" title="Clear search">&#10005;</button>
+    </div>
+    <div class="search-scope-row">
+      <button class="search-scope-btn active" data-scope="Enduring Risk" type="button">Risk</button>
+      <button class="search-scope-btn" data-scope="Risk Category" type="button">Risk Category</button>
+      <button class="search-scope-btn" data-scope="Current Year Update" type="button">Current Year Update</button>
+    </div>
+  </div>
+
   <div class="view-tab-group">
     <span class="view-tab active">Enduring &amp; Principal Risk</span>
     <a class="view-tab" href="risk-kar-detail.html">Key Active Risk</a>
@@ -442,6 +464,8 @@ let currentSelection = null;
 let selectionSource = null; // 'matrix' or 'table'
 let currentMode = 'Current'; // 'Current' or 'Gross'
 let currentTab = 'all';      // 'all' | 'Endurance' | 'Principal'
+let searchScope = 'Enduring Risk'; // 'Enduring Risk' | 'Risk Category' | 'Current Year Update'
+let searchText = '';
 const activeFilters = {
   owner: ['All'], period: ['All'], strategicArea: ['All'], riskCategory: ['All'],
   currentProbability: ['All'], grossProbability: ['All'], currentImpact: ['All'], grossImpact: ['All']
@@ -455,6 +479,7 @@ function getFilteredEpRows() {
   return epRowsRaw.filter(row => {
     const strategicMatch = activeFilters.strategicArea.includes('All')
       || activeFilters.strategicArea.some(field => row[field] === 'Yes');
+    const searchMatch = !searchText || String(row[searchScope] || '').toLowerCase().includes(searchText.toLowerCase());
     return matches(activeFilters.owner, row['SET Risk Owner'])
       && strategicMatch
       && matches(activeFilters.riskCategory, row['Risk Category'])
@@ -462,7 +487,8 @@ function getFilteredEpRows() {
       && matches(activeFilters.grossProbability, row['Gross Likelihood_Level'])
       && matches(activeFilters.currentImpact, row['Current Impact_Level'])
       && matches(activeFilters.grossImpact, row['Gross Impact_Level'])
-      && matches(activeFilters.period, row.Period);
+      && matches(activeFilters.period, row.Period)
+      && searchMatch;
   });
 }
 
@@ -563,7 +589,7 @@ function applySelectionFlags(rows, matchField) {
 }
 
 function applySankeyFilterFlags(rows) {
-  const filterIsActive = Object.values(activeFilters).some(values => !values.includes('All'));
+  const filterIsActive = Object.values(activeFilters).some(values => !values.includes('All')) || !!searchText;
   const allowedNames = new Set(getFilteredEpRows().map(row => row['Short Name']));
   const selectionSet = currentSelection ? getCurrentSelectionSet() : null;
   return rows.map(row => {
@@ -1199,8 +1225,28 @@ document.getElementById('clearFilters').addEventListener('click', () => {
     dropdown.querySelectorAll('input').forEach(input => { input.checked = input.value === 'All'; });
     updateMultiSelectLabel(dropdown, ['All']);
   });
+  searchText = '';
+  document.getElementById('searchInput').value = '';
   setCrossFilterSelection(null);
   renderFilteredViews();
+});
+
+document.getElementById('searchInput').addEventListener('input', event => {
+  searchText = event.target.value.trim();
+  renderFilteredViews();
+});
+document.getElementById('searchClearBtn').addEventListener('click', () => {
+  searchText = '';
+  document.getElementById('searchInput').value = '';
+  renderFilteredViews();
+});
+document.querySelectorAll('.search-scope-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.search-scope-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    searchScope = btn.dataset.scope;
+    renderFilteredViews();
+  });
 });
 
 document.getElementById('legendButton').addEventListener('click', () => {
