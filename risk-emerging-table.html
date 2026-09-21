@@ -309,12 +309,7 @@
     day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
   }).format(new Date());
 
-  const MIN_PAGE_SIZE = 1;
-  const BOTTOM_MARGIN = 24;
-  // Initial guesses; each table recalculates its own rows-per-page from actual row
-  // height once rendered, since the two tables' rows aren't the same height.
-  let clusterPageSize = 5;
-  let detailPageSize = 5;
+  const PAGE_SIZE = 6;
   const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
   const STRATEGIC_AREA_ICONS = [
     '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
@@ -410,40 +405,16 @@
     }
   }
 
-  // Rows-per-page fits the available space below the table instead of a fixed count,
-  // so it grows or shrinks with viewport size and adapts automatically as the raw
-  // data (and therefore row height/count) changes.
-  function computePageSize(tableScrollEl, sampleRowHeight, fallback) {
-    if (!sampleRowHeight) return fallback;
-    const top = tableScrollEl.getBoundingClientRect().top;
-    const available = window.innerHeight - top - BOTTOM_MARGIN;
-    return Math.max(MIN_PAGE_SIZE, Math.floor(available / sampleRowHeight));
-  }
-
   function renderClustersTable() {
-    const tableScroll = document.getElementById('clustersScroll');
+    const totalPages = Math.max(1, Math.ceil(clusterRows.length / PAGE_SIZE));
+    clusterPage = Math.min(Math.max(1, clusterPage), totalPages);
+    const start = (clusterPage - 1) * PAGE_SIZE;
+    const pageRows = clusterRows.slice(start, start + PAGE_SIZE);
     const tbody = document.getElementById('clustersTableBody');
+    tbody.innerHTML = '';
+    pageRows.forEach(row => tbody.appendChild(renderClusterRow(row)));
 
-    const renderSlice = () => {
-      const totalPages = Math.max(1, Math.ceil(clusterRows.length / clusterPageSize));
-      clusterPage = Math.min(Math.max(1, clusterPage), totalPages);
-      const start = (clusterPage - 1) * clusterPageSize;
-      const pageRows = clusterRows.slice(start, start + clusterPageSize);
-      tbody.innerHTML = '';
-      pageRows.forEach(row => tbody.appendChild(renderClusterRow(row)));
-    };
-
-    renderSlice();
-    const firstRow = tbody.querySelector('tr');
-    if (firstRow) {
-      const measuredSize = computePageSize(tableScroll, firstRow.getBoundingClientRect().height, clusterPageSize);
-      if (measuredSize !== clusterPageSize) {
-        clusterPageSize = measuredSize;
-        renderSlice();
-      }
-    }
-
-    buildPagination(document.getElementById('clusterPagination'), clusterRows.length, clusterPageSize, clusterPage, p => {
+    buildPagination(document.getElementById('clusterPagination'), clusterRows.length, PAGE_SIZE, clusterPage, p => {
       clusterPage = p;
       activeView = 'clusters';
       renderActiveView();
@@ -451,29 +422,15 @@
   }
 
   function renderDetailsTable() {
-    const tableScroll = document.getElementById('detailsScroll');
+    const totalPages = Math.max(1, Math.ceil(detailRows.length / PAGE_SIZE));
+    detailPage = Math.min(Math.max(1, detailPage), totalPages);
+    const start = (detailPage - 1) * PAGE_SIZE;
+    const pageRows = detailRows.slice(start, start + PAGE_SIZE);
     const tbody = document.getElementById('detailsTableBody');
+    tbody.innerHTML = '';
+    pageRows.forEach(row => tbody.appendChild(renderDetailRow(row)));
 
-    const renderSlice = () => {
-      const totalPages = Math.max(1, Math.ceil(detailRows.length / detailPageSize));
-      detailPage = Math.min(Math.max(1, detailPage), totalPages);
-      const start = (detailPage - 1) * detailPageSize;
-      const pageRows = detailRows.slice(start, start + detailPageSize);
-      tbody.innerHTML = '';
-      pageRows.forEach(row => tbody.appendChild(renderDetailRow(row)));
-    };
-
-    renderSlice();
-    const firstRow = tbody.querySelector('tr');
-    if (firstRow) {
-      const measuredSize = computePageSize(tableScroll, firstRow.getBoundingClientRect().height, detailPageSize);
-      if (measuredSize !== detailPageSize) {
-        detailPageSize = measuredSize;
-        renderSlice();
-      }
-    }
-
-    buildPagination(document.getElementById('detailPagination'), detailRows.length, detailPageSize, detailPage, p => {
+    buildPagination(document.getElementById('detailPagination'), detailRows.length, PAGE_SIZE, detailPage, p => {
       detailPage = p;
       activeView = 'details';
       renderActiveView();
@@ -481,24 +438,16 @@
   }
 
   function renderActiveView() {
-    // Toggle visibility first so whichever table is now on-screen measures its real
-    // row height (a hidden table reports zero height and can't size itself accurately).
-    document.getElementById('clustersScroll').classList.toggle('is-hidden', activeView !== 'clusters');
-    document.getElementById('detailsScroll').classList.toggle('is-hidden', activeView !== 'details');
     renderClustersTable();
     renderDetailsTable();
+    document.getElementById('clustersScroll').classList.toggle('is-hidden', activeView !== 'clusters');
+    document.getElementById('detailsScroll').classList.toggle('is-hidden', activeView !== 'details');
     document.getElementById('clusterPaginationBlock').classList.toggle('is-active', activeView === 'clusters');
     document.getElementById('detailPaginationBlock').classList.toggle('is-active', activeView === 'details');
     document.getElementById('status').textContent = activeView === 'clusters'
-      ? `Showing ${Math.min(clusterPageSize, clusterRows.length - (clusterPage - 1) * clusterPageSize)} of ${clusterRows.length} emerging risk clusters.`
-      : `Showing ${Math.min(detailPageSize, detailRows.length - (detailPage - 1) * detailPageSize)} of ${detailRows.length} emerging risks.`;
+      ? `Showing ${Math.min(PAGE_SIZE, clusterRows.length - (clusterPage - 1) * PAGE_SIZE)} of ${clusterRows.length} emerging risk clusters.`
+      : `Showing ${Math.min(PAGE_SIZE, detailRows.length - (detailPage - 1) * PAGE_SIZE)} of ${detailRows.length} emerging risks.`;
   }
-
-  let resizeTimer = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { if (clusterRows.length || detailRows.length) renderActiveView(); }, 200);
-  });
 
   // One continuous table with every row of the currently active view -- the print CSS (thead
   // as table-header-group, tbody tr { break-inside: avoid }) lets the browser pack as many
