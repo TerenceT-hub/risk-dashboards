@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/risk-detail-card.js"></script>
 <style>
   :root { --burgundy: #800020; }
   * { box-sizing: border-box; }
@@ -43,30 +44,48 @@
 
   #status { font-size: 13px; color: #666; margin: 0 0 10px; }
 
-  .chart-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px; }
+  .mc-page-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: start; }
+
+  .chart-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 0; }
   .chart-panel h3 { margin: 0; padding: 8px 12px; background: #6b6b6b; color: #fff; font-size: 13px; font-weight: 700; }
   #frequencyContainer { padding: 8px; }
-  #frequencyView { width: 100%; height: 480px; overflow: hidden; }
+  #frequencyView { width: 100%; height: 640px; overflow: visible; }
 
-  .control-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .control-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 0; }
   .control-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px; font-size: 12px; color: #333; }
   .control-panel-header label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
-  .control-scroll { max-height: 420px; overflow: auto; border-top: 1px solid #eee; }
-  .control-table { border-collapse: collapse; width: 100%; min-width: 900px; }
-  .control-table th, .control-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: top; }
+  .control-scroll { max-height: 660px; overflow: auto; border-top: 1px solid #eee; }
+  .control-table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  .control-table th, .control-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: top; overflow-wrap: break-word; }
   .control-table th { position: sticky; top: 0; z-index: 1; background: #fff; color: var(--burgundy); font-size: 11px; border-bottom: 2px solid var(--burgundy); }
   .sort-arrow { font-size: 9px; margin-left: 2px; }
   .control-table col.col-ref { width: 100px; }
-  .control-table col.col-name { width: 200px; }
+  .control-table col.col-name { width: 160px; }
   .control-table col.col-desc { width: auto; }
-  .control-table col.col-owner { width: 140px; }
-  .control-table col.col-linked { width: 100px; }
+  .control-table col.col-owner { width: 110px; }
+  .control-table col.col-linked { width: 80px; }
   .control-table td.control-description { white-space: pre-line; }
+  .control-table col.col-hidden { display: none; }
   .control-table th.col-hidden, .control-table td.col-hidden { display: none; }
-  .control-table tbody tr:hover { background: #f8e6ef; }
+  .control-table tbody tr { cursor: pointer; }
+  .control-table tbody tr:hover, .control-table tbody tr.selected { background: #f8e6ef; }
 
-  @media (max-width: 900px) {
+  .strategic-area-icon {
+    display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center;
+    border-radius: 50%; border: 2px solid #c9c9c9; background: #fff; color: #fff;
+  }
+  .strategic-area-icon.is-yes { border-color: var(--burgundy); background: var(--burgundy); }
+  .strategic-area-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .trend-icon {
+    display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center;
+    border-radius: 50%; background: #E50073; color: #fff;
+  }
+  .trend-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  @media (max-width: 1100px) {
+    .mc-page-grid { grid-template-columns: 1fr; }
     .dashboard-topbar { flex-wrap: wrap; }
   }
 </style>
@@ -100,35 +119,37 @@
 
 <div id="status">Loading data...</div>
 
-<section class="chart-panel">
-  <h3>Material Control-to-Enduring Risk Frequency Map</h3>
-  <div id="frequencyContainer">
-    <div id="frequencyView"></div>
-  </div>
-</section>
+<div class="mc-page-grid">
+  <section class="chart-panel">
+    <h3>Material Control-to-Enduring Risk Frequency Map</h3>
+    <div id="frequencyContainer">
+      <div id="frequencyView"></div>
+    </div>
+  </section>
 
-<section class="control-panel">
-  <div class="control-panel-header">
-    <label><input type="checkbox" id="hideControlRefToggle"> Hide Control Reference</label>
-  </div>
-  <div class="control-scroll">
-    <table class="control-table">
-      <colgroup>
-        <col class="col-ref"><col class="col-name"><col class="col-desc"><col class="col-owner"><col class="col-linked">
-      </colgroup>
-      <thead>
-        <tr>
-          <th class="col-ref">Control Reference</th>
-          <th>Control Name</th>
-          <th>Control Description <span class="sort-arrow">&#9650;</span></th>
-          <th>Control Owner</th>
-          <th>Linked Risks</th>
-        </tr>
-      </thead>
-      <tbody id="controlTableBody"></tbody>
-    </table>
-  </div>
-</section>
+  <section class="control-panel">
+    <div class="control-panel-header">
+      <label><input type="checkbox" id="hideControlRefToggle"> Hide Control Reference</label>
+    </div>
+    <div class="control-scroll">
+      <table class="control-table">
+        <colgroup>
+          <col class="col-ref" id="colRef"><col class="col-name"><col class="col-desc"><col class="col-owner"><col class="col-linked">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="col-ref">Control Reference</th>
+            <th>Control Name</th>
+            <th>Control Description <span class="sort-arrow">&#9650;</span></th>
+            <th>Control Owner</th>
+            <th>Linked Risks</th>
+          </tr>
+        </thead>
+        <tbody id="controlTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
 
 <script>
 document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
@@ -138,11 +159,10 @@ document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat
 vega.expressionFunction('pbiCrossFilterApply', function (event) {
   var d = event && event.item && event.item.datum;
   if (d) {
-    if (currentSelection && currentSelection.controlName === d['Control Name'] && currentSelection.shortName === d['Short Name']) {
-      clearCrossFilterSelection();
-    } else {
-      setCrossFilterSelection(d['Control Name'], d['Short Name']);
-    }
+    var isCurrent = selectionSource === 'chart' && currentSelection
+      && currentSelection.controlName === d['Control Name'] && currentSelection.shortName === d['Short Name'];
+    if (isCurrent) clearCrossFilterSelection();
+    else setCrossFilterSelection(d['Control Name'], d['Short Name'], 'chart');
   }
   return null;
 });
@@ -155,9 +175,51 @@ function unwrapRows(payload) { return payload?.rows?.body || payload?.rows?.rows
 
 let materialControlRows = [];
 let epRowsRaw = [];
-let currentSelection = null; // { controlName, shortName } | null
+let currentSelection = null; // { controlName, shortName: string|null } | null
+let selectionSource = null; // 'chart' | 'table' | null -- whichever picked the selection stays a full picker; the other visual filters
 let frequencyView = null;
 let hideControlRef = false;
+
+const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+const STRATEGIC_AREA_ICONS = [
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+  '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+  '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+];
+const TREND_ICONS = {
+  Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+  Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+  Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+};
+const RISK_LEVEL_ABBR = { 'Very High': 'VH', High: 'H', Medium: 'M', Low: 'L', 'Very Low': 'VL' };
+
+function strategicAreasHtml(row) {
+  return STRATEGIC_AREA_NAMES.map((area, i) => {
+    const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+    return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>`;
+  }).join('');
+}
+
+function showEnduringDetailCard(row, x, y) {
+  const trend = String(row['Trend'] ?? 'Unchanged');
+  RiskDetailCard.show(x, y, {
+    title: row['Enduring Risk'],
+    accent: '#830051',
+    sections: [
+      { label: 'Risk Category', value: row['Risk Category'] },
+      { label: 'Risk Statement', value: row['Risk Statement'] }
+    ],
+    metrics: [
+      { label: 'Current Impact', value: RISK_LEVEL_ABBR[row['Current Impact_Level']] ?? row['Current Impact_Level'] },
+      { label: 'Current Probability', value: RISK_LEVEL_ABBR[row['Current Likelihood_Level']] ?? row['Current Likelihood_Level'] },
+      { label: 'Linked KAR', value: row['Count of Linked KAR'] },
+      { label: 'Trend', value: `<span class="trend-icon" style="width:26px;height:26px;">${TREND_ICONS[trend] ?? TREND_ICONS.Unchanged}</span>` }
+    ],
+    owner: row['SET Risk Owner'],
+    areasHtml: strategicAreasHtml(row)
+  });
+}
 
 function buildFrequencyPairs() {
   return materialControlRows.flatMap(mc => {
@@ -165,7 +227,9 @@ function buildFrequencyPairs() {
     return ids.map(id => {
       const ep = epRowsRaw.find(r => String(r['Enduring Risk Number']) === id);
       if (!ep) return null;
-      const isMatch = currentSelection && mc['Control Name'] === currentSelection.controlName && ep['Short Name'] === currentSelection.shortName;
+      const isMatch = currentSelection
+        && mc['Control Name'] === currentSelection.controlName
+        && (!currentSelection.shortName || ep['Short Name'] === currentSelection.shortName);
       return {
         'Control Name': mc['Control Name'],
         'Short Name': ep['Short Name'],
@@ -176,13 +240,18 @@ function buildFrequencyPairs() {
 }
 
 function renderControlTable() {
-  const rowsToRender = currentSelection
+  // The chart filters this table down to the match; this table filters itself only when
+  // a table row (not the chart) is the source of the selection, so it stays a full picker.
+  const hideMode = selectionSource === 'chart';
+  const rowsToRender = hideMode && currentSelection
     ? materialControlRows.filter(mc => mc['Control Name'] === currentSelection.controlName)
     : materialControlRows;
   const tbody = document.getElementById('controlTableBody');
   tbody.innerHTML = '';
   rowsToRender.forEach(mc => {
+    const isCurrent = selectionSource === 'table' && currentSelection && currentSelection.controlName === mc['Control Name'];
     const tr = document.createElement('tr');
+    tr.classList.toggle('selected', isCurrent);
     tr.innerHTML = `
       <td class="${hideControlRef ? 'col-hidden' : ''}">${mc['Control Reference'] || ''}</td>
       <td>${mc['Control Name'] || ''}</td>
@@ -190,19 +259,26 @@ function renderControlTable() {
       <td>${mc['Control Owner'] || ''}</td>
       <td>${mc['Linked Enduring Risk IDs'] || ''}</td>
     `;
+    tr.addEventListener('click', () => {
+      if (isCurrent) clearCrossFilterSelection();
+      else setCrossFilterSelection(mc['Control Name'], null, 'table');
+    });
     tbody.appendChild(tr);
   });
   document.querySelector('.control-table th.col-ref').classList.toggle('col-hidden', hideControlRef);
+  document.getElementById('colRef').classList.toggle('col-hidden', hideControlRef);
 }
 
-function setCrossFilterSelection(controlName, shortName) {
+function setCrossFilterSelection(controlName, shortName, source) {
   currentSelection = { controlName, shortName };
+  selectionSource = source;
   renderControlTable();
   if (frequencyView) frequencyView.change('dataset', vega.changeset().remove(() => true).insert(buildFrequencyPairs())).run();
 }
 
 function clearCrossFilterSelection() {
   currentSelection = null;
+  selectionSource = null;
   renderControlTable();
   if (frequencyView) frequencyView.change('dataset', vega.changeset().remove(() => true).insert(buildFrequencyPairs())).run();
 }
@@ -223,7 +299,12 @@ const frequencySpec = {
     {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
     {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
     {"name": "clearSelection", "on": [{"events": "click[!event.item]", "update": "pbiCrossFilterClear()"}]},
-    {"name": "toggleSelection", "on": [{"events": "@dotMark:click", "update": "pbiCrossFilterApply(event)"}]}
+    {"name": "toggleSelection", "on": [{"events": "@dotMark:click", "update": "pbiCrossFilterApply(event)"}]},
+    {"name": "hoveredDot", "value": null, "on": [
+      {"events": "@dotMark:mouseover", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+      {"events": "@dotMark:mousemove", "update": "{datum: datum, x: event.clientX, y: event.clientY}"},
+      {"events": "@dotMark:mouseout", "update": "null"}
+    ]}
   ],
   "data": [
     {"name": "dataset"},
@@ -248,8 +329,7 @@ const frequencySpec = {
   "marks": [
     {"type": "symbol", "name": "dotMark", "from": {"data": "grouped"}, "encode": {
       "enter": {
-        "shape": {"value": "circle"}, "size": {"value": 150}, "fill": {"value": "#808080"}, "stroke": {"value": "#000000"}, "strokeWidth": {"value": 1},
-        "tooltip": {"signal": "{'Control Name': datum['Control Name'], 'Short Name': datum['Short Name']}"}
+        "shape": {"value": "circle"}, "size": {"value": 150}, "fill": {"value": "#808080"}, "stroke": {"value": "#000000"}, "strokeWidth": {"value": 1}
       },
       "update": {
         "x": {"scale": "xscale", "field": "Control Name", "band": 0.5},
@@ -274,6 +354,20 @@ Promise.all([
   frequencyView = result.view;
   frequencyView.change('dataset', vega.changeset().insert(buildFrequencyPairs())).run();
 
+  frequencyView.addSignalListener('hoveredDot', (_, value) => {
+    if (value && value.datum) {
+      const ep = epRowsRaw.find(r => r['Short Name'] === value.datum['Short Name']);
+      if (ep) showEnduringDetailCard(ep, value.x, value.y);
+    } else {
+      RiskDetailCard.hide();
+    }
+  });
+
+  // Native vega axes (unlike this app's other hand-rolled charts) auto-expand beyond the
+  // width/height signals to fit their own label space -- reserve room for that up front so
+  // the y-axis (long risk names) and rotated x-axis (control names) don't get clipped.
+  const Y_AXIS_RESERVE = 190;
+  const X_AXIS_RESERVE = 160;
   const containerEl = document.getElementById('frequencyView');
   let resizeFrame = null;
   new ResizeObserver(entries => {
@@ -281,7 +375,10 @@ Promise.all([
     resizeFrame = requestAnimationFrame(() => {
       const { width, height } = entries[0].contentRect;
       if (width > 0 && height > 0) {
-        frequencyView.signal('pbiContainerWidth', Math.round(width)).signal('pbiContainerHeight', Math.round(height)).run();
+        frequencyView
+          .signal('pbiContainerWidth', Math.max(200, Math.round(width) - Y_AXIS_RESERVE))
+          .signal('pbiContainerHeight', Math.max(200, Math.round(height) - X_AXIS_RESERVE))
+          .run();
       }
     });
   }).observe(containerEl);
