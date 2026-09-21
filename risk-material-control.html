@@ -291,10 +291,10 @@ document.getElementById('hideControlRefToggle').addEventListener('change', event
 // ---- Frequency map spec (ported from Deneb), container-size signals added to match this app's other pages ----
 const frequencySpec = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "autosize": {"type": "fit", "contains": "padding"},
-  "padding": {"left": 5, "right": 5, "top": 5, "bottom": 5},
-  "width": {"signal": "pbiContainerWidth - 25"},
-  "height": {"signal": "pbiContainerHeight - 0"},
+  "autosize": {"type": "pad"},
+  "padding": {"left": 175, "right": 15, "top": 10, "bottom": 150},
+  "width": {"signal": "pbiContainerWidth - 207"},
+  "height": {"signal": "pbiContainerHeight - 175"},
   "signals": [
     {"name": "pbiContainerWidth", "init": "containerSize()[0]", "on": [{"events": "window:resize", "update": "containerSize()[0]"}]},
     {"name": "pbiContainerHeight", "init": "containerSize()[1]", "on": [{"events": "window:resize", "update": "containerSize()[1]"}]},
@@ -363,11 +363,9 @@ Promise.all([
     }
   });
 
-  // Native vega axes (unlike this app's other hand-rolled charts) auto-expand beyond the
-  // width/height signals to fit their own label space -- reserve room for that up front so
-  // the y-axis (long risk names) and rotated x-axis (control names) don't get clipped.
-  const Y_AXIS_RESERVE = 190;
-  const X_AXIS_RESERVE = 160;
+  // Axis label space is reserved directly in the spec's own "padding" (autosize: pad), so the
+  // canvas always renders at exactly pbiContainerWidth x pbiContainerHeight -- no auto-expand
+  // surprises to compensate for here, just pass the container's real size straight through.
   const containerEl = document.getElementById('frequencyView');
   let resizeFrame = null;
   new ResizeObserver(entries => {
@@ -375,10 +373,7 @@ Promise.all([
     resizeFrame = requestAnimationFrame(() => {
       const { width, height } = entries[0].contentRect;
       if (width > 0 && height > 0) {
-        frequencyView
-          .signal('pbiContainerWidth', Math.max(200, Math.round(width) - Y_AXIS_RESERVE))
-          .signal('pbiContainerHeight', Math.max(200, Math.round(height) - X_AXIS_RESERVE))
-          .run();
+        frequencyView.signal('pbiContainerWidth', Math.round(width)).signal('pbiContainerHeight', Math.round(height)).run();
       }
     });
   }).observe(containerEl);
