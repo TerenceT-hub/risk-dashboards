@@ -113,6 +113,10 @@
   }
   .toggle-btn.active { background: #333; color: #fff; }
 
+  .view-tab-group { display: flex; gap: 2px; margin-left: auto; }
+  .view-tab { padding: 8px 16px; font-size: 12px; font-weight: 700; border: 1px solid #ccc; background: #ccc; color: #444; cursor: pointer; text-decoration: none; }
+  .view-tab.active { background: var(--maroon); border-color: var(--maroon); color: #fff; }
+
   .viz-row {
     display: grid;
     grid-template-columns: 1.15fr 1fr;
@@ -275,6 +279,8 @@
     .tab-group, .toggle-group { width: 100%; position: static; transform: none; margin: 0; }
     .tab-group { margin-left: 0; }
     .tab-btn, .toggle-btn { flex: 1; padding-inline: 8px; }
+    .view-tab-group { width: 100%; margin-left: 0; }
+    .view-tab { flex: 1; text-align: center; }
     .viz-row { grid-template-columns: 1fr; }
     .viz-panel { border-right: none; border-bottom: 1px solid #eee; }
     .viz-panel:last-child { border-bottom: none; }
@@ -357,6 +363,11 @@
   <div class="toggle-group" id="toggleGroup">
     <button class="toggle-btn active" data-mode="Current">Current</button>
     <button class="toggle-btn" data-mode="Gross">Gross</button>
+  </div>
+
+  <div class="view-tab-group">
+    <span class="view-tab active">Enduring &amp; Principal Risk</span>
+    <a class="view-tab" href="risk-kar-detail.html">Key Active Risk</a>
   </div>
 </div>
 
