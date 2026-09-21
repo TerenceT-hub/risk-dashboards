@@ -1,0 +1,226 @@
+{
+  "rows": {
+    "rows": [
+      {
+        "MC_ID": 1,
+        "Control Reference": "MC001-O1",
+        "Control Name": "Pricing policy approval by SET ",
+        "Control Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review ",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "1, 4, 5, 19",
+        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failure to comply with applicable laws, rules and regulations relating to anti-competitive behaviour; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
+        "Linked Principal Risk IDs": "1, 5, 19"
+      },
+      {
+        "MC_ID": 2,
+        "Control Reference": "MC002-O2",
+        "Control Name": "Products to Patients Pipeline Governance",
+        "Control Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "1, 2, 5, 7, 20",
+        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Failure to meet regulatory or ethical requirements for medicine development or approval; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "1, 2, 5, 7, 20"
+      },
+      {
+        "MC_ID": 3,
+        "Control Reference": "MC001-O3",
+        "Control Name": "Key Market Advocacy Plans",
+        "Control Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "1, 2, 5, 19, 20",
+        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "1, 2, 5, 19, 20"
+      },
+      {
+        "MC_ID": 4,
+        "Control Reference": "MC002-O4",
+        "Control Name": "10yr Long-Range Plan (LRP)",
+        "Control Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "2, 8, 19, 20",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure to maintain supply of compliant, quality medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Principal Risk IDs": "2, 8, 19, 20"
+      },
+      {
+        "MC_ID": 5,
+        "Control Reference": "MC003-O6",
+        "Control Name": "SET area performance reporting",
+        "Control Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "2, 20, 21",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure to achieve strategic plans or meet targets or expectations; Unexpected deterioration in the company's financial position",
+        "Linked Principal Risk IDs": "2, 20"
+      },
+      {
+        "MC_ID": 6,
+        "Control Reference": "MC004-C1",
+        "Control Name": "Annual compliance reporting",
+        "Control Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "3, 13, 17, 24",
+        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Inadequate disclosure of community investments, patient group support, and product donations ; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "3, 13, 24"
+      },
+      {
+        "MC_ID": 7,
+        "Control Reference": "MC005-C3",
+        "Control Name": "Quality Management System (QMS) Oversight",
+        "Control Description": "WHAT & WHY\r\nOur QMS ensure that we can demonstrate compliance with good practices (for labs clinical studies, manufacturing etc) that ensures that our products are safe for users.  \r\n\r\nHOW\r\nQuarterly Management Review meetings are held with Operations Leadership team members (including the EVP).  During the review meetings quality issues (risks) and the health of the Pharmaceutical System is reviewed and any improvement actions agreed.\r\n\r\nIn addition, Annually a QMS Regulatory Compliance Status report is prepared.  The report summarises the status of the QMS and GxP compliance, including findings from internal and external inspections. The report is approved by the SVP Global Quality and VP R&D Quality Assurance and is shared with the Board. \r\n\r\nWHEN\r\nQuarterly Management Review meetings and an annual status report during Q4.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "6, 8",
+        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned; Failure to maintain supply of compliant, quality medicines",
+        "Linked Principal Risk IDs": "6, 8"
+      },
+      {
+        "MC_ID": 8,
+        "Control Reference": "MC006-O5",
+        "Control Name": "Supply Chain planning process (S&OP)",
+        "Control Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "2, 5, 8, 10, 14, 15, 19",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Failure to maintain supply of compliant, quality medicines; Reliance on 3rd party goods and services; Failure to comply with other regulatory or leglislative requirement (e.g SHE, Modern slavery, financial reporting etc); Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
+        "Linked Principal Risk IDs": "2, 5, 8, 19"
+      },
+      {
+        "MC_ID": 9,
+        "Control Reference": "MC007-C9",
+        "Control Name": "IT Security Governance",
+        "Control Description": "WHAT & WHY\r\nMeasures to track whether the IT security controls are effective.\r\n\r\nHOW\r\nThe CISO puts in place measures to monitor the effectiveness of the IT security controls and whether the strategic vision of the security programme is being achieved (and risks are being managed to an acceptable level).  \r\n\r\nMitigations in place to manage these risks are monitored, and their effectiveness regularly reported, for example in KPI dashboards provided to management and the Audit Committee.  This dashboard is used to support the Audit Committee perform and in depth review of cybersecurity risks.\r\n\r\nWHEN\r\nTBC",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "12",
+        "Linked Enduring Risks": "Failure in Information technology or cyber security",
+        "Linked Principal Risk IDs": "12"
+      },
+      {
+        "MC_ID": 10,
+        "Control Reference": "MC008-C6",
+        "Control Name": "Data Enablement Council",
+        "Control Description": "WHAT & WHY\r\nData controls are required to ensure that data is of high quality and is being managed appropriately.  Review is also required to ensure that legislation (including that relating to AI) understood and being complied with.\r\n\r\nHOW\r\nAs part of the organization's commitment to robust governance and risk management, an Enterprise Data Council (EDC) has been established; along with supporting governance meetings including SEDO forum, Data Assurance Board and the AI Assurance Board, to review and triage risks and issues presented to EDC.   The EDC review the following:\r\n•\tEffectiveness of Data and AI Controls: Assessment of the design, implementation, and ongoing effectiveness of the organization’s data and AI controls.\r\n•\tAssurance:  Summary of findings from assurance providers.\r\n•\tIncidents: Summary of significant incidents, including actions taken and lessons learned.\r\n•\tEmerging Risks: Identification of emerging risks and their potential implications for the organization.\r\n•\tFunction Review: Evaluation of the structure and resources for managing data risks.\r\nThe EDC also opine on whether the controls in place manage the data and AI risks to an acceptable level.  \r\nFor any identified gaps or areas requiring improvement, remediation plans, along with timelines for resolution, are agreed. The EDC are also provided with updates on progress against previously established remediation plans to ensure accountability and continuous improvement.\r\nThe Chair of the EDC summarises the above in a report that is shared with the Audit Committee.\r\n\r\nWHEN\r\nTBC",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "13",
+        "Linked Enduring Risks": "Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives",
+        "Linked Principal Risk IDs": "13"
+      },
+      {
+        "MC_ID": 11,
+        "Control Reference": "MC009-F2",
+        "Control Name": "SOx Deficiency Assessment Board",
+        "Control Description": "WHAT & WHY\r\nSOX control deficiencies are monitored via the Deficiency Assessment Board, which monitors the effectiveness of SOx control operation and ensures that any deficiencies noted are remediated.\r\n\r\nHOW\r\nSOX control deficiencies are monitored via the Deficiency Assessment Board.  Control deficiencies are reviewed to ensure that the route causes can be identified, impacts understood and remediation tracked and assured via retesting.  (IRM:  CTRL0032433 and CTRL0032413)\r\n\r\nWHEN\r\nMonthly, beginning in June. More frequently towards year end as required",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "22",
+        "Linked Enduring Risks": "Failure in financial control or the occurrence of Fraud",
+        "Linked Principal Risk IDs": ""
+      },
+      {
+        "MC_ID": 12,
+        "Control Reference": "MC010-C7",
+        "Control Name": "Patent filing, docketing and enforcement",
+        "Control Description": "WHAT & WHY\r\nIntellectual property protection is critical to AstraZeneca’s business model. Each year, AstraZeneca invests billions of dollars into the research and development of innovative medicines and it often takes over 10 years of investment from initial discovery of a potential drug through clinical testing and commercialization. Without adequate patent protection, generic and biosimilar companies could copy and compete with AstraZeneca soon after drug approval by the FDA/EMA or the equivalent foreign regulatory agency. Given the size and complexity of AstraZeneca’s business, it is important to have internal controls which exist to ensure appropriate intellectual property protection is obtained and maintained throughout their lifecycle for material products in key markets, and that “freedom to operate” is assessed prior to commercialization.\r\n\r\nHOW\r\nAstraZeneca’s Global Intellectual Property (GIP) group is accountable for obtaining patent protection for each novel medicine composition of matter (COM) prior to initiation of human clinical trials. Typically, the initial patent applications are filed at the time the Candidate Drug (CD) is approved by the Early Stage Product Committee (ESPC). The number of countries where a patent application is filed is pre-determined by the IP Leadership Team (IPLT). The list is updated by IPLT in collaboration with the appropriate Commercial organization no later than every three years for material products in key markets. The IPLT, organized by therapy area, monitors and assures compliance with control IP001. Each filing is also reviewed by the Quality Enhancement (QE) team (a subgroup of GIP patent attorneys) and the relevant inventors, and the QE team keeps track of COM CD cases reviewed. All deadline-driven activities relating to material COM filings, e.g., annuity due dates, and other substantive correspondence with patent offices around the world are saved and “docketed” in GIP’s document management (iManage) and docketing systems (Anaqua). IPLT is accountable for ensuring Control IP004 is met. IP Operations conducts a monthly review of docketed activities and maintenance requirements and sends this to the SVP IP.\r\n\r\nWHEN\r\nEvent driven (prior to human clinical trials[ for material COM filings], annuity due dates)",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "23",
+        "Linked Enduring Risks": "IP risks related to our products ",
+        "Linked Principal Risk IDs": "23"
+      },
+      {
+        "MC_ID": 13,
+        "Control Reference": "MC010-C8",
+        "Control Name": "Patent health check",
+        "Control Description": "WHAT & WHY\r\nIntellectual property protection is critical to AstraZeneca’s business model.  Each year, AstraZeneca invests billions of dollars into the research and development of innovative medicines and it often takes over 10 years of investment from initial discovery of a potential drug through clinical testing and commercialization.  Without adequate patent protection, generic and biosimilar companies could copy and compete with AstraZeneca soon after drug approval by the FDA/EMA or the equivalent foreign regulatory agency.   Given the size and complexity of AstraZeneca’s business, it is important to have internal controls which exist to ensure appropriate intellectual property protection is obtained, and that “freedom to operate”  is assessed prior to commercialization.  \r\n\r\nHOW\r\nThe Patent Health Check involves assessment of both the scope of patent protection and freedom to operate with respect to the pipeline molecule COM in question.   No later than Phase 3 material investment decision (Phase 3 ID) of a new chemical entity (NCE), which is approved by the Late-Stage Product Committee (LSPC), an assigned patent attorney from GIP performs a “Patent Health Check.”  The Patent Health Check involves assessment of both the scope of patent protection and freedom to operate with respect to the pipeline molecule composition of matter (COM) in question.   Results of the Patent Health Check are communicated to the SVP IP, the IPLT member for the relevant therapy area and the Global Product Team Leader (GPT-L).  The conclusions and analysis are further captured in a written memo to the SVP IP and risk mitigation steps are actioned as necessary.   IPLT is accountable for ensuring that Control IP002 is met.\r\n\r\nWHEN\r\nEvent driven, no later than Phase 3 material investment decision of a NCE.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "23",
+        "Linked Enduring Risks": "IP risks related to our products ",
+        "Linked Principal Risk IDs": "23"
+      },
+      {
+        "MC_ID": 14,
+        "Control Reference": "MC011-O7",
+        "Control Name": "Review of litigation matters ",
+        "Control Description": "WHAT & WHY\r\nLegal proceedings need to be disclosed to ensure investors are provided with clear and balanced information about the company. (in line with listing requirements)\r\n\r\nHOW\r\nEach quarter, a member of B&CS sends an e-mail to each member of the LSMT (excluding the Company Secretary) asking them to disclose any known material litigation and to review the Legal Proceedings note disclosed in the quarterly results announcements and to consider:\r\n(i) whether any material developments have occurred that require those disclosures to be updated; and\r\n(ii) whether there are any material developments in the previously disclosed Legal Proceedings note (including threatened and/or pending legal proceedings) and/or new legal proceedings (including threatened and/or pending legal proceedings) which may require to be disclosed in the Legal Proceedings note disclosed in the quarterly results announcements. Material developments are changes that would cause an investor to alter their forecasts.\r\n\r\nAll responses from the LSMT are to be collected prior to the GFR lock meeting that precedes approval of the final quarterly results announcement and are held on file. A member of B&CS under supervision of the Deputy Company Secretary or the Company Secretary ensures that all changes identified in this process are considered for inclusion the Legal Proceedings note.\r\nIn the event that any LSMT member fails to provide a response, the Deputy Company Secretary or the General Counsel may confirm their approval of the disclosures to satisfy the control. Any such confirmations are to be noted in writing (including email) and held on file.\r\n\r\nNotice of material litigations occur by either in-person, email, or mail service to AZ central offices and are sent to the accountable member of the Legal Senior Management Team.  On a quarterly basis, a list of pending litigation matters from Counsellink is sent to all case managers and email confirmation is required to ensure that there are no pending material (against a materiality threshold of US $100m) litigation matters that do not appear on this list. \r\n\r\nAn internal legal and risk meeting is held (between Legal and Finance) to discuss open material litigation and any developments that may or may not require a provision to be established. Discussions are held through the quarter relating to the accounting considerations.  A formal meeting is then conducted at the quarter end.  Minutes are taken and approved under the Accounting issues control.  (This is part of GFR C36 controls).\r\n\r\nIn addition, the litigation disclosures are set out in a separate Legal Log by a member of Legal under supervision of the Deputy General Counsel (the Legal Log). The Legal Log includes legal entity information and accounting treatment for each legal matter, detailing which matters are disclosed for the purposes of contingent liabilities, provisions and contingent assets. Each quarter the Legal Log is sent by the Deputy General Counsel to the Head of Technical Accounting Compliance & UK Reporting for review. Once agreed by the Head of Technical Accounting Compliance & UK Reporting and the Deputy General Counsel, the Legal Log confirms the final accounting position for each legal matter disclosed in the Legal Proceedings note for the quarter.\r\n\r\nPrior to the GFR lock meeting that precedes approval of the final quarterly results announcement, the Head of Technical Accounting Compliance & UK Reporting confirms to the Deputy Company Secretary that the Legal Log has been updated and agreed between the Head of Technical Accounting Compliance & UK Reporting and the Deputy General Counsel and that the agreed accounting positions are reflected in the quarterly results announcement. \r\n\r\nWHEN\r\nQuarterly",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "24",
+        "Linked Enduring Risks": "Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "24"
+      },
+      {
+        "MC_ID": 15,
+        "Control Reference": "MC012-O8",
+        "Control Name": "Global DOA ",
+        "Control Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24",
+        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to comply with applicable laws, rules and regulations relating to anti-competitive behaviour; Failure or delay in the delivery of our pipeline or launch of new medicines; Safety & efficacy of marketed medicines is questioned; Failure to meet regulatory or ethical requirements for medicine development or approval; Failure to maintain supply of compliant, quality medicines; Illegal trade in the Group's medicines; Reliance on 3rd party goods and services; Failure to comply with trade control requirements; Failure in Information technology or cyber security; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Failure to comply with other regulatory or leglislative requirement (e.g SHE, Modern slavery, financial reporting etc); Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment; Failure of critical processes; Inadequate disclosure of community investments, patient group support, and product donations ; Failure to attract, develop, engage and retain a diverse,  talented and capable workforce at all levels; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations; Unexpected deterioration in the company's financial position; Failure in financial control or the occurrence of Fraud; IP risks related to our products ; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "1, 2, 3, 5, 6, 7, 8, 12, 13, 19, 20, 23, 24"
+      },
+      {
+        "MC_ID": 16,
+        "Control Reference": "MC013-R3",
+        "Control Name": "Disclosure committee",
+        "Control Description": "WHAT & WHY\r\nThe Company is required to disclose certain information to the market to comply with obligations arising from its LSE, NYSE and Stockholm listings. All disclosures should be fair, balanced, complete, accurate and not misleading (including via omission). Certain information could cause significant movements in the share price of AZ PLC; UK and EU Market Abuse Regulations require information that constitutes inside information to be handled properly and disclosed as soon as possible (using appropriate channels).\r\n\r\nHOW\r\nThe CEO is responsible for corporate disclosures (and is supported in doing this by advice from the Disclosure Committee) and makes the final decision on whether inside information has arisen within the business.  The Disclosure Committee reviews and approves Stock Exchange announcements (released via RNS) and global press releases, including announcements which contain inside information. Announcements may alternatively be reviewed by the Board.\r\n\r\nAnnouncements released via RNS are also typically filed with the US SEC on a form 6-K and disclosed via Nasdaq in Sweden. \r\n\r\nWHEN\r\nEvent driven",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "",
+        "Linked Enduring Risks": "",
+        "Linked Principal Risk IDs": ""
+      },
+      {
+        "MC_ID": 17,
+        "Control Reference": "MC014-R2",
+        "Control Name": "Approval of annual report (and other ARA supplements) by Management & the Board",
+        "Control Description": "WHAT & WHY\r\nInvestor needs (and listing requirements) require the company to make accurate and unbiased submissions.  These submissions must contain certain information to be compliant with listing rules.  Failure to report fully or inaccurate reporting can lead to financial and reputational consequences for the company.  It may also deter investors which could reduce the funds available to the company.\r\n\r\nHOW\r\nAnnual report (and other ARA supplements) have been reviewed and approved by Management and the Board prior to being published.\r\n\r\nWHEN\r\nAnnually at year end.",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "",
+        "Linked Enduring Risks": "",
+        "Linked Principal Risk IDs": ""
+      },
+      {
+        "MC_ID": 18,
+        "Control Reference": "MC005-C4",
+        "Control Name": "Executive Safety Board",
+        "Control Description": "WHAT & WHY\r\nThe Executive Safety Board (ESB) is the highest level of safety governance at AstraZeneca for patient and product safety matters. The ESB makes decisions related to the following topics, when a company position/strategy is required:\r\n• Safety of patients who receive treatment with AstraZeneca products\r\n• Any safety risk, concern or finding that impacts the benefit/risk profile of an AstraZeneca product(s)\r\n\r\nThe Executive Safety Board will be automatically triggered for important emerging safety concerns/issues that impact the benefit risk profile of an AstraZeneca product including but not limited to a product in development (investigational product) or a product being used in post marketed setting.\r\n\r\nHOW\r\nESB topics are to include important emerging safety concern(s), or safety advice seeking matters, related to an investigational or a marketed product:\r\n• Review and evaluation of the impact of significant new toxicology or safety findings that could affect the benefit-risk profile of a product and/or the continuation and dosing of clinical studies or the withdrawal of a product from the market. This includes unexpected serious safety matters identified by a Data Monitoring Committee (DMC). \r\n• Proposal for re-entry of a product into clinical development when safety was a factor leading to its discontinuation and approve the decision to continue dosing in a study where dosing had been previously discontinued due to safety concerns.\r\n• Proposal for re-starting dosing in a study and/or clinical program when safety was a factor leading to its clinical hold and/or decision to discontinue enrolment/dosing.\r\n• Guidance on complex safety matters related, including those related to product labelling.\r\n• As per SOP MANAGEMENT OF IMPORTANT NEW SAFETY ISSUES (SOP-0108734, V3)\r\n\r\nIf a decision cannot be reached by the PS TA VP and QPPV, the issue can be escalated to the ESB for final resolution. The QPPV also has single authority to escalate the matter to ESB (see QPPV SOP). The SSaMT members, SPVMD and TPL (for non-clinical INSIs) should be included in any discussion relating to the dispute. Due to the potential impact on the overall benefit/risk of the product and public health, dispute resolution discussions must occur with the utmost urgency following initial awareness of the safety signal. If resolution cannot be reached within an appropriate timeframe and without undue delay, the default position is to proceed with reporting.\r\n\r\n· PS TA VP can raise a topic for ESB on an ad-hoc basis.\r\n\r\nThe ESB should be informed of endorsements for recommendations made in the management of an INSI (for clinical and non-clinical topics). When a joint decision has not been reached between PS TA VP and clinical development VP or PS TA VP wants to specially escalate ESB for ESB review\r\n\r\nWHEN\r\nEvent driven due to emerging safety concerns/issues",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "6",
+        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned",
+        "Linked Principal Risk IDs": "6"
+      },
+      {
+        "MC_ID": 19,
+        "Control Reference": "MC005-C5",
+        "Control Name": "Pharmacovigilance Council",
+        "Control Description": "TBC",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "6",
+        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned",
+        "Linked Principal Risk IDs": "6"
+      },
+      {
+        "MC_ID": 20,
+        "Control Reference": "MC015-F1",
+        "Control Name": "Accounting issues",
+        "Control Description": "WHAT & WHY\r\nQuarterly Accounting Issue meetings are held with FSMT VP's (or delegate) and significant business function key finance staff (VP or delegate) to ensure that GFR is informed of all significant accounting issues, with the exception of deals which are confirmed with Deal Finance and the SVP GPPM, Strategic Planning and Business Development. GFR then review the quarterly ERH submission to ensure all reported matters deemed significant (generally new, unusual and above $20m) are included in the quarterly reported numbers. The purpose of this control is to ensure that the quarterly, half year and annual financial statements reflect all significant accounting matters and such matters are appropriately recorded in the books and records of the AZ Group.\r\n\r\nHOW\r\nSET area Accounting Issues summary documents are provided by the SET areas, and provided to GFR, or emails detailing the issues raised are sent and agreement by the appropriate contact is obtained.\r\n\r\nConfirmations are filed on the quarter end SOX file and evidence of completeness of receipt of minutes and appropriate SET area sign off. A quarterly summary of Group issues is prepared by the GFR Head of Technical Accounting & Compliance based on the confirmations received, and other accounting issues notifications and discussions in the quarter. Evidence of review of the minutes for evidence of matters being considered for inclusion in the quarterly summary document is included in the quarter end SOX file.\r\n\r\nThe quarterly summary is reviewed with the SVP Finance Group Controller (or delegate), and VP Finance, Group Financial Reporting (or delegate), who confirm their agreement with the summary (meeting normally WD -1).\r\n\r\nCompleteness and accuracy of the SET area accounting issues minutes are confirmed by the FSMT VP's (or in exceptional circumstances, delegate) prior to final Working Day 8 lock, with the exception of deals which are confirmed by the SVP GPPM, Strategic Planning and Business Development. Any outstanding FSMT confirmations are noted in the work day 8 lock meeting and followed up in the final pre-announcement lock meeting to make sure confirmation have been received.\r\n\r\nThe accounting issues identified in the quarterly summary are reviewed by the statement accountants against the financial statements used for the full lock meeting to ensure all are dealt with appropriately in those statements.\r\n\r\nWHEN\r\nQuarterly",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "24",
+        "Linked Enduring Risks": "Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "24"
+      },
+      {
+        "MC_ID": 21,
+        "Control Reference": "MC015-R1",
+        "Control Name": "Subsequent events",
+        "Control Description": "WHAT & WHY\r\nThe subsequent event returns are collated by the Consolidation accountants who obtain returns from FSMT/SET area VP's or equivalent/delegate to populate the Subsequent Events Control Sheet on a quarterly basis.  This is then reviewed by the VP of Group Reporting or delegate (Head of Technical Accounting and Compliance or the Head of Technical Accounting and Group Consolidation) and reflected, as appropriate, in the financial statements.  The purpose of this control is to ensure that any significant items with an accounting impact of $10m that have arisen post lock meeting are considered and concluded on as adjusting or non-adjusting events and for disclosure purposes.\r\n\r\nHOW\r\ni) Email confirmations are collated from all SET areas prior to final lock meeting, requesting information on any events that have arisen post Lock meeting\r\nii) The VP of Group Reporting checks all confirmations have been received, and the items contained in the confirmations are appropriately included in the Subsequent Events Control Sheet.\r\niii) The results are assessed un the criteria contained within IAS10, as to whether they are considered adjusting or non-adjusting, and whether disclosure is required, both individually and in aggregate and are discussed and minuted at pre-announcement lock meeting.\r\niv) Evidence of this review is documented on the Subsequent Events Control Sheet.  Any appropriate events are considered at the pre-announcement lock meeting, this review is document in the pre-announcement lock meeting minutes.\r\n\r\nWHEN\r\n",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "24",
+        "Linked Enduring Risks": "Adverse outcome of litigation and / or governmental investigations",
+        "Linked Principal Risk IDs": "24"
+      },
+      {
+        "MC_ID": 22,
+        "Control Reference": "MC004-C2",
+        "Control Name": "Annual Governance and assurance report",
+        "Control Description": "WHAT & WHY\r\nThe Year End Governance & Assurance Paper describes the assurance processes performed in the year and the outcome.\r\n\r\nHOW\r\nThe Year End Governance & Assurance Paper is presented to the Audit Committee in January.  It describes the assurance processes performed in the year and the outcome.  (IRM:  CTRL0032399)\r\n\r\nWHEN\r\nAnnually in January",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "3",
+        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges",
+        "Linked Principal Risk IDs": "3"
+      }
+    ]
+  }
+}

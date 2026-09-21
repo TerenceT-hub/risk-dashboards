@@ -423,6 +423,7 @@
           <th>Gross Probability</th>
           <th>Strategic Area</th>
           <th>Linked KAR</th>
+          <th>Linked Material Controls</th>
           <th>Risk Owner</th>
           <th>Trend</th>
         </tr>
@@ -735,7 +736,7 @@ function renderSummaryTable() {
       row['Gross Impact_Level'], row['Gross Likelihood_Level'],
       [row['Science and Innovation'], row['People and Sustainability'],
        row['Growth and Therapy Area Leadership'], row['Achieve Group Financial Targets']],
-      row['Count of Linked KAR'], row['SET Risk Owner'], row['Trend'],
+      row['Count of Linked KAR'], row['Count of Linked Material Controls'], row['SET Risk Owner'], row['Trend'],
     ];
     const trend = String(row['Trend'] ?? 'Unchanged');
     values.forEach((value, index) => {
@@ -748,7 +749,7 @@ function renderSummaryTable() {
         cell.className = 'strategic-area-cell';
         cell.setAttribute('aria-label', STRATEGIC_AREA_NAMES.map((name, areaIndex) => `${value[areaIndex] ?? 'No'}: ${name}`).join('; '));
         cell.innerHTML = `<span class="strategic-area-icons">${strategicAreasHtml(row)}</span>`;
-      } else if (index === 10) {
+      } else if (index === 11) {
         cell.className = 'trend-cell';
         cell.setAttribute('aria-label', trend);
         cell.innerHTML = `<span class="trend-icon" title="${trend}">${TREND_ICONS[trend] ?? TREND_ICONS.Unchanged}</span>`;

@@ -45,6 +45,12 @@ function resolveEnduringRiskNumber(linkedName, epRaw) {
   return best ? Number(best['Enduring Risk Number']) : null;
 }
 
+function countLinkedMaterialControls(enduringRiskNumber, materialControlRaw) {
+  return materialControlRaw.filter((mc) =>
+    String(mc['Linked Risks'] || '').split(',').map((s) => s.trim()).includes(String(enduringRiskNumber))
+  ).length;
+}
+
 const MITIGATION_COLS = [1, 2, 3, 4, 5, 6];
 function buildMitigationList(r) {
   return MITIGATION_COLS
@@ -66,6 +72,7 @@ function refresh() {
   const emergingClustersRaw = readSheet(workbook, 'Emerging Risk Clusters');
   const epRaw = readSheet(workbook, 'Enduring & Principal Risks');
   const karRaw = readSheet(workbook, 'Key Active Risks');
+  const materialControlRaw = readSheet(workbook, 'Material Control');
 
   // ---- Emerging Risk Clusters -> e_bridge_risk_clusters.json ----
   console.log('Building e_bridge_risk_clusters.json...');
@@ -147,6 +154,7 @@ function refresh() {
       'Trend': r['Trend'],
       'Current Year Update': r['Current Year Update'],
       'Count of Linked KAR': linkedKars.length,
+      'Count of Linked Material Controls': countLinkedMaterialControls(Number(r['Enduring Risk Number']), materialControlRaw),
       'Current Impact_Level': expandLevel(r['Current Impact']),
       'Current Likelihood_Level': expandLevel(r['Current Likelihood']),
       'Gross Impact_Level': expandLevel(r['Gross Impact']),
@@ -204,6 +212,25 @@ function refresh() {
     };
   });
   writeWrapped(path.join(DATA_FOLDER, 'k-dim-risk.json'), karRows, 'rows');
+
+  // ---- Material Control -> material-control.json ----
+  console.log('Building material-control.json...');
+  const enduringNameById = {};
+  epRaw.forEach((r) => { enduringNameById[String(Number(r['Enduring Risk Number']))] = r['Enduring Risk']; });
+  const materialControlRows = materialControlRaw.map((r, i) => {
+    const linkedRiskIds = String(r['Linked Risks'] || '').split(',').map((s) => s.trim()).filter(Boolean).map(Number);
+    return {
+      'MC_ID': i + 1,
+      'Control Reference': r['Control Reference'],
+      'Control Name': r['Control Name'],
+      'Control Description': r['Control Description'],
+      'Control Owner': r['Control Owner'],
+      'Linked Enduring Risk IDs': linkedRiskIds.join(', '),
+      'Linked Enduring Risks': linkedRiskIds.map((id) => enduringNameById[String(id)]).filter(Boolean).join('; '),
+      'Linked Principal Risk IDs': String(r['Linked Principal Risks'] || '').split(',').map((s) => s.trim()).filter(Boolean).join(', ')
+    };
+  });
+  writeWrapped(path.join(DATA_FOLDER, 'material-control.json'), materialControlRows, 'rows');
 
   console.log('Done.');
 }
