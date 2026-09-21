@@ -1094,8 +1094,15 @@
     .then(result => {
       wheelView = result.view;
       wheelView.addSignalListener('hoveredDot', (_, value) => {
-        if (value && value.datum) showRiskDetailCardForEmergingRisk(value.datum, value.x, value.y);
-        else RiskDetailCard.hide();
+        // The wheel's own vega dataset only carries the few fields needed for layout
+        // (name/level/category/time-band) -- look up the full row for the tooltip so it
+        // matches what hovering the same risk in the detail table below shows.
+        if (value && value.datum) {
+          const fullRow = rows.find(r => riskNameOf(r) === value.datum['Emerging Risk']) || value.datum;
+          showRiskDetailCardForEmergingRisk(fullRow, value.x, value.y);
+        } else {
+          RiskDetailCard.hide();
+        }
       });
 
       // vega's own containerSize()+window:resize combo only re-measures on a raw browser
