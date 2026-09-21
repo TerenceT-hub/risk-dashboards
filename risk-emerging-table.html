@@ -401,12 +401,10 @@
     containerEl.innerHTML = '';
     const totalPages = Math.max(1, Math.ceil(totalRows / pageSize));
     for (let p = 1; p <= totalPages; p++) {
-      const start = (p - 1) * pageSize + 1;
-      const end = Math.min(p * pageSize, totalRows);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'range-page-btn' + (p === currentPage ? ' active' : '');
-      btn.textContent = start === end ? `${start}` : `${start}-${end}`;
+      btn.textContent = p;
       btn.addEventListener('click', () => onSelect(p));
       containerEl.appendChild(btn);
     }
