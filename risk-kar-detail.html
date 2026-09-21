@@ -104,6 +104,11 @@
   .strategic-area-icon.is-yes { border-color: var(--burgundy); background: var(--burgundy); }
   .strategic-area-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
   .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .trend-icon {
+    display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center;
+    border-radius: 50%; background: #E50073; color: #fff;
+  }
+  .trend-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
 
   #quadrantContainer { padding: 10px 12px; }
   #quadrantView { width: 100%; height: 320px; overflow: hidden; }
@@ -360,9 +365,72 @@ function strategicAreaIconsHtml(row) {
   }).join('');
 }
 
+function strategicAreaIconsCaptionedHtml(row) {
+  return STRATEGIC_AREA_NAMES.map((area, i) => {
+    const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+    return `<div class="risk-detail-card-area-item">
+      <span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>
+      <span class="risk-detail-card-area-caption">${area}</span>
+    </div>`;
+  }).join('');
+}
+
 function actionParts(actionRaw) {
   const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
   return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
+}
+
+const TREND_ICONS = {
+  Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+  Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+  Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+};
+const TREND_ALIAS = { Stable: 'Unchanged', Increasing: 'Increasing', Decreasing: 'Decreasing', Unchanged: 'Unchanged' };
+const RISK_LEVEL_ABBR = { 'Very High': 'VH', High: 'H', Medium: 'M', Low: 'L', 'Very Low': 'VL' };
+
+function trendIconHtml(trendRaw) {
+  const trend = TREND_ALIAS[trendRaw] || 'Unchanged';
+  return `<span class="trend-icon" title="${trendRaw || ''}">${TREND_ICONS[trend]}</span>`;
+}
+
+function showKarDetailCard(row, x, y) {
+  const { category, detail } = actionParts(row['Action']);
+  RiskDetailCard.show(x, y, {
+    title: row['Key Active Risk'],
+    accent: '#830051',
+    sections: [
+      { label: 'Risk Statement', value: row['Risk Statement'] },
+      { label: 'Action', value: `${category}<br>${String(detail || '').replace(/\n/g, '<br>')}` }
+    ],
+    metrics: [
+      { label: 'Current Impact', value: row['Current Impact'] },
+      { label: 'Current Probability', value: row['Current Likelihood'] },
+      { label: 'Linked Principal Risk', value: row['Linked Principal Risk Count'] },
+      { label: 'Current Trend', value: trendIconHtml(row['Trend']) }
+    ],
+    owner: row['SET Risk Owner'],
+    areasHtml: strategicAreaIconsCaptionedHtml(row),
+    ownerAsFooterBar: true
+  });
+}
+
+function showEnduringDetailCard(row, x, y) {
+  RiskDetailCard.show(x, y, {
+    title: row['Enduring Risk'],
+    accent: '#830051',
+    sections: [
+      { label: 'Risk Category', value: row['Risk Category'] },
+      { label: 'Risk Statement', value: row['Risk Statement'] }
+    ],
+    metrics: [
+      { label: 'Current Impact', value: RISK_LEVEL_ABBR[row['Current Impact_Level']] ?? row['Current Impact_Level'] },
+      { label: 'Current Probability', value: RISK_LEVEL_ABBR[row['Current Likelihood_Level']] ?? row['Current Likelihood_Level'] },
+      { label: 'Linked KAR', value: karNamesLinkedToEnduring(Number(row['Enduring Risk Number'])).length },
+      { label: 'Trend', value: trendIconHtml(row['Trend']) }
+    ],
+    owner: row['SET Risk Owner'],
+    areasHtml: strategicAreaIconsHtml(row)
+  });
 }
 
 function getFilteredKarRows() {
@@ -405,6 +473,9 @@ function renderKarSummaryTable() {
       if (selectionSource === 'summary' && isCurrent) clearCrossFilterSelection();
       else setCrossFilterSelection(row['Key Active Risk'], 'summary');
     });
+    tr.addEventListener('mouseenter', event => showKarDetailCard(row, event.clientX, event.clientY));
+    tr.addEventListener('mousemove', event => RiskDetailCard.reposition(event.clientX, event.clientY));
+    tr.addEventListener('mouseleave', () => RiskDetailCard.hide());
     tbody.appendChild(tr);
   });
 }
@@ -452,6 +523,9 @@ function renderLinkedEnduringTable() {
       if (isCurrent) clearCrossFilterSelection();
       else selectEnduringRisk(enduringId);
     });
+    tr.addEventListener('mouseenter', event => showEnduringDetailCard(row, event.clientX, event.clientY));
+    tr.addEventListener('mousemove', event => RiskDetailCard.reposition(event.clientX, event.clientY));
+    tr.addEventListener('mouseleave', () => RiskDetailCard.hide());
     tbody.appendChild(tr);
   });
 }

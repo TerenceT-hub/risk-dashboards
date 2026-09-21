@@ -30,7 +30,9 @@ const RiskDetailCard = (() => {
   }
 
   // data: { title, accent, sections: [{label, value}], metrics: [{label, value}],
-  //         owner (string, optional), areasHtml (string, optional) }
+  //         owner (string, optional), areasHtml (string, optional),
+  //         ownerAsFooterBar (bool, optional) -- stacks areasHtml above a full-width owner bar
+  //         instead of sharing one row with it }
   function show(x, y, data) {
     const card = ensureCard();
     card.style.setProperty('--risk-card-accent', data.accent || '#830051');
@@ -44,12 +46,20 @@ const RiskDetailCard = (() => {
       ? `<div class="risk-detail-card-metrics">${data.metrics.map((m) => `<div><div class="risk-detail-card-label">${m.label}</div><div class="risk-detail-card-value">${m.value ?? ''}</div></div>`).join('')}</div>`
       : '';
 
-    const footer = (data.owner || data.areasHtml)
-      ? `<div class="risk-detail-card-footer">
+    // Default footer: owner pill and area icons share one row (used by the matrix/wheel pages).
+    // ownerAsFooterBar: true switches to a stacked layout -- icons (with captions, via areasHtml)
+    // on their own row, then the owner as a separate full-width bar underneath.
+    let footer = '';
+    if (data.ownerAsFooterBar) {
+      const areasRow = data.areasHtml ? `<div class="risk-detail-card-areas-row">${data.areasHtml}</div>` : '';
+      const ownerBar = data.owner ? `<div class="risk-detail-card-owner-bar">SET Risk Owner(s):<br>${data.owner}</div>` : '';
+      footer = `${areasRow}${ownerBar}`;
+    } else if (data.owner || data.areasHtml) {
+      footer = `<div class="risk-detail-card-footer">
           <div class="risk-detail-card-owner">${data.owner ? `SET Risk Owner(s):<br>${data.owner}` : ''}</div>
           ${data.areasHtml ? `<div class="risk-detail-card-areas">${data.areasHtml}</div>` : ''}
-        </div>`
-      : '';
+        </div>`;
+    }
 
     card.innerHTML = `
       <div class="risk-detail-card-header">${data.title || ''}</div>
