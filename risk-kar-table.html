@@ -267,7 +267,9 @@
   }).format(new Date());
 
   const DATA_SOURCE = 'data/k-dim-risk.json';
-  const PAGE_SIZE = 3;
+  const MIN_PAGE_SIZE = 1;
+  const BOTTOM_MARGIN = 24;
+  let PAGE_SIZE = 3; // initial guess; recalculated from actual row height once rows are rendered
 
   const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
   const STRATEGIC_AREA_ICONS = [
@@ -343,15 +345,41 @@
     return tr;
   }
 
-  function renderPage() {
-    const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
-    currentPage = Math.min(Math.max(1, currentPage), totalPages);
-    const start = (currentPage - 1) * PAGE_SIZE;
-    const pageRows = rows.slice(start, start + PAGE_SIZE);
+  // Rows-per-page fits the available space below the table instead of a fixed count,
+  // so it grows or shrinks with viewport size and adapts automatically as the raw
+  // data (and therefore row height/count) changes.
+  function computePageSize(tableScrollEl, sampleRowHeight) {
+    if (!sampleRowHeight) return PAGE_SIZE;
+    const top = tableScrollEl.getBoundingClientRect().top;
+    const available = window.innerHeight - top - BOTTOM_MARGIN;
+    return Math.max(MIN_PAGE_SIZE, Math.floor(available / sampleRowHeight));
+  }
 
+  function renderPage() {
+    const tableScroll = document.querySelector('.table-scroll');
     const tbody = document.getElementById('karTableBody');
-    tbody.innerHTML = '';
-    pageRows.forEach(row => tbody.appendChild(renderRow(row)));
+
+    const renderSlice = () => {
+      const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+      currentPage = Math.min(Math.max(1, currentPage), totalPages);
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageRows = rows.slice(start, start + PAGE_SIZE);
+      tbody.innerHTML = '';
+      pageRows.forEach(row => tbody.appendChild(renderRow(row)));
+      return { totalPages, pageRows };
+    };
+
+    renderSlice();
+
+    const firstRow = tbody.querySelector('tr');
+    if (firstRow) {
+      const measuredSize = computePageSize(tableScroll, firstRow.getBoundingClientRect().height);
+      if (measuredSize !== PAGE_SIZE) {
+        PAGE_SIZE = measuredSize;
+      }
+    }
+
+    const { totalPages, pageRows } = renderSlice();
 
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
@@ -366,6 +394,12 @@
 
     document.getElementById('status').textContent = `Showing ${pageRows.length} of ${rows.length} key active risks (page ${currentPage} of ${totalPages}).`;
   }
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (rows.length) renderPage(); }, 200);
+  });
 
   // One continuous table with every row -- the print CSS (thead as table-header-group,
   // tbody tr { break-inside: avoid }) lets the browser pack as many rows as fit on each
