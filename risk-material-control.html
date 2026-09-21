@@ -48,14 +48,14 @@
 
   .chart-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 0; }
   .chart-panel h3 { margin: 0; padding: 8px 12px; background: #6b6b6b; color: #fff; font-size: 13px; font-weight: 700; }
-  #frequencyContainer { padding: 8px; }
-  #frequencyView { width: 100%; height: 640px; overflow: visible; }
+  #frequencyContainer { padding: 0; }
+  #frequencyView { width: 100%; height: calc(100vh - 174px); overflow: visible; }
 
   .control-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 0; }
   .control-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px; font-size: 12px; color: #333; }
   .control-panel-header label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
-  .control-scroll { max-height: 660px; overflow: auto; border-top: 1px solid #eee; }
+  .control-scroll { height: calc(100vh - 182px); overflow: auto; border-top: 1px solid #eee; }
   .control-table { border-collapse: collapse; width: 100%; table-layout: fixed; }
   .control-table th, .control-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: top; overflow-wrap: break-word; }
   .control-table th { position: sticky; top: 0; z-index: 1; background: #fff; color: var(--burgundy); font-size: 11px; border-bottom: 2px solid var(--burgundy); }
