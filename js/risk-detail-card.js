@@ -32,7 +32,10 @@ const RiskDetailCard = (() => {
   // data: { title, accent, sections: [{label, value}], metrics: [{label, value}],
   //         owner (string, optional), areasHtml (string, optional),
   //         ownerAsFooterBar (bool, optional) -- stacks areasHtml above a full-width owner bar
-  //         instead of sharing one row with it }
+  //         instead of sharing one row with it,
+  //         metricsColumns (number, optional, default 4) -- grid column count for the metrics
+  //         row; a metric with no label renders as an icon-only cell (e.g. an area-icon row
+  //         embedded alongside text metrics) }
   function show(x, y, data) {
     const card = ensureCard();
     card.style.setProperty('--risk-card-accent', data.accent || '#830051');
@@ -43,7 +46,7 @@ const RiskDetailCard = (() => {
       .join('');
 
     const metrics = (data.metrics || []).length
-      ? `<div class="risk-detail-card-metrics">${data.metrics.map((m) => `<div><div class="risk-detail-card-label">${m.label}</div><div class="risk-detail-card-value">${m.value ?? ''}</div></div>`).join('')}</div>`
+      ? `<div class="risk-detail-card-metrics" style="grid-template-columns: repeat(${data.metricsColumns || 4}, 1fr);">${data.metrics.map((m) => `<div>${m.label ? `<div class="risk-detail-card-label">${m.label}</div>` : ''}<div class="risk-detail-card-value">${m.value ?? ''}</div></div>`).join('')}</div>`
       : '';
 
     // Default footer: owner pill and area icons share one row (used by the matrix/wheel pages).

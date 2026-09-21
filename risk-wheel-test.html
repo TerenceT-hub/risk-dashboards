@@ -677,6 +677,7 @@
   };
 
   let rows = [];
+  let clusterRowsData = []; // deduped cluster rows, keyed lookup by Cluster ID for the emerging-risk hover card
   let wheelView;
   let selectedCategories = [];        // thematic categories selected via the category bar (ctrl-click to add more)
   let selectedRisks = [];             // risk names selected via the wheel or the detail table (ctrl-click to add more)
@@ -717,22 +718,54 @@
   }
 
   function showRiskDetailCardForEmergingRisk(row, x, y) {
+    const cluster = clusterRowsData.find(c => String(c.id) === String(row['Cluster Mapping']));
     RiskDetailCard.show(x, y, {
       title: riskNameOf(row),
       accent: '#1b2a4a',
       sections: [
+        { label: 'Cluster', value: row['ER_Cluster'] },
+        { label: 'Risk Statement', value: row['Risk Statement'] },
+        { label: 'Related SET Areas', value: cluster ? cluster.relatedSetAreas : '' },
         { label: 'Thematic Category', value: categoryOf(row) },
-        { label: 'Risk Statement', value: row['Risk Statement'] }
+        { label: 'Why Emerging Now', value: row['Why Emerging Now'] },
+        { label: 'Potential Enterprise Impact', value: row['Potential Enterprise Impact'] },
+        { label: 'Key Active Risk Triggers', value: row['Key Active Risk Triggers'] }
       ],
       metrics: [
         { label: 'Potential Impact', value: row['Potential Impact'] },
         { label: 'Priority Level', value: priorityOf(row) },
-        { label: 'Time to Active', value: timeOf(row) },
-        { label: 'Cluster', value: row['ER_Cluster'] }
+        { label: 'Time to Active Management', value: timeOf(row) },
+        { label: '', value: emergingRiskAreasHtml(row) }
       ],
-      owner: row['SET Risk Owner'],
-      areasHtml: emergingRiskAreasHtml(row)
+      metricsColumns: 2
     });
+  }
+
+  function showClusterDetailCard(c, x, y) {
+    const areasHtml = c.areas.map((yes, i) =>
+      `<span class="cluster-area-icon${yes ? ' is-yes' : ''}" title="${STRATEGIC_AREAS[i]}: ${yes ? 'Yes' : 'No'}">${yes ? STRATEGIC_ICONS[i] : ''}</span>`
+    ).join('');
+    RiskDetailCard.show(x, y, {
+      title: c.cluster,
+      accent: '#1b2a4a',
+      sections: [
+        { label: 'Risk Statement', value: c.riskStatement },
+        { label: 'Why Emerging', value: String(c.whyEmerging || '').replace(/\r?\n/g, '<br>') },
+        { label: 'Potential Enterprise Impact', value: String(c.potentialEnterpriseImpact || '').replace(/\r?\n/g, '<br>') }
+      ],
+      metrics: [
+        { label: 'Potential Impact', value: c.potentialImpact },
+        { label: 'Time to Active Management', value: c.timeToActive },
+        { label: 'Action', value: actionParts(c.action).category },
+        { label: '', value: areasHtml }
+      ],
+      metricsColumns: 2
+    });
+  }
+
+  function actionParts(actionRaw) {
+    const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
+    return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
   }
 
   async function fetchFirstAvailable(paths) {
@@ -861,6 +894,7 @@
         actionDetail: row['Action Detail'] || '',
         potentialEnterpriseImpact: row['Potential Enterprise Impact'] || '',
         keyActiveTriggers: row['Key Active Triggers'] || '',
+        relatedSetAreas: row['Related SET Areas'] || '',
         areas: STRATEGIC_AREAS.map(area => String(row[area] ?? '').toLowerCase() === 'yes')
       }));
   }
@@ -889,6 +923,9 @@
         <td class="cluster-triggers">${c.keyActiveTriggers}</td>
       `;
       tr.addEventListener('click', event => selectClusterRow(c.id, event.ctrlKey || event.metaKey));
+      tr.addEventListener('mouseenter', event => showClusterDetailCard(c, event.clientX, event.clientY));
+      tr.addEventListener('mousemove', event => RiskDetailCard.reposition(event.clientX, event.clientY));
+      tr.addEventListener('mouseleave', () => RiskDetailCard.hide());
       tbody.appendChild(tr);
     });
   }
@@ -1049,7 +1086,8 @@
     .then(([data, clusterData]) => {
       rows = data.rows?.body || data.rows || data;
       const bridgeRows = clusterData ? (clusterData.rows?.body || clusterData.rows?.rows || clusterData.rows || clusterData) : [];
-      renderClusterTable(buildClusterRows(bridgeRows));
+      clusterRowsData = buildClusterRows(bridgeRows);
+      renderClusterTable(clusterRowsData);
       populateFilterOptions();
       return vegaEmbed('#wheelView', spec, { actions: false });
     })
