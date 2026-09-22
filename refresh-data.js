@@ -64,6 +64,63 @@ function buildMitigationList(r) {
     .join('\n');
 }
 
+// Same "Mitigation N / Mitigation N Update" columns as buildMitigationList, but kept as a
+// structured list (Activity/Update pairs) for the Enduring & Principal detail page's table,
+// instead of joined into one bullet-list string.
+function buildMitigationRows(r) {
+  return MITIGATION_COLS
+    .map((n) => {
+      const activity = String(r[`Mitigation ${n}`] || '').trim();
+      if (!activity) return null;
+      return { Activity: activity, Update: String(r[`Mitigation ${n} Update`] || '').trim() };
+    })
+    .filter(Boolean);
+}
+
+const MATERIAL_CONTROL_COLS = [1, 2, 3, 4, 5, 6];
+function buildEpMaterialControls(r) {
+  return MATERIAL_CONTROL_COLS
+    .map((n) => {
+      const name = String(r[`Material Control ${n} Name`] || '').trim();
+      if (!name) return null;
+      return {
+        Reference: String(r[`Material Control ${n} Reference`] || '').trim(),
+        Name: name,
+        Description: String(r[`Material Control ${n} Description`] || '').trim()
+      };
+    })
+    .filter(Boolean);
+}
+
+function parseKriNumber(v) {
+  if (typeof v === 'number') return v;
+  const s = String(v ?? '').trim();
+  if (!s || s.toLowerCase() === 'n/a') return null;
+  const n = Number(s);
+  return Number.isNaN(n) ? null : n;
+}
+
+const KRI_SLOTS = [1, 2, 3, 4];
+function buildKriList(r) {
+  return KRI_SLOTS
+    .map((n) => {
+      const name = String(r[`KRI ${n} Name`] || '').trim();
+      if (!name) return null;
+      const values = ['KRI ' + n + ' Value - 4', 'KRI ' + n + ' Value - 3', 'KRI ' + n + ' Value - 2', 'KRI ' + n + ' Value -1', 'KRI ' + n + ' Current Value']
+        .map((col) => parseKriNumber(r[col]))
+        .filter((v) => v !== null);
+      return {
+        Name: name,
+        UpperThreshold: parseKriNumber(r[`KRI ${n} Upper Threshold`]),
+        UpperTolerance: parseKriNumber(r[`KRI ${n} Upper Tolerance`]),
+        LowerThreshold: parseKriNumber(r[`KRI ${n} Lower Threshold`]),
+        LowerTolerance: parseKriNumber(r[`KRI ${n} Lower Tolerance`]),
+        Values: values
+      };
+    })
+    .filter(Boolean);
+}
+
 function refresh() {
   console.log(`Reading ${SOURCE_WORKBOOK} ...`);
   const workbook = XLSX.readFile(SOURCE_WORKBOOK);
@@ -155,6 +212,10 @@ function refresh() {
       'Current Year Update': r['Current Year Update'],
       'Count of Linked KAR': linkedKars.length,
       'Count of Linked Material Controls': countLinkedMaterialControls(Number(r['Enduring Risk Number']), materialControlRaw),
+      'Current Impact': r['Current Impact'],
+      'Current Likelihood': r['Current Likelihood'],
+      'Gross Impact': r['Gross Impact'],
+      'Gross Likelihood': r['Gross Likelihood'],
       'Current Impact_Level': expandLevel(r['Current Impact']),
       'Current Likelihood_Level': expandLevel(r['Current Likelihood']),
       'Gross Impact_Level': expandLevel(r['Gross Impact']),
@@ -162,7 +223,10 @@ function refresh() {
       'Science and Innovation': r['Science and Innovation'],
       'People and Sustainability': r['People and Sustainability'],
       'Growth and Therapy Area Leadership': r['Growth and Therapy Area Leadership'],
-      'Achieve Group Financial Targets': r['Achieve Group Financial Targets']
+      'Achieve Group Financial Targets': r['Achieve Group Financial Targets'],
+      'Material Controls': buildEpMaterialControls(r),
+      'Other Mitigations': buildMitigationRows(r),
+      'KRIs': buildKriList(r)
     };
   });
   writeWrapped(path.join(DATA_FOLDER, 'ep-dim-risktest.json'), epRows, 'rows');

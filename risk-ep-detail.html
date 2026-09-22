@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enduring &amp; Principal Risk Details</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+  :root { --burgundy: #830051; --burgundy-dark: #5c1f4a; }
+  * { box-sizing: border-box; }
+  body.ep-detail-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px 24px;
+    background: #f5f5f5;
+  }
+  .dashboard-topbar {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.9fr) minmax(480px, 2.2fr) auto minmax(150px, 0.6fr);
+    gap: 18px;
+    align-items: center;
+    margin: 0 -20px 14px;
+    padding: 8px 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.14);
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  .brand-panel { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .brand-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .brand-logo-row { display: flex; align-items: center; gap: 8px; }
+  .brand-image { display: block; max-width: 100%; height: auto; object-fit: contain; object-position: left center; }
+  .brand-astrazeneca { width: 110px; max-height: 36px; margin-left: -5px; }
+  .brand-meta { display: flex; flex-direction: column; gap: 3px; color: #3a3a3a; font-weight: 700; font-size: 12px; }
+  .refresh-line { color: #666; font-size: 11px; font-style: italic; font-weight: 400; }
+  .refresh-line time { text-decoration: underline; }
+  .homepage-button {
+    display: inline-flex; box-sizing: border-box; width: fit-content; height: 36px; align-items: center; gap: 6px;
+    padding: 0 8px; background: var(--burgundy); color: #fff; text-decoration: none; font-size: 11px; font-weight: 700;
+  }
+  .back-button {
+    display: inline-flex; box-sizing: border-box; width: fit-content; height: 36px; align-items: center; gap: 8px;
+    padding: 0 14px; background: var(--burgundy); color: #fff; text-decoration: none; font-size: 12px; font-weight: 700;
+    white-space: nowrap; justify-self: end;
+  }
+  .brand-right { align-items: flex-end; justify-content: center; }
+  .brand-right-image { width: 170px; max-height: 58px; }
+
+  .legend-row { display: flex; align-items: flex-start; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .legend-title { display: block; font-weight: 700; font-size: 12px; margin-bottom: 5px; color: #1b1b1b; }
+  .strategy-key-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 5px 16px; }
+  .strategy-key-item { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; color: #333; max-width: 140px; line-height: 1.15; }
+  .strategy-key-icon {
+    display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; min-width: 20px;
+    border-radius: 50%; background: var(--burgundy); color: #fff;
+  }
+  .strategy-key-icon svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategy-key-icon svg.fill-icon { fill: currentColor; stroke: none; }
+  .trend-key-list { display: flex; flex-direction: column; gap: 4px; }
+  .trend-key-item { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; color: #333; white-space: nowrap; }
+  .trend-key-icon {
+    display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; min-width: 18px;
+    border-radius: 50%; background: #E50073; color: #fff;
+  }
+  .trend-key-icon svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  #status { font-size: 13px; color: #666; margin: 4px 0 10px; }
+
+  /* ---- Info row: title box + metric strip ---- */
+  .ep-info-row { display: flex; gap: 14px; align-items: stretch; margin-bottom: 14px; flex-wrap: wrap; }
+  .ep-title-box {
+    flex: 1 1 320px; display: flex; align-items: center; background: #fff; border: 2px solid var(--burgundy);
+    padding: 14px 18px; font-size: 17px; font-weight: 700; color: #1b1b1b;
+  }
+  .ep-metric-strip { flex: 2 1 560px; display: flex; align-items: stretch; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; }
+  .ep-metric { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 14px; border-right: 1px solid #eee; min-width: 76px; text-align: center; }
+  .ep-metric:last-of-type { border-right: none; }
+  .ep-metric-label { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #666; font-weight: 700; white-space: nowrap; }
+  .ep-metric-value { font-size: 14px; font-weight: 700; color: #1b1b1b; }
+  .ep-owner-icon { display: inline-flex; width: 14px; height: 14px; color: var(--burgundy); }
+  .ep-owner-icon svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+  .ep-areas-strip { display: flex; align-items: center; gap: 6px; padding: 8px 14px; }
+  .strategic-area-icon {
+    display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center;
+    border-radius: 50%; border: 2px solid #c9c9c9; background: #fff; color: #fff; flex: 0 0 auto;
+  }
+  .strategic-area-icon.is-yes { border-color: var(--burgundy); background: var(--burgundy); }
+  .strategic-area-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .strategic-area-icon.is-yes svg.fill-icon { fill: currentColor; stroke: none; }
+  .trend-icon {
+    display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center;
+    border-radius: 50%; background: #E50073; color: #fff; flex: 0 0 auto;
+  }
+  .trend-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+
+  /* ---- Content grid: statement/update (left) + controls/mitigations (right) ---- */
+  .ep-content-grid { display: grid; grid-template-columns: 0.85fr 1.7fr; gap: 14px; align-items: start; margin-bottom: 14px; }
+  .left-column, .right-column { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .detail-block { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 12px 14px; }
+  .detail-block-title { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--burgundy-dark); font-size: 12.5px; margin-bottom: 6px; }
+  .detail-block-title .icon-wrap { display: inline-flex; width: 20px; height: 20px; align-items: center; justify-content: center; color: var(--burgundy); flex: 0 0 auto; }
+  .detail-block-title .icon-wrap svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .detail-body-text { font-size: 12px; color: #333; line-height: 1.5; white-space: pre-line; }
+
+  .card-panel { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; }
+  .card-panel h3 { margin: 0; padding: 8px 12px; background: var(--burgundy); color: #fff; font-size: 13px; }
+  .ep-two-col-scroll { max-height: 420px; overflow: auto; }
+  .ep-two-col-table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  .ep-two-col-table th, .ep-two-col-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 11.5px; vertical-align: top; overflow-wrap: break-word; }
+  .ep-two-col-table th { position: sticky; top: 0; z-index: 1; background: #fff; color: var(--burgundy); font-size: 11px; border-bottom: 2px solid var(--burgundy); }
+  .ep-two-col-table td.wrap-pre { white-space: pre-line; }
+  .ep-two-col-table col.col-name { width: 32%; }
+  .ep-two-col-table col.col-desc { width: 68%; }
+  .empty-note { padding: 12px 14px; font-size: 12px; color: #888; font-style: italic; }
+
+  /* ---- KRI trend section ---- */
+  .kri-section { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .kri-section h3 { margin: 0; padding: 8px 12px; background: var(--burgundy); color: #fff; font-size: 13px; }
+  .kri-legend { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 8px 14px; border-bottom: 1px solid #eee; font-size: 10.5px; color: #444; }
+  .kri-legend-item { display: flex; align-items: center; gap: 5px; }
+  .kri-legend-swatch { display: inline-block; width: 16px; height: 3px; border-radius: 2px; }
+  .kri-legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2e9e4f; }
+  .kri-chart-row { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; }
+  .kri-chart-panel { flex: 1 1 300px; min-width: 260px; }
+  .kri-chart-title { font-size: 12px; font-weight: 700; color: #333; padding: 6px 10px 0; }
+  .kri-chart-view { width: 100%; height: 230px; }
+
+  @media (max-width: 1200px) {
+    .ep-content-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 1100px) {
+    .dashboard-topbar { grid-template-columns: 1fr; }
+    .back-button { justify-self: start; }
+  }
+</style>
+</head>
+<body class="ep-detail-page">
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="risk-wheel-test.html">Emerging Risk Wheel</a>
+  <a href="risk-cluster-cards.html">Emerging Risk Cluster Cards</a>
+  <a href="risk-emerging-table.html">Emerging Risk Table</a>
+  <a href="risk-matrix.html">Key Active Risks</a>
+  <a href="risk-summary-cards.html">Key Active Risk Summary Cards</a>
+  <a href="risk-kar-table.html">Key Active Risk Table</a>
+  <a href="risk-kar-detail.html">Key Active Risk Detail</a>
+  <a href="risk-material-control.html">Material Controls</a>
+</nav>
+
+<header class="dashboard-topbar">
+  <div class="brand-panel">
+    <div class="brand-identity">
+      <div class="brand-logo-row">
+        <img class="brand-image brand-astrazeneca" src="images/AZ_Logo.jpg" alt="AstraZeneca">
+        <a class="homepage-button" href="index.html">&#9664; Homepage</a>
+      </div>
+      <div class="brand-meta">
+        <span>Nexus</span>
+        <span>Enduring &amp; Principal Risk Details</span>
+        <span class="refresh-line">Data refreshed: UTC <time id="refreshDateTime"></time></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="legend-row" aria-label="Strategy key and trend key legend">
+    <div class="strategy-key">
+      <span class="legend-title">Strategy key</span>
+      <div class="strategy-key-grid">
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg></span>Science and Innovation</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg></span>People and Sustainability</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg></span>Growth and Therapy Area Leadership</span>
+        <span class="strategy-key-item"><span class="strategy-key-icon"><svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg></span>Achieve Group Financial Targets</span>
+      </div>
+    </div>
+    <div class="trend-key">
+      <span class="legend-title">Trend key</span>
+      <div class="trend-key-list">
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg></span>Increasing risk</span>
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg></span>Decreasing risk</span>
+        <span class="trend-key-item"><span class="trend-key-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg></span>Unchanged</span>
+      </div>
+    </div>
+  </section>
+
+  <a class="back-button" href="risk-matrix.html">&#8592; Go back to Summary</a>
+
+  <div class="brand-panel brand-right">
+    <img class="brand-image brand-right-image" src="images/AZ_Logo_2.jpg" alt="Group Controllers and Global Finance Services">
+  </div>
+</header>
+
+<div id="status">Loading data/ep-dim-risktest.json...</div>
+<div id="epDetailContent" style="display:none;">
+
+  <div class="ep-info-row">
+    <div class="ep-title-box" id="epTitle"></div>
+    <div class="ep-metric-strip" id="epMetricStrip"></div>
+  </div>
+
+  <div class="ep-content-grid">
+    <div class="left-column">
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></span>
+          Risk Statement
+        </div>
+        <div class="detail-body-text" id="epRiskStatement"></div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-block-title">
+          <span class="icon-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 4v4h-4M6 20v-4h4"/></svg></span>
+          Current Year Update
+        </div>
+        <div class="detail-body-text" id="epCurrentYearUpdate"></div>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="card-panel">
+        <h3>Material Controls</h3>
+        <div class="ep-two-col-scroll">
+          <table class="ep-two-col-table" id="epMaterialControlsTable">
+            <colgroup><col class="col-name"><col class="col-desc"></colgroup>
+            <thead><tr><th>Control Name</th><th>Control Description</th></tr></thead>
+            <tbody id="epMaterialControlsBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-panel">
+        <h3>Other Mitigations</h3>
+        <div class="ep-two-col-scroll">
+          <table class="ep-two-col-table" id="epMitigationsTable">
+            <colgroup><col class="col-name"><col class="col-desc"></colgroup>
+            <thead><tr><th>Mitigation Activity</th><th>Current Year Update</th></tr></thead>
+            <tbody id="epMitigationsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kri-section">
+    <h3 id="kriSectionTitle">Principal Risk KRI Trend</h3>
+    <div class="kri-legend">
+      <span class="kri-legend-item"><span class="kri-legend-dot"></span>Value</span>
+      <span class="kri-legend-item"><span class="kri-legend-swatch" style="background:#c8007a;"></span>Upper Threshold</span>
+      <span class="kri-legend-item"><span class="kri-legend-swatch" style="background:#e77fb3;"></span>Upper Tolerance</span>
+      <span class="kri-legend-item"><span class="kri-legend-swatch" style="background:#2f6f8f;"></span>Lower Tolerance</span>
+      <span class="kri-legend-item"><span class="kri-legend-swatch" style="background:#1b2a4a;"></span>Lower Threshold</span>
+    </div>
+    <div class="kri-chart-row" id="kriChartRow"></div>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('refreshDateTime').textContent = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
+  }).format(new Date());
+
+  const DATA_SOURCE = 'data/ep-dim-risktest.json';
+  const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
+  const STRATEGIC_AREA_ICONS = [
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="3"/><circle cx="9" cy="14" r="2.5"/><circle cx="23" cy="14" r="2.5"/><path d="M10 23c0-4 2-7 6-7s6 3 6 7M4 24c0-3 2-5 5-5M28 24c0-3-2-5-5-5"/></svg>',
+    '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24 13 16l5 4 9-11"/><path d="M21 9h6v6"/></svg>',
+    '<svg class="fill-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V17h6v9H5Zm8 0V11h6v15h-6Zm8 0V5h6v21h-6Z"/></svg>'
+  ];
+  const TREND_ICONS = {
+    Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
+    Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
+    Unchanged: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h20M13 9l-7 7 7 7M19 9l7 7-7 7"/></svg>'
+  };
+  const TREND_ALIAS = { Stable: 'Unchanged', Increasing: 'Increasing', Decreasing: 'Decreasing', Unchanged: 'Unchanged' };
+  const OWNER_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg>';
+
+  function strategicAreaIconsHtml(row) {
+    return STRATEGIC_AREA_NAMES.map((area, i) => {
+      const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
+      return `<span class="strategic-area-icon${isYes ? ' is-yes' : ''}" title="${area}: ${isYes ? 'Yes' : 'No'}">${isYes ? STRATEGIC_AREA_ICONS[i] : ''}</span>`;
+    }).join('');
+  }
+
+  function renderMetricStrip(row) {
+    const trendRaw = row['Trend'] || 'Unchanged';
+    const trend = TREND_ALIAS[trendRaw] || 'Unchanged';
+    const strip = document.getElementById('epMetricStrip');
+    strip.innerHTML = `
+      <div class="ep-metric">
+        <span class="ep-metric-label"><span class="ep-owner-icon">${OWNER_ICON}</span>Risk Owner</span>
+        <span class="ep-metric-value">${row['SET Risk Owner'] || '–'}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Principal Risk?</span>
+        <span class="ep-metric-value">${row['Principal Risk?'] || 'No'}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Gross Impact</span>
+        <span class="ep-metric-value">${row['Gross Impact'] || ''}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Gross Probability</span>
+        <span class="ep-metric-value">${row['Gross Likelihood'] || ''}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Current Impact</span>
+        <span class="ep-metric-value">${row['Current Impact'] || ''}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Current Probability</span>
+        <span class="ep-metric-value">${row['Current Likelihood'] || ''}</span>
+      </div>
+      <div class="ep-metric">
+        <span class="ep-metric-label">Trend</span>
+        <span class="trend-icon" title="${trendRaw}">${TREND_ICONS[trend]}</span>
+      </div>
+      <div class="ep-areas-strip">${strategicAreaIconsHtml(row)}</div>
+    `;
+  }
+
+  function renderTwoColTable(tbodyId, rows, colA, colB) {
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = '';
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="2" class="empty-note">None linked.</td></tr>`;
+      return;
+    }
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r[colA] || ''}</td><td class="wrap-pre">${r[colB] || ''}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ---- KRI trend charts ----
+  function currentQuarterIndex(date) {
+    return date.getFullYear() * 4 + Math.floor(date.getMonth() / 3);
+  }
+  function quarterLabel(absIndex) {
+    return `Q${(absIndex % 4) + 1}-${Math.floor(absIndex / 4)}`;
+  }
+  function buildQuarterLabels(n) {
+    const endIdx = currentQuarterIndex(new Date());
+    const labels = [];
+    for (let i = n - 1; i >= 0; i--) labels.push(quarterLabel(endIdx - i));
+    return labels;
+  }
+
+  function kriIsPercent(kri) {
+    const nums = [...kri.Values, kri.UpperThreshold, kri.UpperTolerance, kri.LowerThreshold, kri.LowerTolerance].filter(v => v != null);
+    return nums.some(v => !Number.isInteger(v));
+  }
+  function formatKriValue(v, isPercent) {
+    if (v == null) return '';
+    return isPercent ? (v * 100).toFixed(1) + '%' : String(Math.round(v));
+  }
+  function kriStatus(v, kri) {
+    const lower = kri.LowerTolerance ?? kri.LowerThreshold;
+    const upper = kri.UpperTolerance ?? kri.UpperThreshold;
+    if (lower != null && v < lower) return 'bad';
+    if (upper != null && v > upper) return 'bad';
+    return 'good';
+  }
+
+  // Raw Vega (not Vega-Lite) spec, matching the pattern used by every other chart in this
+  // app -- the CDN's vega-lite@5 build isn't compatible with this vega-embed@6 build, so
+  // Vega-Lite specs fail inside vega-embed's internals ("Cannot read properties of null").
+  function buildKriSpec(kri) {
+    const quarters = buildQuarterLabels(kri.Values.length);
+    const isPercent = kriIsPercent(kri);
+    const points = kri.Values.map((v, i) => ({
+      quarter: quarters[i], value: v, label: formatKriValue(v, isPercent), status: kriStatus(v, kri)
+    }));
+
+    const domainNums = [...kri.Values, kri.UpperThreshold, kri.UpperTolerance, kri.LowerThreshold, kri.LowerTolerance].filter(v => v != null);
+    let yMin = Math.min(...domainNums);
+    let yMax = Math.max(...domainNums);
+    const span = (yMax - yMin) || Math.abs(yMax) || 1;
+    yMin -= span * 0.25;
+    yMax += span * 0.3;
+
+    const hasBand = kri.UpperTolerance != null;
+    const bandLower = kri.LowerTolerance ?? kri.LowerThreshold ?? 0;
+
+    const marks = [];
+    if (hasBand) {
+      marks.push({
+        type: 'rect',
+        from: { data: 'points' },
+        encode: {
+          enter: {
+            x: { scale: 'xscale', field: 'quarter' },
+            width: { scale: 'xscale', band: 1 },
+            y: { scale: 'yscale', value: bandLower },
+            y2: { scale: 'yscale', value: kri.UpperTolerance },
+            fill: { value: '#e8e07a' },
+            fillOpacity: { value: 0.55 }
+          }
+        }
+      });
+    }
+    const ruleDefs = [
+      { key: 'UpperThreshold', color: '#c8007a' },
+      { key: 'UpperTolerance', color: '#e77fb3', dash: [4, 2] },
+      { key: 'LowerTolerance', color: '#2f6f8f', dash: [4, 2] },
+      { key: 'LowerThreshold', color: '#1b2a4a' }
+    ];
+    ruleDefs.forEach(rd => {
+      const v = kri[rd.key];
+      if (v == null) return;
+      marks.push({
+        type: 'rule',
+        encode: {
+          enter: {
+            x: { value: 0 },
+            x2: { signal: 'width' },
+            y: { scale: 'yscale', value: v },
+            stroke: { value: rd.color },
+            strokeWidth: { value: 1.4 },
+            strokeDash: { value: rd.dash || [] }
+          }
+        }
+      });
+    });
+    marks.push({
+      type: 'line',
+      from: { data: 'points' },
+      encode: {
+        enter: {
+          x: { scale: 'xscale', field: 'quarter', band: 0.5 },
+          y: { scale: 'yscale', field: 'value' },
+          stroke: { value: '#1b1b2a' },
+          strokeWidth: { value: 1.8 }
+        }
+      }
+    });
+    marks.push({
+      type: 'symbol',
+      from: { data: 'points' },
+      encode: {
+        enter: {
+          x: { scale: 'xscale', field: 'quarter', band: 0.5 },
+          y: { scale: 'yscale', field: 'value' },
+          size: { value: 55 },
+          stroke: { value: '#fff' },
+          strokeWidth: { value: 1 },
+          fill: { scale: 'statusColor', field: 'status' }
+        }
+      }
+    });
+    marks.push({
+      type: 'text',
+      from: { data: 'points' },
+      encode: {
+        enter: {
+          x: { scale: 'xscale', field: 'quarter', band: 0.5 },
+          y: { scale: 'yscale', field: 'value' },
+          dy: { value: -14 },
+          align: { value: 'center' },
+          fontSize: { value: 10 },
+          fontWeight: { value: 700 },
+          fill: { value: '#333' },
+          text: { field: 'label' }
+        }
+      }
+    });
+
+    return {
+      $schema: 'https://vega.github.io/schema/vega/v5.json',
+      width: 300, height: 190,
+      padding: { left: 8, right: 8, top: 22, bottom: 30 },
+      autosize: { type: 'pad' },
+      data: [{ name: 'points', values: points }],
+      scales: [
+        { name: 'xscale', type: 'band', domain: quarters, range: 'width', paddingInner: 0.35, paddingOuter: 0.3 },
+        { name: 'yscale', type: 'linear', domain: [yMin, yMax], range: 'height', zero: false, nice: false },
+        { name: 'statusColor', type: 'ordinal', domain: ['good', 'bad'], range: ['#2e9e4f', '#c0392b'] }
+      ],
+      axes: [
+        { orient: 'bottom', scale: 'xscale', title: 'Quarter-Year', grid: false, labelFontSize: 10, titleFontSize: 10, domainColor: '#ccc', tickColor: '#ccc' }
+      ],
+      marks
+    };
+  }
+
+  function renderKriCharts(kris) {
+    document.getElementById('kriSectionTitle').textContent = `Principal Risk KRI Trend - No. of Linked KRI: ${kris.length}`;
+    const row = document.getElementById('kriChartRow');
+    row.innerHTML = '';
+    if (!kris.length) {
+      row.innerHTML = '<div class="empty-note">No KRIs linked to this risk.</div>';
+      return;
+    }
+    kris.forEach((kri, i) => {
+      const panel = document.createElement('div');
+      panel.className = 'kri-chart-panel';
+      const viewId = `kriView${i}`;
+      panel.innerHTML = `<div class="kri-chart-title">${kri.Name}</div><div class="kri-chart-view" id="${viewId}"></div>`;
+      row.appendChild(panel);
+      vegaEmbed(`#${viewId}`, buildKriSpec(kri), { actions: false }).catch(console.error);
+    });
+  }
+
+  function renderEpDetail(row) {
+    document.getElementById('epTitle').textContent = row['Enduring Risk'] || '';
+    renderMetricStrip(row);
+    document.getElementById('epRiskStatement').textContent = row['Risk Statement'] || '';
+    document.getElementById('epCurrentYearUpdate').textContent = row['Current Year Update'] || '';
+    renderTwoColTable('epMaterialControlsBody', row['Material Controls'] || [], 'Name', 'Description');
+    renderTwoColTable('epMitigationsBody', row['Other Mitigations'] || [], 'Activity', 'Update');
+    renderKriCharts(row['KRIs'] || []);
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('epDetailContent').style.display = '';
+  }
+
+  fetch(DATA_SOURCE)
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(data => {
+      const rows = data.rows?.rows || data.rows || data;
+      const requestedId = new URLSearchParams(window.location.search).get('id');
+      const row = requestedId
+        ? rows.find(r => String(r['Enduring Risk Number']) === String(requestedId))
+        : [...rows].sort((a, b) => a['Enduring Risk Number'] - b['Enduring Risk Number'])[0];
+      if (!row) {
+        document.getElementById('status').textContent = `No Enduring/Principal Risk found for id "${requestedId}".`;
+        return;
+      }
+      renderEpDetail(row);
+    })
+    .catch(err => {
+      document.getElementById('status').textContent =
+        'Failed to load — ' + err.message + ' (make sure data/ep-dim-risktest.json is in place, and that you\'re using a local server, not opening the file directly with file://)';
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>
