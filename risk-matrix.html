@@ -174,6 +174,28 @@
     color: #fff;
     font-size: 14px;
   }
+  .summary-nav-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #eaf4fb;
+    color: #1a4971;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+  .summary-nav-hint .hint-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border-radius: 50%;
+    background: #2f80c4;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+  }
   .summary-scroll {
     max-height: clamp(180px, 32vh, 420px);
     overflow: auto;
@@ -420,6 +442,7 @@
 
 <section class="summary-panel">
   <h3>Summary</h3>
+  <div class="summary-nav-hint"><span class="hint-icon">i</span>Navigation guide: Right click on the table row below and select "Drillthrough" to see the details. Hover to see data tooltip.</div>
   <div class="summary-scroll">
     <table class="summary-table">
       <thead>
