@@ -50,15 +50,30 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ===== Header banner ===== */
+/* The banner graphic is actually the fixed, viewport-covering body background
+   (see body{} above) — this element is just a spacer that reveals its top strip.
+   Because that background uses background-size:cover, how much of the image's
+   vertical space a given pixel of banner height reveals shrinks as the viewport
+   grows (an ultra-wide/4K window scales the image up much closer to 1:1). A flat
+   183px stops being tall enough to clear the "Global Finance Services" title text
+   baked into the image once the viewport gets big enough, so the box below it
+   would start covering the text. --banner-h scales with viewport width/height to
+   stay ahead of that growth at any screen size, with 183px as the floor for
+   normal desktop sizes (matches the original fixed value) so nothing changes there.
+*/
+:root {
+  --banner-h: clamp(183px, max(9vw, 16vh), 480px);
+}
+
 .banner {
-  height: 183px;
+  height: var(--banner-h);
   width: 100%;
   margin-bottom: 0;
 }
 
 .content-area {
   width: 75vw;
-  height: calc(100vh - 183px);
+  height: calc(100vh - var(--banner-h));
   margin-left: 4px;
   display: flex;
   flex-direction: column;
@@ -70,7 +85,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 700px) {
   .banner {
     aspect-ratio: auto;
-    height: 220px;
+    height: max(220px, var(--banner-h));
   }
 }
 
@@ -202,7 +217,9 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Responsive ===== */
 @media (max-width: 1000px) {
-  .content-area { width: calc(100% - 8px); height: auto; }
+  /* Keep a right-hand margin (instead of full width) so the white panels never
+     reach into the corner where the fixed background's AstraZeneca logo sits. */
+  .content-area { width: calc(90% - 8px); height: auto; }
   .intro-card, .panel-grid { width: auto; }
   .panel-grid { grid-template-columns: 1fr 1fr; }
   .panel p { min-height: 0; flex-basis: auto; }
