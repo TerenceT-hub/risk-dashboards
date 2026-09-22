@@ -309,7 +309,8 @@
     day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC'
   }).format(new Date());
 
-  const PAGE_SIZE = 6;
+  const CLUSTER_PAGE_SIZE = 3;
+  const DETAIL_PAGE_SIZE = 6;
   const STRATEGIC_AREA_NAMES = ['Science and Innovation', 'People and Sustainability', 'Growth and Therapy Area Leadership', 'Achieve Group Financial Targets'];
   const STRATEGIC_AREA_ICONS = [
     '<svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(45 16 16)"/><ellipse cx="16" cy="16" rx="5" ry="14" transform="rotate(-45 16 16)"/><circle cx="16" cy="16" r="2"/></svg>',
@@ -406,15 +407,15 @@
   }
 
   function renderClustersTable() {
-    const totalPages = Math.max(1, Math.ceil(clusterRows.length / PAGE_SIZE));
+    const totalPages = Math.max(1, Math.ceil(clusterRows.length / CLUSTER_PAGE_SIZE));
     clusterPage = Math.min(Math.max(1, clusterPage), totalPages);
-    const start = (clusterPage - 1) * PAGE_SIZE;
-    const pageRows = clusterRows.slice(start, start + PAGE_SIZE);
+    const start = (clusterPage - 1) * CLUSTER_PAGE_SIZE;
+    const pageRows = clusterRows.slice(start, start + CLUSTER_PAGE_SIZE);
     const tbody = document.getElementById('clustersTableBody');
     tbody.innerHTML = '';
     pageRows.forEach(row => tbody.appendChild(renderClusterRow(row)));
 
-    buildPagination(document.getElementById('clusterPagination'), clusterRows.length, PAGE_SIZE, clusterPage, p => {
+    buildPagination(document.getElementById('clusterPagination'), clusterRows.length, CLUSTER_PAGE_SIZE, clusterPage, p => {
       clusterPage = p;
       activeView = 'clusters';
       renderActiveView();
@@ -422,15 +423,15 @@
   }
 
   function renderDetailsTable() {
-    const totalPages = Math.max(1, Math.ceil(detailRows.length / PAGE_SIZE));
+    const totalPages = Math.max(1, Math.ceil(detailRows.length / DETAIL_PAGE_SIZE));
     detailPage = Math.min(Math.max(1, detailPage), totalPages);
-    const start = (detailPage - 1) * PAGE_SIZE;
-    const pageRows = detailRows.slice(start, start + PAGE_SIZE);
+    const start = (detailPage - 1) * DETAIL_PAGE_SIZE;
+    const pageRows = detailRows.slice(start, start + DETAIL_PAGE_SIZE);
     const tbody = document.getElementById('detailsTableBody');
     tbody.innerHTML = '';
     pageRows.forEach(row => tbody.appendChild(renderDetailRow(row)));
 
-    buildPagination(document.getElementById('detailPagination'), detailRows.length, PAGE_SIZE, detailPage, p => {
+    buildPagination(document.getElementById('detailPagination'), detailRows.length, DETAIL_PAGE_SIZE, detailPage, p => {
       detailPage = p;
       activeView = 'details';
       renderActiveView();
@@ -445,8 +446,8 @@
     document.getElementById('clusterPaginationBlock').classList.toggle('is-active', activeView === 'clusters');
     document.getElementById('detailPaginationBlock').classList.toggle('is-active', activeView === 'details');
     document.getElementById('status').textContent = activeView === 'clusters'
-      ? `Showing ${Math.min(PAGE_SIZE, clusterRows.length - (clusterPage - 1) * PAGE_SIZE)} of ${clusterRows.length} emerging risk clusters.`
-      : `Showing ${Math.min(PAGE_SIZE, detailRows.length - (detailPage - 1) * PAGE_SIZE)} of ${detailRows.length} emerging risks.`;
+      ? `Showing ${Math.min(CLUSTER_PAGE_SIZE, clusterRows.length - (clusterPage - 1) * CLUSTER_PAGE_SIZE)} of ${clusterRows.length} emerging risk clusters.`
+      : `Showing ${Math.min(DETAIL_PAGE_SIZE, detailRows.length - (detailPage - 1) * DETAIL_PAGE_SIZE)} of ${detailRows.length} emerging risks.`;
   }
 
   // One continuous table with every row of the currently active view -- the print CSS (thead
