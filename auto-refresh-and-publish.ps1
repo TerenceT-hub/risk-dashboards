@@ -2,8 +2,13 @@
 # commits and pushes to both the AZ Enterprise repo (origin) and the public
 # personal repo (personal-origin). Safe to run on a schedule: it's a no-op
 # (no commit, no push) when the source workbook hasn't changed.
+#
+# Note: native commands (git/node) are never run with 2>&1 here -- PowerShell
+# wraps their stderr lines as terminating NativeCommandErrors even on success
+# (e.g. git's routine "Bypassed rule violations" push notice), which would
+# otherwise abort this script after the first git command. Output is captured
+# via stdout only; exit codes are checked explicitly instead.
 
-$ErrorActionPreference = 'Stop'
 $projectDir = "C:\Users\khnq757\OneDrive - AZCollaboration\Shortcuts\Terence Intenal - Documents\Risk_Test"
 $gitExe = "C:\Users\khnq757\AppData\Local\GitHubDesktop\app-3.6.6\resources\app\git\cmd\git.exe"
 $nodeExe = "C:\Program Files\nodejs\node.exe"
@@ -14,14 +19,18 @@ function Log($msg) {
     Add-Content -Path $logFile -Value $line
 }
 
+function Run($exe, $exeArgs) {
+    $output = & $exe @exeArgs 2>$null
+    $output | ForEach-Object { Log "  $_" }
+    return $LASTEXITCODE
+}
+
 Set-Location $projectDir
 Log "---- Auto-refresh run starting ----"
 
-try {
-    $refreshOutput = & $nodeExe refresh-data.js 2>&1
-    $refreshOutput | ForEach-Object { Log $_ }
-} catch {
-    Log "ERROR: refresh-data.js failed: $($_.Exception.Message)"
+$refreshExit = Run $nodeExe @('refresh-data.js')
+if ($refreshExit -ne 0) {
+    Log "ERROR: refresh-data.js exited with code $refreshExit. Aborting (source workbook may be open/locked)."
     exit 1
 }
 
@@ -34,11 +43,15 @@ if ([string]::IsNullOrWhiteSpace($statusOutput)) {
 Log "Changes detected:"
 $statusOutput | ForEach-Object { Log "  $_" }
 
-& $gitExe add -A
-& $gitExe commit -m "Auto-refresh data from source workbook ($(Get-Date -Format 'yyyy-MM-dd HH:mm'))" 2>&1 | ForEach-Object { Log $_ }
+Run $gitExe @('add', '-A') | Out-Null
+Run $gitExe @('commit', '-m', "Auto-refresh data from source workbook ($(Get-Date -Format 'yyyy-MM-dd HH:mm'))") | Out-Null
 
-& $gitExe push origin main 2>&1 | ForEach-Object { Log $_ }
-& $gitExe push personal-origin main 2>&1 | ForEach-Object { Log $_ }
+$pushOriginExit = Run $gitExe @('push', 'origin', 'main')
+$pushPersonalExit = Run $gitExe @('push', 'personal-origin', 'main')
 
-Log "Published to origin and personal-origin."
+if ($pushOriginExit -eq 0 -and $pushPersonalExit -eq 0) {
+    Log "Published to origin and personal-origin."
+} else {
+    Log "WARNING: push exit codes -- origin: $pushOriginExit, personal-origin: $pushPersonalExit"
+}
 Log "---- Auto-refresh run finished ----"
