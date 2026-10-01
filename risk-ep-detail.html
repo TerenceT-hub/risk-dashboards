@@ -98,7 +98,9 @@
 
   /* ---- Risk panel cards: rounded white cards on a light gray wrapper ---- */
   .risk-panel-wrap { background: #F7F7F7; padding: 22px; border-radius: 16px; margin-bottom: 14px; }
+  .risk-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   .risk-card { background: #fff; padding: 16px; border-radius: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.06); margin-bottom: 16px; }
+  .risk-top-row .risk-card { margin-bottom: 0; }
   .risk-card:last-child { margin-bottom: 0; }
   .risk-card-section { margin-bottom: 14px; }
   .risk-card-section:last-child { margin-bottom: 0; }
@@ -106,14 +108,20 @@
   .risk-card-label.burgundy { color: var(--burgundy); }
   .risk-card-label.navy { color: #003865; }
   .risk-card-text { color: #3F4444; line-height: 1.6; font-size: 12px; white-space: pre-line; }
-  .mitigation-group { display: flex; flex-direction: column; gap: 16px; }
   .mitigation-subcard { background: #fff; border-radius: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.06); overflow: hidden; }
-  .mitigation-list-scroll { max-height: 220px; overflow: auto; }
+  .mitigation-list-scroll { max-height: 260px; overflow: auto; }
   .mitigation-list-table { border-collapse: collapse; width: 100%; }
+  .mitigation-list-table.two-col { table-layout: fixed; }
+  .mitigation-list-table.two-col col.col-name { width: 32%; }
+  .mitigation-list-table.two-col col.col-desc { width: 68%; }
   .mitigation-list-table th { background: var(--burgundy); color: #fff; text-align: left; font-weight: 700; font-size: 11.5px; padding: 7px 10px; position: sticky; top: 0; z-index: 1; }
-  .mitigation-list-table td { padding: 7px 10px; border-bottom: 1px solid #eee; font-size: 11.5px; color: #333; }
+  .mitigation-list-table td { padding: 7px 10px; border-bottom: 1px solid #eee; font-size: 11.5px; color: #333; vertical-align: top; overflow-wrap: break-word; }
+  .mitigation-list-table td.wrap-pre { white-space: pre-line; }
   .mitigation-list-table tr:last-child td { border-bottom: none; }
   .empty-note { padding: 10px; font-size: 12px; color: #888; font-style: italic; }
+  @media (max-width: 700px) {
+    .risk-top-row { grid-template-columns: 1fr; }
+  }
 
   /* ---- KRI trend section ---- */
   .kri-section { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
@@ -213,7 +221,18 @@
   </div>
 
   <div class="risk-panel-wrap">
-    <div class="risk-card">
+    <div class="risk-top-row">
+      <div class="risk-card">
+        <div class="risk-card-label navy">Product Pipeline Risk</div>
+        <div class="risk-card-text" id="epProductPipelineRisk"></div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-card-label navy">Impact</div>
+        <div class="risk-card-text" id="epImpactText"></div>
+      </div>
+    </div>
+
+    <div class="risk-card" id="principalRiskCard">
       <div class="risk-card-section">
         <div class="risk-card-label burgundy">Enduring Risk</div>
         <div class="risk-card-text" id="epEnduringRiskText"></div>
@@ -223,38 +242,32 @@
         <div class="risk-card-text" id="epRiskStatement"></div>
       </div>
       <div class="risk-card-section">
-        <div class="risk-card-label burgundy">Mitigation</div>
+        <div class="risk-card-label burgundy">Material Controls</div>
         <div class="risk-card-text">
-          <div class="mitigation-group">
-            <div class="mitigation-subcard">
-              <div class="mitigation-list-scroll">
-                <table class="mitigation-list-table" id="epMaterialControlsTable">
-                  <thead><tr><th>Material Controls</th></tr></thead>
-                  <tbody id="epMaterialControlsBody"></tbody>
-                </table>
-              </div>
-            </div>
-            <div class="mitigation-subcard">
-              <div class="mitigation-list-scroll">
-                <table class="mitigation-list-table" id="epMitigationsTable">
-                  <thead><tr><th>Other Mitigations</th></tr></thead>
-                  <tbody id="epMitigationsBody"></tbody>
-                </table>
-              </div>
+          <div class="mitigation-subcard">
+            <div class="mitigation-list-scroll">
+              <table class="mitigation-list-table two-col" id="epMaterialControlsTable">
+                <colgroup><col class="col-name"><col class="col-desc"></colgroup>
+                <thead><tr><th>Control Name</th><th>Control Description</th></tr></thead>
+                <tbody id="epMaterialControlsBody"></tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="risk-card">
-      <div class="risk-card-label navy">Product Pipeline Risk</div>
-      <div class="risk-card-text" id="epProductPipelineRisk"></div>
-    </div>
-
-    <div class="risk-card">
-      <div class="risk-card-label navy">Impact</div>
-      <div class="risk-card-text" id="epImpactText"></div>
+      <div class="risk-card-section">
+        <div class="risk-card-label burgundy">Mitigation</div>
+        <div class="risk-card-text">
+          <div class="mitigation-subcard">
+            <div class="mitigation-list-scroll">
+              <table class="mitigation-list-table" id="epMitigationsTable">
+                <thead><tr><th>Mitigation</th></tr></thead>
+                <tbody id="epMitigationsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -349,6 +362,20 @@
     rows.forEach(r => {
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${r[colKey] || ''}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderMaterialControls(tbodyId, rows) {
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = '';
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="2" class="empty-note">None linked.</td></tr>`;
+      return;
+    }
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r['Name'] || ''}</td><td class="wrap-pre">${r['Description'] || ''}</td>`;
       tbody.appendChild(tr);
     });
   }
@@ -599,14 +626,23 @@
   function renderEpDetail(row) {
     document.getElementById('epTitle').textContent = row['Enduring Risk'] || '';
     renderMetricStrip(row);
-    document.getElementById('epEnduringRiskText').textContent = row['Enduring Risk'] || '';
-    document.getElementById('epRiskStatement').textContent = row['Risk Statement'] || '';
+
+    // Product Pipeline Risk / Impact always show, for both Principal Risk? = Yes and No.
     // Placeholder: dedicated "Product Pipeline Risk" / "Impact" columns don't exist yet in the
     // data source, so both cards temporarily mirror "Current Year Update" until those fields land.
     document.getElementById('epProductPipelineRisk').textContent = row['Current Year Update'] || '';
     document.getElementById('epImpactText').textContent = row['Current Year Update'] || '';
-    renderSingleColList('epMaterialControlsBody', row['Material Controls'] || [], 'Name');
-    renderSingleColList('epMitigationsBody', row['Other Mitigations'] || [], 'Activity');
+
+    // Enduring Risk / Risk Statement / Material Controls / Mitigation only apply to principal risks.
+    const isPrincipalRisk = String(row['Principal Risk?'] || '').toLowerCase() === 'yes';
+    document.getElementById('principalRiskCard').style.display = isPrincipalRisk ? '' : 'none';
+    if (isPrincipalRisk) {
+      document.getElementById('epEnduringRiskText').textContent = row['Enduring Risk'] || '';
+      document.getElementById('epRiskStatement').textContent = row['Risk Statement'] || '';
+      renderMaterialControls('epMaterialControlsBody', row['Material Controls'] || []);
+      renderSingleColList('epMitigationsBody', row['Other Mitigations'] || [], 'Activity');
+    }
+
     renderKriCharts(row['KRIs'] || []);
     document.getElementById('status').style.display = 'none';
     document.getElementById('epDetailContent').style.display = '';
