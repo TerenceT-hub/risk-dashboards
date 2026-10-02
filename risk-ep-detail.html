@@ -69,15 +69,16 @@
 
   #status { font-size: 13px; color: #666; margin: 4px 0 10px; }
 
-  /* ---- Info row: title box + metric strip ---- */
-  .ep-info-row { display: flex; gap: 14px; align-items: stretch; margin-bottom: 14px; flex-wrap: wrap; }
+  /* ---- Info row: title box + individually-boxed metric chips ---- */
+  .ep-info-row { display: flex; gap: 12px; align-items: stretch; margin-bottom: 14px; flex-wrap: wrap; }
   .ep-title-box {
-    flex: 1 1 320px; display: flex; align-items: center; background: #fff; border: 2px solid var(--burgundy);
+    flex: 1 1 320px; display: flex; align-items: center; background: #fff; border: 2px solid var(--burgundy); border-radius: 6px;
     padding: 14px 18px; font-size: 17px; font-weight: 700; color: #1b1b1b;
   }
-  .ep-metric-strip { flex: 2 1 560px; display: flex; align-items: stretch; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow-x: auto; }
-  .ep-metric { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 14px; border-right: 1px solid #eee; min-width: 76px; text-align: center; }
-  .ep-metric:last-of-type { border-right: none; }
+  .ep-metric-strip { flex: 2 1 560px; display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+  .ep-metric { background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 14px; min-width: 76px; text-align: center; }
+  .ep-metric.risk-category { align-items: flex-start; text-align: left; min-width: 170px; max-width: 230px; justify-content: center; }
+  .ep-metric.risk-category .ep-metric-value { font-size: 11.5px; font-weight: 600; line-height: 1.4; }
   .ep-metric-label { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #666; font-weight: 700; white-space: nowrap; }
   .ep-metric-value { font-size: 14px; font-weight: 700; color: #1b1b1b; }
   .ep-owner-icon { display: inline-flex; width: 14px; height: 14px; color: var(--burgundy); }
@@ -96,20 +97,39 @@
   }
   .trend-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
 
-  /* ---- Risk panel cards: rounded white cards on a light gray wrapper ---- */
-  .risk-panel-wrap { background: #F7F7F7; padding: 22px; border-radius: 16px; margin-bottom: 14px; }
-  .risk-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .risk-card { background: #fff; padding: 16px; border-radius: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.06); margin-bottom: 16px; }
-  .risk-top-row .risk-card { margin-bottom: 0; }
-  .risk-card:last-child { margin-bottom: 0; }
+  /* ---- Risk panel: 3-column card grid (Product Pipeline Risk / Impact / Material Controls on
+     top, Enduring Risk+Risk Statement / Mitigation below; Material Controls spans both rows) ---- */
+  .risk-panel-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr;
+    grid-template-rows: 260px 200px;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .risk-card {
+    background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 12px 14px; display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+  }
+  .risk-card--pp { grid-column: 1; grid-row: 1; }
+  .risk-card--impact { grid-column: 2; grid-row: 1; }
+  .risk-card--material { grid-column: 3; grid-row: 1 / span 2; }
+  .risk-card--enduring { grid-column: 1; grid-row: 2; }
+  .risk-card--mitigation { grid-column: 2; grid-row: 2; }
+  /* When Principal Risk? = No: Material Controls / Enduring Risk / Mitigation are hidden —
+     collapse to a single row of two cards instead of leaving an empty spanning gap. */
+  .risk-panel-wrap.principal-risk-only { grid-template-columns: 1fr 1fr; grid-template-rows: 260px; }
+  .risk-panel-wrap.principal-risk-only .risk-card--pp { grid-column: 1; grid-row: 1; }
+  .risk-panel-wrap.principal-risk-only .risk-card--impact { grid-column: 2; grid-row: 1; }
   .risk-card-section { margin-bottom: 14px; }
   .risk-card-section:last-child { margin-bottom: 0; }
-  .risk-card-label { font-weight: 600; margin-bottom: 6px; font-size: 12.5px; }
+  .risk-card-label { font-weight: 600; margin-bottom: 6px; font-size: 12.5px; flex: 0 0 auto; }
   .risk-card-label.burgundy { color: var(--burgundy); }
   .risk-card-label.navy { color: #003865; }
   .risk-card-text { color: #3F4444; line-height: 1.6; font-size: 12px; white-space: pre-line; }
-  .mitigation-subcard { background: #fff; border-radius: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.06); overflow: hidden; }
-  .mitigation-list-scroll { max-height: 260px; overflow: auto; }
+  .risk-card-text.scrollable { flex: 1 1 auto; overflow-y: auto; min-height: 0; }
+  .risk-card-scroll-body { flex: 1 1 auto; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 14px; }
+  .risk-card-scroll-body .risk-card-section { margin-bottom: 0; }
+  .risk-table-scroll { flex: 1 1 auto; overflow-y: auto; min-height: 0; margin: 0 -14px -12px; }
   .mitigation-list-table { border-collapse: collapse; width: 100%; }
   .mitigation-list-table.two-col { table-layout: fixed; }
   .mitigation-list-table.two-col col.col-name { width: 32%; }
@@ -117,10 +137,13 @@
   .mitigation-list-table th { background: var(--burgundy); color: #fff; text-align: left; font-weight: 700; font-size: 11.5px; padding: 7px 10px; position: sticky; top: 0; z-index: 1; }
   .mitigation-list-table td { padding: 7px 10px; border-bottom: 1px solid #eee; font-size: 11.5px; color: #333; vertical-align: top; overflow-wrap: break-word; }
   .mitigation-list-table td.wrap-pre { white-space: pre-line; }
+  .mitigation-list-table tr:nth-child(even) td { background: #f7f7f7; }
   .mitigation-list-table tr:last-child td { border-bottom: none; }
   .empty-note { padding: 10px; font-size: 12px; color: #888; font-style: italic; }
-  @media (max-width: 700px) {
-    .risk-top-row { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) {
+    .risk-panel-wrap, .risk-panel-wrap.principal-risk-only { grid-template-columns: 1fr; grid-template-rows: none; }
+    .risk-card--pp, .risk-card--impact, .risk-card--material, .risk-card--enduring, .risk-card--mitigation { grid-column: auto; grid-row: auto; }
+    .risk-card { height: auto; max-height: 320px; }
   }
 
   /* ---- KRI trend section ---- */
@@ -221,52 +244,47 @@
   </div>
 
   <div class="risk-panel-wrap">
-    <div class="risk-top-row">
-      <div class="risk-card">
-        <div class="risk-card-label navy">Product Pipeline Risk</div>
-        <div class="risk-card-text" id="epProductPipelineRisk"></div>
-      </div>
-      <div class="risk-card">
-        <div class="risk-card-label navy">Impact</div>
-        <div class="risk-card-text" id="epImpactText"></div>
+    <div class="risk-card risk-card--pp">
+      <div class="risk-card-label navy">Product Pipeline Risk</div>
+      <div class="risk-card-text scrollable" id="epProductPipelineRisk"></div>
+    </div>
+
+    <div class="risk-card risk-card--impact">
+      <div class="risk-card-label navy">Impact</div>
+      <div class="risk-card-text scrollable" id="epImpactText"></div>
+    </div>
+
+    <div class="risk-card risk-card--material" id="materialControlsCard">
+      <div class="risk-card-label burgundy">Material Controls</div>
+      <div class="risk-table-scroll">
+        <table class="mitigation-list-table two-col" id="epMaterialControlsTable">
+          <colgroup><col class="col-name"><col class="col-desc"></colgroup>
+          <thead><tr><th>Control Name</th><th>Control Description</th></tr></thead>
+          <tbody id="epMaterialControlsBody"></tbody>
+        </table>
       </div>
     </div>
 
-    <div class="risk-card" id="principalRiskCard">
-      <div class="risk-card-section">
-        <div class="risk-card-label burgundy">Enduring Risk</div>
-        <div class="risk-card-text" id="epEnduringRiskText"></div>
-      </div>
-      <div class="risk-card-section">
-        <div class="risk-card-label burgundy">Risk Statement</div>
-        <div class="risk-card-text" id="epRiskStatement"></div>
-      </div>
-      <div class="risk-card-section">
-        <div class="risk-card-label burgundy">Material Controls</div>
-        <div class="risk-card-text">
-          <div class="mitigation-subcard">
-            <div class="mitigation-list-scroll">
-              <table class="mitigation-list-table two-col" id="epMaterialControlsTable">
-                <colgroup><col class="col-name"><col class="col-desc"></colgroup>
-                <thead><tr><th>Control Name</th><th>Control Description</th></tr></thead>
-                <tbody id="epMaterialControlsBody"></tbody>
-              </table>
-            </div>
-          </div>
+    <div class="risk-card risk-card--enduring" id="enduringRiskCard">
+      <div class="risk-card-scroll-body">
+        <div class="risk-card-section">
+          <div class="risk-card-label burgundy">Enduring Risk</div>
+          <div class="risk-card-text" id="epEnduringRiskText"></div>
+        </div>
+        <div class="risk-card-section">
+          <div class="risk-card-label burgundy">Risk Statement</div>
+          <div class="risk-card-text" id="epRiskStatement"></div>
         </div>
       </div>
-      <div class="risk-card-section">
-        <div class="risk-card-label burgundy">Mitigation</div>
-        <div class="risk-card-text">
-          <div class="mitigation-subcard">
-            <div class="mitigation-list-scroll">
-              <table class="mitigation-list-table" id="epMitigationsTable">
-                <thead><tr><th>Mitigation</th></tr></thead>
-                <tbody id="epMitigationsBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+    </div>
+
+    <div class="risk-card risk-card--mitigation" id="mitigationCard">
+      <div class="risk-card-label burgundy">Mitigation</div>
+      <div class="risk-table-scroll">
+        <table class="mitigation-list-table" id="epMitigationsTable">
+          <thead><tr><th>Mitigation</th></tr></thead>
+          <tbody id="epMitigationsBody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -320,6 +338,10 @@
     const trend = TREND_ALIAS[trendRaw] || 'Unchanged';
     const strip = document.getElementById('epMetricStrip');
     strip.innerHTML = `
+      <div class="ep-metric risk-category">
+        <span class="ep-metric-label">Risk Category</span>
+        <span class="ep-metric-value">${row['Risk Category'] || ''}</span>
+      </div>
       <div class="ep-metric">
         <span class="ep-metric-label"><span class="ep-owner-icon">${OWNER_ICON}</span>Risk Owner</span>
         <span class="ep-metric-value">${row['SET Risk Owner'] || '–'}</span>
@@ -635,13 +657,21 @@
 
     // Enduring Risk / Risk Statement / Material Controls / Mitigation only apply to principal risks.
     const isPrincipalRisk = String(row['Principal Risk?'] || '').toLowerCase() === 'yes';
-    document.getElementById('principalRiskCard').style.display = isPrincipalRisk ? '' : 'none';
+    const principalOnlyCardIds = ['materialControlsCard', 'enduringRiskCard', 'mitigationCard'];
+    principalOnlyCardIds.forEach(id => {
+      document.getElementById(id).style.display = isPrincipalRisk ? '' : 'none';
+    });
     if (isPrincipalRisk) {
       document.getElementById('epEnduringRiskText').textContent = row['Enduring Risk'] || '';
       document.getElementById('epRiskStatement').textContent = row['Risk Statement'] || '';
       renderMaterialControls('epMaterialControlsBody', row['Material Controls'] || []);
       renderSingleColList('epMitigationsBody', row['Other Mitigations'] || [], 'Activity');
     }
+
+    // When no principal-risk content shows, collapse the grid to just the top row so the
+    // Material Controls column doesn't leave an empty spanning gap.
+    const panelWrap = document.querySelector('.risk-panel-wrap');
+    panelWrap.classList.toggle('principal-risk-only', !isPrincipalRisk);
 
     renderKriCharts(row['KRIs'] || []);
     document.getElementById('status').style.display = 'none';
