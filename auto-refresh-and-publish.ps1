@@ -55,8 +55,25 @@ $statusOutput | ForEach-Object { Log "  $_" }
 Run $gitExe @('add', '-A') | Out-Null
 Run $gitExe @('commit', '-m', "Auto-refresh data from source workbook ($(Get-Date -Format 'yyyy-MM-dd HH:mm'))") | Out-Null
 
-$pushOriginExit = Run $gitExe @('push', 'origin', 'main')
-$pushPersonalExit = Run $gitExe @('push', 'personal-origin', 'main')
+# Someone can push directly to either remote outside this script (e.g. GitHub's web UI
+# auto-commits a CNAME file when a custom domain is set under repo Settings > Pages).
+# Pull-merge each remote's main before pushing so this self-heals instead of silently
+# failing every cycle until someone manually resolves the divergence.
+function PushWithPull($remoteName) {
+    $pushExit = Run $gitExe @('push', $remoteName, 'main')
+    if ($pushExit -eq 0) { return 0 }
+    Log "  push to $remoteName rejected -- fetching and merging before retrying"
+    Run $gitExe @('fetch', $remoteName) | Out-Null
+    $mergeExit = Run $gitExe @('merge', "$remoteName/main", '--no-edit')
+    if ($mergeExit -ne 0) {
+        Log "  ERROR: merge from $remoteName/main failed -- needs manual resolution, not retrying push"
+        return $mergeExit
+    }
+    return Run $gitExe @('push', $remoteName, 'main')
+}
+
+$pushOriginExit = PushWithPull 'origin'
+$pushPersonalExit = PushWithPull 'personal-origin'
 
 if ($pushOriginExit -eq 0 -and $pushPersonalExit -eq 0) {
     Log "Published to origin and personal-origin."
