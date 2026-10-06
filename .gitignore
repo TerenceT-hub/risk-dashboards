@@ -1,3 +1,5 @@
 node_modules/
 watcher.log
 auto-refresh.log
+copilot-knowledge/
+copilot-studio-instructions.md

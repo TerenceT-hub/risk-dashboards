@@ -34,6 +34,15 @@ if ($refreshExit -ne 0) {
     exit 1
 }
 
+# Regenerates copilot-knowledge/*.md from the freshly refreshed data/*.json, so the
+# Copilot Studio knowledge source documents never drift from the live dashboard data.
+# These are gitignored (not published) -- re-upload to Copilot Studio is currently a
+# manual step until an automated sync path (e.g. via SharePoint or an API) is set up.
+$knowledgeExit = Run $nodeExe @('build-copilot-knowledge.js')
+if ($knowledgeExit -ne 0) {
+    Log "WARNING: build-copilot-knowledge.js exited with code $knowledgeExit."
+}
+
 $statusOutput = & $gitExe status --porcelain
 if ([string]::IsNullOrWhiteSpace($statusOutput)) {
     Log "No changes detected. Nothing to publish."
