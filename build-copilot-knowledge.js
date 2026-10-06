@@ -1,9 +1,12 @@
-// Transforms the dashboard's data/*.json files into readable Markdown documents
-// suitable for use as Copilot Studio knowledge sources (grounding), since
-// Copilot Studio retrieves better from natural-language documents than raw JSON.
+// Transforms the dashboard's data/*.json files into readable text documents
+// suitable for use as Copilot Studio / Microsoft 365 Agent Builder knowledge
+// sources (grounding), since these retrieve better from natural-language
+// documents than raw JSON. Written as .txt -- Agent Builder's file-upload
+// knowledge source only accepts docx/pptx/xlsx/pdf/txt/csv, not .md.
 //
 // Output goes to copilot-knowledge/ (gitignored -- these are inputs to a manual
-// or future automated upload into Copilot Studio, not deployed site content).
+// or future automated upload into Copilot Studio/Agent Builder, not deployed
+// site content).
 
 const fs = require('fs');
 const path = require('path');
@@ -85,7 +88,7 @@ function buildEnduringPrincipal() {
     lines.push('---');
     lines.push('');
   });
-  write('enduring-principal-risks.md', lines.join('\n'));
+  write('enduring-principal-risks.txt', lines.join('\n'));
 }
 
 // ---- Key Active Risks ----
@@ -125,7 +128,7 @@ function buildKeyActiveRisks() {
     lines.push('---');
     lines.push('');
   });
-  write('key-active-risks.md', lines.join('\n'));
+  write('key-active-risks.txt', lines.join('\n'));
 }
 
 // ---- Emerging Risks & Clusters ----
@@ -181,7 +184,7 @@ function buildEmergingRisks() {
     lines.push('---');
     lines.push('');
   });
-  write('emerging-risks.md', lines.join('\n'));
+  write('emerging-risks.txt', lines.join('\n'));
 }
 
 // ---- Material Controls ----
@@ -204,7 +207,7 @@ function buildMaterialControls() {
     lines.push('---');
     lines.push('');
   });
-  write('material-controls.md', lines.join('\n'));
+  write('material-controls.txt', lines.join('\n'));
 }
 
 function build() {
