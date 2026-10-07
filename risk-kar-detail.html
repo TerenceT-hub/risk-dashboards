@@ -398,7 +398,8 @@ function showKarDetailCard(row, x, y) {
     accent: '#830051',
     sections: [
       { label: 'Risk Statement', value: row['Risk Statement'] },
-      { label: 'Action', value: `${category}<br>${String(detail || '').replace(/\n/g, '<br>')}` }
+      { label: 'Action', value: category },
+      { label: 'Action Detail', value: String(detail || '').replace(/\n/g, '<br>') }
     ],
     metrics: [
       { label: 'Current Impact', value: row['Current Impact'] },
