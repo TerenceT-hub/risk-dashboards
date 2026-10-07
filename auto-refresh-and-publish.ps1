@@ -1,7 +1,6 @@
 # Regenerates data/*.json from Data File.xlsx and, if anything actually changed,
-# commits and pushes to both the AZ Enterprise repo (origin) and the public
-# personal repo (personal-origin). Safe to run on a schedule: it's a no-op
-# (no commit, no push) when the source workbook hasn't changed.
+# commits and pushes to the AZ Enterprise repo (origin). Safe to run on a
+# schedule: it's a no-op (no commit, no push) when the source workbook hasn't changed.
 #
 # Note: native commands (git/node) are never run with 2>&1 here -- PowerShell
 # wraps their stderr lines as terminating NativeCommandErrors even on success
@@ -73,11 +72,10 @@ function PushWithPull($remoteName) {
 }
 
 $pushOriginExit = PushWithPull 'origin'
-$pushPersonalExit = PushWithPull 'personal-origin'
 
-if ($pushOriginExit -eq 0 -and $pushPersonalExit -eq 0) {
-    Log "Published to origin and personal-origin."
+if ($pushOriginExit -eq 0) {
+    Log "Published to origin."
 } else {
-    Log "WARNING: push exit codes -- origin: $pushOriginExit, personal-origin: $pushPersonalExit"
+    Log "WARNING: push exit code -- origin: $pushOriginExit"
 }
 Log "---- Auto-refresh run finished ----"
