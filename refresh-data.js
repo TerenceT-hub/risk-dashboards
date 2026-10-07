@@ -268,6 +268,7 @@ function refresh() {
       'Overall Risk': r['Overall Risk'],
       'Trend': r['Trend'],
       'Action': r['Action'] || '',
+      'Action Detail': r['Action Detail'] || '',
       'Quarterly Update': r['Quarterly Update'] || '',
       'KAR Mitigation List': buildMitigationList(r),
       'Linked Principal Risk Count': linkedPrincipalRisks.length,

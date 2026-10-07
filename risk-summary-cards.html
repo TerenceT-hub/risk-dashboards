@@ -110,7 +110,7 @@
   .kar-card-label { color: var(--burgundy); font-weight: 700; font-size: 11px; margin-bottom: 3px; }
   .kar-card-label + .kar-card-label { margin-top: 10px; }
   .kar-card-statement { font-size: 11.5px; color: #333; line-height: 1.4; margin-bottom: 4px; }
-  .kar-card-action-category { font-weight: 700; font-size: 11.5px; color: #222; margin: 2px 0 2px; }
+  .kar-card-action-category { font-weight: 700; font-size: 11.5px; color: #222; margin: 2px 0 8px; }
   .kar-card-action-detail { font-size: 11px; color: #333; white-space: pre-line; line-height: 1.45; }
   .kar-card-metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
   .kar-card-metric { padding: 10px 6px; text-align: center; border-right: 1px solid #eee; }
@@ -251,11 +251,6 @@
   // Matches the summary-table convention on risk-matrix.html: only the two darkest tiers get white text.
   const OVERALL_RISK_TEXT = { VH: '#fff', H: '#fff', M: '#333', L: '#333', VL: '#333' };
 
-  function actionParts(actionRaw) {
-    const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
-    return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
-  }
-
   function strategicAreaIconsHtml(row) {
     return STRATEGIC_AREA_NAMES.map((area, i) => {
       const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
@@ -281,7 +276,8 @@
     const overallAbbr = row['Overall Risk'] || '';
     const headerColor = OVERALL_RISK_COLOR[overallAbbr] || '#999';
     const headerText = OVERALL_RISK_TEXT[overallAbbr] || '#333';
-    const { category, detail } = actionParts(row['Action']);
+    const category = row['Action'] || '';
+    const detail = row['Action Detail'] || '';
 
     const card = document.createElement('div');
     card.className = 'kar-card';
@@ -295,6 +291,7 @@
         <div class="kar-card-statement">${row['Risk Statement'] || ''}</div>
         <div class="kar-card-label">Action</div>
         <div class="kar-card-action-category">${category}</div>
+        <div class="kar-card-label">Action Detail</div>
         <div class="kar-card-action-detail">${detail}</div>
       </div>
       <div class="kar-card-metrics">

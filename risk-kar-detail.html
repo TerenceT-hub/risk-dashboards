@@ -377,11 +377,6 @@ function strategicAreaIconsCaptionedHtml(row) {
   }).join('');
 }
 
-function actionParts(actionRaw) {
-  const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
-  return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
-}
-
 const TREND_ICONS = {
   Increasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V6M8 14l8-8 8 8"/></svg>',
   Decreasing: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6v20M8 18l8 8 8-8"/></svg>',
@@ -396,7 +391,8 @@ function trendIconHtml(trendRaw) {
 }
 
 function showKarDetailCard(row, x, y) {
-  const { category, detail } = actionParts(row['Action']);
+  const category = row['Action'] || '';
+  const detail = row['Action Detail'] || '';
   RiskDetailCard.show(x, y, {
     title: row['Key Active Risk'],
     accent: '#830051',
@@ -554,9 +550,8 @@ function renderDetailPanel(name) {
   document.getElementById('detailStatement').textContent = row['Risk Statement'] || '';
   document.getElementById('detailQuarterly').textContent = row['Quarterly Update'] || '';
 
-  const { category, detail } = actionParts(row['Action']);
-  document.getElementById('detailActionCategory').textContent = category;
-  document.getElementById('detailActionBullets').textContent = detail;
+  document.getElementById('detailActionCategory').textContent = row['Action'] || '';
+  document.getElementById('detailActionBullets').textContent = row['Action Detail'] || '';
 
   const mitigations = String(row['KAR Mitigation List'] || '')
     .split('\n')

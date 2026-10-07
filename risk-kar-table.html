@@ -290,11 +290,6 @@
   let rows = [];
   let currentPage = 1;
 
-  function actionParts(actionRaw) {
-    const lines = String(actionRaw || '').split(/\r\n|\n/).map(line => line.trim()).filter(Boolean);
-    return { category: lines[0] || '', detail: lines.slice(1).join('\n') };
-  }
-
   function strategicAreaIconsHtml(row) {
     return STRATEGIC_AREA_NAMES.map((area, i) => {
       const isYes = String(row[area] ?? '').toLowerCase() === 'yes';
@@ -311,7 +306,8 @@
   function renderRow(row) {
     const trendRaw = row['Trend'] || 'Unchanged';
     const trend = TREND_ALIAS[trendRaw] || 'Unchanged';
-    const { category, detail } = actionParts(row['Action']);
+    const category = row['Action'] || '';
+    const detail = row['Action Detail'] || '';
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
