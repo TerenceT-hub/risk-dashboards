@@ -1,0 +1,1150 @@
+{
+  "rows": {
+    "rows": [
+      {
+        "Enduring Risk Number": 1,
+        "Enduring Risk": "Pricing, affordability, access and competitive pressures",
+        "Short Name": "Pricing",
+        "SET Risk Owner": "RD, DF,IR, MD",
+        "Risk Statement": "The pricing and market access environment is\r\nhighly complex and subject to dynamic economic,\r\npolitical and social pressures. Deterioration in\r\nsocio-economic conditions may affect customers’\r\nability or willingness to purchase our medicines\r\nand may adversely affect our business and\r\nresults of operations.",
+        "Risk Category": "Commercialisation risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "At AstraZeneca, our approach to pricing balances the priorities of patients, their\r\nphysicians, payers, society and our business. Our four guiding principles – Access,\r\nValue, Sustainability and Equity – aligned to our overarching Company Values,\r\nform the cornerstones of our brand pricing strategies. Our prices are rooted in the\r\nassurance of our high-quality science, and the benefit this brings to patients. They\r\nalso reflect holistic value, in the context of healthcare systems and market dynamics,\r\naffordability and equity; so that we can adapt our prices across the more than\r\n80 countries in which we have an active presence and help support long-term\r\nhealthcare system resilience.\r\nOur pricing approach, as described in the previous paragraph, is a key contributor to our success. However, there are various external risk factors that could\r\ncompromise our ability to execute our pricing strategies as planned. The market\r\naccess environment is highly complex and subject to dynamic economic, political\r\nand social pressures. Globally, there are increasing cost-containment measures,\r\ngreater calls for net price and R&D cost transparency, as well as early discussions\r\ntowards pooled procurement mechanisms beyond emergency countermeasures\r\nand essential medicines.\r\nContinued deterioration of, or lack of improvement in, socio-\r\neconomic conditions could adversely affect supply and/or\r\ndistribution in affected countries and the ability or willingness of\r\ncustomers to purchase our medicines, putting pressure on price\r\nand/or volumes. This could adversely affect our business or results\r\nof operations, for example, those healthcare systems most severely\r\nimpacted by downturn may seek alternative ways to settle their\r\ndebts at a discount. Other customers may cease to trade, which may\r\nresult in losses from writing off debts or a reduction in demand for\r\nproducts. Across the industry, we continue to navigate pricing\r\npressures and policy changes including the EU Joint Clinical\r\nAssessment (JCA), the US Inflation Reduction Act (IRA) as well\r\nas more recent health equalisation initiatives requiring countries to\r\nincrease their drug spending to support R&D costs, ensuring a more\r\nbalanced global pharmaceutical landscape.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 4,
+        "Current Impact": "VH",
+        "Current Likelihood": "M",
+        "Gross Impact": "VH",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Very High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "Very High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC001-O1",
+            "Name": "Pricing policy approval by SET",
+            "Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review"
+          },
+          {
+            "Reference": "MC002-O2",
+            "Name": "Products to Patients Pipeline Governance",
+            "Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables"
+          },
+          {
+            "Reference": "MC001-O3",
+            "Name": "Key Market Advocacy Plans",
+            "Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 2,
+        "Enduring Risk": "Failures or delays in the quality and execution of the Group's commercial strategies",
+        "Short Name": "Commercial",
+        "SET Risk Owner": "RD, DF,IR, MD",
+        "Risk Statement": "A failure to execute our commercial strategies or achieve the level of sales anticipated for a medicine could materially impact our business results.",
+        "Risk Category": "Commercialisation risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "Maximising the commercial potential of our new products underpins the success\r\nof our strategy and the delivery of our short- and medium-term targets. We may\r\nultimately be unable to achieve commercial success for various reasons, including:\r\nFailure to execute our commercial strategies or achieve the level\r\nof sales anticipated for a medicine could materially impact our\r\nbusiness.\r\n-Difficulties in manufacturing sufficient quantities of the product\r\n-Any price control measures imposed by governments and healthcare authorities\r\n-Patient access to healthcare\r\nFailure to leverage potential opportunities or appropriately manage\r\nrisks in emerging markets may materially adversely affect our\r\nreputation, business or results of operations.\r\n-Diagnosis rates\r\n-Erosion of IP rights\r\n-Failure to show a differentiated product profile\r\n-Changes in prescribing habits.\r\nThe ability to successfully carry out business in emerging markets can be\r\nmore challenging than in established markets. Such challenges may include:\r\n-Volatility in economic or political climates\r\n-Inadequate protection against crime (including counterfeiting,\r\ncorruption and fraud)\r\n-Inadvertent breaches of local and international law.\r\nFailure to execute our commercial strategies or achieve the level\r\nof sales anticipated for a medicine could materially impact our\r\nbusiness.\r\nFailure to leverage potential opportunities or appropriately manage\r\nrisks in emerging markets may materially adversely affect our\r\nreputation, business or results of operations.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 6,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC002-O2",
+            "Name": "Products to Patients Pipeline Governance",
+            "Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables"
+          },
+          {
+            "Reference": "MC001-O3",
+            "Name": "Key Market Advocacy Plans",
+            "Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches"
+          },
+          {
+            "Reference": "MC002-O4",
+            "Name": "10yr Long-Range Plan (LRP)",
+            "Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July."
+          },
+          {
+            "Reference": "MC003-O6",
+            "Name": "SET area performance reporting",
+            "Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle."
+          },
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 3,
+        "Enduring Risk": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges",
+        "Short Name": "ABAC",
+        "SET Risk Owner": "RD, DF,IR, MD",
+        "Risk Statement": "Any failure to comply with applicable laws, rules and regulations, including anti-bribery/anti-corruption and anti-fraud legislation, may result in civil and/or criminal legal proceedings and/or regulatory sanctions, fines or penalties, impacting financial results.",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "There remains an increased global focus on the implementation and enforcement\r\nof anti-bribery/anti-corruption and anti-fraud legislation. Three relevant pieces\r\nof legislation include the UK Bribery Act, the UK Economic Crime and Corporate\r\nTransparency Act and the US Foreign Corrupt Practices Act. Many other countries\r\nwhere we operate are also enforcing their own laws more aggressively and/or\r\nadopting tougher new measures. There has also been an increase in cooperation\r\nand coordination between regulators across countries with respect to investigation\r\nand enforcement. We have been the subject of anti-corruption investigations and\r\nthere can be no assurance that we will not, from time to time, be subject to informal\r\nenquiries and formal investigations from governmental agencies. In the context\r\nof our business, governmental officials interact with us in various roles that are\r\nimportant to our operations, such as in the capacity of a regulator, partner or\r\nhealthcare payer, reimburser or prescriber, among others. To the extent we are the\r\nsubject of any such pending and material matters, details are included in Note 30\r\nto the Financial Statements from page 181 of AstraZeneca’s Annual Report and\r\nForm 20-F Information 2025.\r\nDespite taking measures to prevent breaches of applicable\r\nanti-bribery/anti-corruption and anti-fraud laws by our personnel\r\nand associated third parties, breaches may still occur, potentially\r\nresulting in the imposition of significant penalties, such as fines, the\r\nrequirement to comply with monitoring or self-reporting obligations,\r\nor debarment or exclusion from government sales or reimbursement\r\nprogrammes, any of which could materially adversely affect our\r\nreputation, business or results of operations.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 3,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "No",
+        "Material Controls": [
+          {
+            "Reference": "MC004-C1",
+            "Name": "Annual compliance reporting",
+            "Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          },
+          {
+            "Reference": "MC004-C2",
+            "Name": "Annual Governance and assurance report",
+            "Description": "WHAT & WHY\r\nThe Year End Governance & Assurance Paper describes the assurance processes performed in the year and the outcome.\r\n\r\nHOW\r\nThe Year End Governance & Assurance Paper is presented to the Audit Committee in January.  It describes the assurance processes performed in the year and the outcome.  (IRM:  CTRL0032399)\r\n\r\nWHEN\r\nAnnually in January"
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 4,
+        "Enduring Risk": "Failure to comply with applicable laws, rules and regulations relating to anti-competitive behaviour",
+        "Short Name": "Competition law",
+        "SET Risk Owner": "RD, IR, DF, MD, JP",
+        "Risk Statement": "TBC",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Decreasing",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "L",
+        "Current Likelihood": "L",
+        "Gross Impact": "H",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "Low",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC001-O1",
+            "Name": "Pricing policy approval by SET",
+            "Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 5,
+        "Enduring Risk": "Failure or delay in the delivery of our pipeline or launch of new medicines",
+        "Short Name": "Pipeline",
+        "SET Risk Owner": "SB, SG, MD",
+        "Risk Statement": "The development of pharmaceutical product candidates is a complex, risky and lengthy process involving significant resources. A project may fail at any stage of the process due to a number of factors, which could adversely affect our future business and results of operations.",
+        "Risk Category": "Product pipeline risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "Our continued success depends on the development and successful launch\r\nof innovative new drugs.\r\nThe development of pharmaceutical product candidates is a complex, risky and\r\nlengthy process involving significant resources. Projects have failed, and may fail\r\nin the future, at any stage of the process due to various factors, including: failure to\r\nobtain the required regulatory or marketing approvals, unfavourable clinical efficacy\r\ndata, safety concerns, failure to demonstrate adequate cost-effective benefits to\r\nregulatory authorities and/or payers, and the emergence of competing products.\r\nLaunch activities have been delayed, and may be delayed in the future, by a number\r\nof factors, including: adverse findings in preclinical or clinical studies, regulatory\r\ndemands, price negotiation, large-scale natural disasters or global pandemics,\r\ncompetitor activity and technology transfer.\r\nIn addition to developing products in-house, we continue to expand our portfolio\r\nthrough licensing arrangements and strategic collaborations which may not\r\nultimately be successful.\r\nFailure or delay in development of new product candidates could\r\ndamage the reputation of our R&D capabilities, and adversely affect\r\nour future business and results of operations.\r\nDelays to launches can lead to excess expenses in the manufacture\r\nof pre-launch inventories, marketing materials and salesforce\r\ntraining. For the launch of products that are seasonal in nature,\r\ndelays in regulatory approvals or manufacturing may delay launch\r\nto the next season which, in turn, may significantly reduce the\r\nreturn on costs incurred in preparing for the launch for that season.\r\nFurthermore, in immuno-oncology in particular, speed to market\r\nis critical given the large number of clinical trials being conducted\r\nby competitors. Delay of launch can also erode the term of\r\npatent exclusivity.\r\nCompetition from other pharmaceutical companies means that we\r\nmay have to pay a significant premium over book or market values\r\nfor our acquisitions. Failure to complete collaborative projects in a\r\ntimely, cost-effective manner may limit our ability to access a greater\r\nportfolio of products, intellectual property (IP), technology and\r\nshared expertise. In many cases, we make milestone payments in\r\nadvance of the commercialisation of the products, with no assurance\r\nof recouping costs.",
+        "Count of Linked KAR": 2,
+        "Count of Linked Material Controls": 5,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "VH",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "Very High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC001-O1",
+            "Name": "Pricing policy approval by SET",
+            "Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review"
+          },
+          {
+            "Reference": "MC002-O2",
+            "Name": "Products to Patients Pipeline Governance",
+            "Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables"
+          },
+          {
+            "Reference": "MC001-O3",
+            "Name": "Key Market Advocacy Plans",
+            "Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches"
+          },
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": [
+          {
+            "Name": "% On Time NPI Launches",
+            "UpperThreshold": null,
+            "UpperTolerance": null,
+            "LowerThreshold": null,
+            "LowerTolerance": 0.99,
+            "Values": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "Enduring Risk Number": 6,
+        "Enduring Risk": "Safety & efficacy of marketed medicines is questioned",
+        "Short Name": "Safety",
+        "SET Risk Owner": "SB, SG, MD",
+        "Risk Statement": "Safety concerns relating to our products may lead to recalls, seizures, interruption of supply and loss of product approvals, which could adversely affect patient access, our reputation and our revenues. Significant product liability claims could also arise, which may be costly, divert management attention, reduce demand for our products and damage our reputation.",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "Our ability to accurately assess, prior to launch, the eventual safety or efficacy of a\r\nnew product once in broader clinical use can only be based on data available at that\r\ntime, which is inherently limited due to relatively short periods of product testing\r\nand relatively small clinical study patient samples.\r\nAny unforeseen safety concerns or adverse events relating to our products, or failure\r\nto comply with laws, rules and regulations relating to provision of appropriate\r\nwarnings concerning the dangers and risks of our products that result in injuries,\r\ncould expose us to large product liability claims, settlements and awards, particularly\r\nin the US. Adverse publicity relating to the safety of a product, or of other competing\r\nproducts, may increase the risk of product liability claims.\r\nSerious safety concerns or adverse events relating to our products\r\ncould lead to product recalls, seizures, loss of product approvals,\r\ndeclining sales and interruption of supply, and could materially\r\nadversely impact patient access, our reputation and financial\r\nrevenues. Significant product liability claims could also arise which\r\ncould be costly, divert management attention, or damage our\r\nreputation and demand for our products.\r\nUnfavourable resolution of such current and similar future product\r\nliability claims could subject us to enhanced damages, consumer\r\nfraud and/or other claims, including civil and criminal governmental\r\nactions. This could require us to make significant provisions in our\r\naccounts relating to legal proceedings and could materially\r\nadversely affect our financial condition or results of operations,\r\nparticularly where such circumstances are not covered by insurance.",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 4,
+        "Current Impact": "VH",
+        "Current Likelihood": "L",
+        "Gross Impact": "VH",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Very High",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "Very High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC005-C3",
+            "Name": "Quality Management System (QMS) Oversight",
+            "Description": "WHAT & WHY\r\nOur QMS ensure that we can demonstrate compliance with good practices (for labs clinical studies, manufacturing etc) that ensures that our products are safe for users.  \r\n\r\nHOW\r\nQuarterly Management Review meetings are held with Operations Leadership team members (including the EVP).  During the review meetings quality issues (risks) and the health of the Pharmaceutical System is reviewed and any improvement actions agreed.\r\n\r\nIn addition, Annually a QMS Regulatory Compliance Status report is prepared.  The report summarises the status of the QMS and GxP compliance, including findings from internal and external inspections. The report is approved by the SVP Global Quality and VP R&D Quality Assurance and is shared with the Board. \r\n\r\nWHEN\r\nQuarterly Management Review meetings and an annual status report during Q4."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          },
+          {
+            "Reference": "MC005-C4",
+            "Name": "Executive Safety Board",
+            "Description": "WHAT & WHY\r\nThe Executive Safety Board (ESB) is the highest level of safety governance at AstraZeneca for patient and product safety matters. The ESB makes decisions related to the following topics, when a company position/strategy is required:\r\n• Safety of patients who receive treatment with AstraZeneca products\r\n• Any safety risk, concern or finding that impacts the benefit/risk profile of an AstraZeneca product(s)\r\n\r\nThe Executive Safety Board will be automatically triggered for important emerging safety concerns/issues that impact the benefit risk profile of an AstraZeneca product including but not limited to a product in development (investigational product) or a product being used in post marketed setting.\r\n\r\nHOW\r\nESB topics are to include important emerging safety concern(s), or safety advice seeking matters, related to an investigational or a marketed product:\r\n• Review and evaluation of the impact of significant new toxicology or safety findings that could affect the benefit-risk profile of a product and/or the continuation and dosing of clinical studies or the withdrawal of a product from the market. This includes unexpected serious safety matters identified by a Data Monitoring Committee (DMC). \r\n• Proposal for re-entry of a product into clinical development when safety was a factor leading to its discontinuation and approve the decision to continue dosing in a study where dosing had been previously discontinued due to safety concerns.\r\n• Proposal for re-starting dosing in a study and/or clinical program when safety was a factor leading to its clinical hold and/or decision to discontinue enrolment/dosing.\r\n• Guidance on complex safety matters related, including those related to product labelling.\r\n• As per SOP MANAGEMENT OF IMPORTANT NEW SAFETY ISSUES (SOP-0108734, V3)\r\n\r\nIf a decision cannot be reached by the PS TA VP and QPPV, the issue can be escalated to the ESB for final resolution. The QPPV also has single authority to escalate the matter to ESB (see QPPV SOP). The SSaMT members, SPVMD and TPL (for non-clinical INSIs) should be included in any discussion relating to the dispute. Due to the potential impact on the overall benefit/risk of the product and public health, dispute resolution discussions must occur with the utmost urgency following initial awareness of the safety signal. If resolution cannot be reached within an appropriate timeframe and without undue delay, the default position is to proceed with reporting.\r\n\r\n· PS TA VP can raise a topic for ESB on an ad-hoc basis.\r\n\r\nThe ESB should be informed of endorsements for recommendations made in the management of an INSI (for clinical and non-clinical topics). When a joint decision has not been reached between PS TA VP and clinical development VP or PS TA VP wants to specially escalate ESB for ESB review\r\n\r\nWHEN\r\nEvent driven due to emerging safety concerns/issues"
+          },
+          {
+            "Reference": "MC005-C5",
+            "Name": "Pharmacovigilance Council",
+            "Description": "TBC"
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 7,
+        "Enduring Risk": "Failure to meet regulatory or ethical requirements for medicine development or approval",
+        "Short Name": "Ethical requirements",
+        "SET Risk Owner": "SB, SG, MD",
+        "Risk Statement": "We are subject to laws and regulations that control our ability to market our pharmaceutical products. Delays in regulatory approvals could delay our ability to market our products and may adversely affect our revenue.",
+        "Risk Category": "Product pipeline risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "We are subject to laws and regulations that control our ability to market our\r\npharmaceutical products. Our development programmes must meet many standards\r\nto prove our products are safe, effective and of high quality. Health authorities, such\r\nas the FDA in the US and the European Medicines Agency in the EU, can refuse to\r\napprove our products or require us to conduct additional clinical trials or scientific\r\ntesting before they will approve them for marketing. Many factors influence health\r\nauthority decisions to approve or reject a marketing application for a pharmaceutical\r\nproduct. These include advances in science and technology, new laws, regulations\r\nand policies, and different standards for evaluating safety and effectiveness.\r\nDelays in regulatory approvals could delay our ability to market our\r\nproducts and may adversely affect our revenue. Also, post-approval\r\nrequirements, including additional clinical trials, could cause\r\nincreased costs. We seek to manage these risks, but policymaking\r\nby governments and health authorities can be unpredictable and\r\nunforeseen circumstances, such as public health emergencies,\r\nmay strain health authority resources and delay the approval of\r\nour products.\r\nFollowing approval, a health authority may require us to conduct\r\nadditional clinical trials or scientific testing to address concerns\r\nraised after patients have used our products in the marketplace.\r\nNew data may impact a product’s approval status or lead to labelling\r\nchanges that limit the use of a product.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC002-O2",
+            "Name": "Products to Patients Pipeline Governance",
+            "Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 8,
+        "Enduring Risk": "Failure to maintain supply of compliant, quality medicines",
+        "Short Name": "Supply",
+        "SET Risk Owner": "PC, MD",
+        "Risk Statement": "Supply chain difficulties may result in product shortages which could lead to lost product sales and materially affect our reputation and results of operations.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "During Q1 2026, the risk of supply chain disruption resulting in product shortages remains elevated but stable, reflecting continued exposure to external geopolitical volatility, trade controls, and operational complexity across the global supply network. Key drivers include heightened geopolitical tensions and sanctions regimes affecting certain markets, ongoing dependency on a limited number of critical suppliers, and increased operational strain as demand patterns evolve across regions.\r\nRisk updates from Global Functions, International Commercial and Procurement indicate that while no material widespread shortages have crystallised in the quarter, the environment remains fragile, with a low tolerance for execution failures. The potential for supply disruption continues to present a direct reputational risk, particularly where continuity of medicine supply is critical to patients and regulators, and a financial risk through lost sales or delayed revenue recognition if disruptions are not proactively managed.\r\nEncouragingly, mitigation maturity has improved in several areas, including enhanced supplier risk visibility, inventory management actions, and more structured stress‑testing of supply scenarios. However, the residual risk remains driven by external dependencies and the increasing complexity of the end‑to‑end supply chain, requiring sustained senior management oversight and continued investment in resilience capabilities.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 4,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "VH",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "Very High",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC002-O4",
+            "Name": "10yr Long-Range Plan (LRP)",
+            "Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July."
+          },
+          {
+            "Reference": "MC005-C3",
+            "Name": "Quality Management System (QMS) Oversight",
+            "Description": "WHAT & WHY\r\nOur QMS ensure that we can demonstrate compliance with good practices (for labs clinical studies, manufacturing etc) that ensures that our products are safe for users.  \r\n\r\nHOW\r\nQuarterly Management Review meetings are held with Operations Leadership team members (including the EVP).  During the review meetings quality issues (risks) and the health of the Pharmaceutical System is reviewed and any improvement actions agreed.\r\n\r\nIn addition, Annually a QMS Regulatory Compliance Status report is prepared.  The report summarises the status of the QMS and GxP compliance, including findings from internal and external inspections. The report is approved by the SVP Global Quality and VP R&D Quality Assurance and is shared with the Board. \r\n\r\nWHEN\r\nQuarterly Management Review meetings and an annual status report during Q4."
+          },
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [
+          {
+            "Activity": "Supply Chain Mapping and Network Resilience",
+            "Update": "End‑to‑end supply chain mapping and network strategy assessments to increase visibility of lower‑tier suppliers, identify dependency risks and strengthen resilience through alternate sourcing and network options."
+          },
+          {
+            "Activity": "Business Continuity Planning and Crisis Response",
+            "Update": "Business Continuity Plans in place across all production sites, with regular reviews. Regional and local Incident Management Teams activated in response to geopolitical events, supported by hyper‑care crisis planning for acute supply risks."
+          },
+          {
+            "Activity": "Geopolitical and Trade‑Control Mitigation",
+            "Update": "Active monitoring of sanctions, tariffs and export controls, supported by a Global Export Standard and Trade Controls Compliance Framework, restricted‑party screening and scenario planning for logistics, fuel and cost disruption."
+          },
+          {
+            "Activity": "Supply & Operations Planning (S&OP) and Inventory Management",
+            "Update": "Integrated S&OP governance across Operations and Market Companies, supported by scenario alignment, close stock management and selective buffering of priority products, with longer‑term supply options under development for higher‑risk markets."
+          },
+          {
+            "Activity": "Third‑Party and Distributor Oversight",
+            "Update": "Enhanced oversight of third‑party suppliers and distributors, including financial stability and GxP compliance monitoring, audits, training and product security controls, particularly in sanction‑ or stress‑impacted markets."
+          },
+          {
+            "Activity": "Governance, Escalation and Senior Oversight",
+            "Update": "Supply chain risks reviewed through enterprise and regional governance forums, with escalation into Key Active Risks where thresholds are met and regular reporting to senior leadership (including SET) on supply continuity and emerging risks."
+          }
+        ],
+        "KRIs": [
+          {
+            "Name": "Product Supply",
+            "UpperThreshold": null,
+            "UpperTolerance": null,
+            "LowerThreshold": 0.99,
+            "LowerTolerance": 0.995,
+            "Values": [
+              0.998,
+              0.998,
+              0.998,
+              0.998
+            ]
+          },
+          {
+            "Name": "Significant Regulatory Actions from Inspections",
+            "UpperThreshold": 2,
+            "UpperTolerance": 1,
+            "LowerThreshold": null,
+            "LowerTolerance": null,
+            "Values": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "Name": "Management Inventory Actual vs PB",
+            "UpperThreshold": 1.18,
+            "UpperTolerance": 1.15,
+            "LowerThreshold": 0.95,
+            "LowerTolerance": 0.99,
+            "Values": [
+              1.0442,
+              1.0887,
+              1.095,
+              1.104
+            ]
+          }
+        ]
+      },
+      {
+        "Enduring Risk Number": 9,
+        "Enduring Risk": "Illegal trade in the Group's medicines",
+        "Short Name": "Illegal trade",
+        "SET Risk Owner": "PC",
+        "Risk Statement": "The illegal trade of pharmaceutical products, including counterfeiting, tampering, theft and illegal diversion (where products are found in a market where we did not send them and where they are not approved to be sold) may lead to a loss of public confidence in the integrity of medicines.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Decreasing",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 1,
+        "Current Impact": "M",
+        "Current Likelihood": "L",
+        "Gross Impact": "H",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 10,
+        "Enduring Risk": "Reliance on 3rd party goods and services",
+        "Short Name": "Third parties",
+        "SET Risk Owner": "PC, ALL",
+        "Risk Statement": "Failure to successfully secure, onboard and manage outsourced services, particularly with continued inflationary pressures, or the failure of outsourced providers to deliver timely services, and to the required level of quality, could materially adversely affect our reputation, our financial condition and operating results as well as our ability to deliver medicines to patients. \r\nFailure to effectively manage third-party suppliers when external factors, including geopolitical tensions or raw materials and components shortages, place increased pressure on AstraZeneca’s ability to purchase goods and services may lead to major business disruption.\r\nAny breach of security, whether physical, cyber or data related, or failure of these third parties to operate in a way that is consistent with laws or regulations, may lead to regulatory penalties, materially affect the results of operations and adversely impact our reputation.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "M",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 11,
+        "Enduring Risk": "Failure to comply with trade control requirements",
+        "Short Name": "Trade controls",
+        "SET Risk Owner": "PC",
+        "Risk Statement": "TBC",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 1,
+        "Current Impact": "M",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "No",
+        "Material Controls": [
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 12,
+        "Enduring Risk": "Failure in Information technology or cyber security",
+        "Short Name": "IT & Cyber",
+        "SET Risk Owner": "PC",
+        "Risk Statement": "Significant disruption to our IT systems, including cybersecurity breaches, or failure to comply with applicable laws or regulations could harm our reputation and materially affect our financial condition or results of operations.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "IT systems enable critical business functions which are increasingly dependent on\r\nsolution provider cybersecurity controls and maturity. High availability and resilient\r\nIT systems remain a business imperative, providing our workforce with continuous\r\naccess to AI tools, collaboration environments, global communications channels,\r\napplications and data. In addition to availability and reliability, these systems must\r\ncomply with provisions specified in cybersecurity, data security, privacy and\r\nindividual protection laws.\r\nWe prioritise data protection and access to delivery innovation, business growth,\r\nand uninterrupted medicine supply. Data is often characterised as strictly\r\nconfidential including clinical trial records, personal information, IP, R&D data, and\r\ncompliance information. IT systems and data are potentially vulnerable to service\r\ninterruptions and security breaches via attacks by malicious third parties or\r\nintentional or inadvertent actions by our employees or vendors. Attempts to exploit\r\nAstraZeneca’s IT systems and data are increasingly sophisticated with increased\r\nvolume and fuelled by malicious AI use. Threat actors include organised criminal\r\ngroups, ‘hacktivists’, nation states, employees and others. Privacy legislation\r\nincludes obligations to report data protection breaches to regulators and affected\r\nindividuals within expedited timeframes.\r\nThe internet is our primary critical business transaction channel. Internet availability\r\nremains at risk due to geopolitical tensions and conflict.\r\nDisruption to our IT systems and/or the internet (including breaches\r\nof data security or cybersecurity, failure to integrate new and existing\r\nIT systems) or failure to comply with additional requirements under\r\napplicable laws, could harm our reputation and materially adversely\r\naffect our financial condition or operations. While we invest heavily\r\nin the protection of our data, IT, Operational Technology and AI\r\nassets we may be unable to prevent hardware or software failures\r\nor breaches which could result in disclosure of confidential\r\ninformation, damage to our reputation, regulatory penalties\r\nor sanctions, or financial loss.\r\nThe inability to back-up and restore data effectively could lead\r\nto permanent loss of data that could, in turn, result in non-\r\ncompliance with applicable laws and regulations and otherwise harm\r\nour business. Data loss could lead to public disclosure of confidential\r\ninformation which may damage our reputation, materially affect our\r\nbusiness or results of operations, and expose us to legal risks and/or\r\nadditional legal obligations. Public disclosure of sensitive information\r\ncould materially adversely affect our reputation and business or\r\noperations’ results.\r\nCybersecurity insurance coverage limits may not protect against\r\nany future claim or claim proceeds may be delayed.\r\nFailure to comply with regulatory disclosure requirements could\r\ncause reputational damage and a loss of public trust.",
+        "Count of Linked KAR": 3,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "VH",
+        "Current Likelihood": "H",
+        "Gross Impact": "VH",
+        "Gross Likelihood": "VH",
+        "Current Impact_Level": "Very High",
+        "Current Likelihood_Level": "High",
+        "Gross Impact_Level": "Very High",
+        "Gross Likelihood_Level": "Very High",
+        "Science and Innovation": "No",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC007-C9",
+            "Name": "IT Security Governance",
+            "Description": "WHAT & WHY\r\nMeasures to track whether the IT security controls are effective.\r\n\r\nHOW\r\nThe CISO puts in place measures to monitor the effectiveness of the IT security controls and whether the strategic vision of the security programme is being achieved (and risks are being managed to an acceptable level).  \r\n\r\nMitigations in place to manage these risks are monitored, and their effectiveness regularly reported, for example in KPI dashboards provided to management and the Audit Committee.  This dashboard is used to support the Audit Committee perform and in depth review of cybersecurity risks.\r\n\r\nWHEN\r\nTBC"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 13,
+        "Enduring Risk": "Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives",
+        "Short Name": "Data and AI",
+        "SET Risk Owner": "JP, PC, ACG",
+        "Risk Statement": "There is an increasing range of legislative and regulatory requirements to manage data across all countries where we conduct business such as restricting the movement of data between countries or how we make use of new technological capabilities such as AI. Failure to protect data effectively or the inappropriate use of technologies such as AI may lead to competitive disadvantage and/or loss of trust from key stakeholders, including patients, and prevent us from reaching our strategic objectives. In addition, failure to identify, prioritise and scale the appropriate AI opportunities may limit our ability to realise the benefits of AI in support of our strategic objectives.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "Data is increasingly recognised as being AstraZeneca’s most valuable commodity.\r\nThere is an increasing range of legislative and regulatory requirements to manage\r\ndata across all countries where we conduct business. The requirements may impact\r\ncertain types of data such as personal data, the way that we conduct business, such\r\nas restricting the movement of data between countries or jurisdictional regions,\r\nor how we make use of new technological capabilities such as AI. In addition,\r\ngeopolitical changes may require changes to how AstraZeneca manages data.\r\nBeyond legal and regulatory requirements, achieving strategic objectives will require\r\ngood management of data across the enterprise. As our organisation increasingly\r\nrelies on data, including sensitive data relating to health and genomics, a failure to\r\nproperly understand personal and collective accountabilities for managing data to\r\nmaximise its value, or failure to address data risks, will reduce our ability to execute\r\nat pace and deliver strategic objectives.\r\nAI technologies present significant opportunities and risks to our business.\r\nHarnessing AI’s transformative potential may enable AstraZeneca to speed up the\r\ndiscovery and development of new drugs, optimise our manufacturing processes,\r\ndrive efficiencies and productivity, and accelerate our growth. Failure to exploit\r\nthese opportunities may put AstraZeneca at a competitive disadvantage and impact\r\ndelivery of our strategic objectives.\r\nAstraZeneca is investing significant resources into AI experimentation, development\r\nand deployment across many parts of our business. As we scale our use of AI, it is\r\npossible not all investments will succeed.\r\nAI technologies may exacerbate existing risks, like those risks associated with data\r\nprivacy, cybersecurity and IP. AI also introduces new risks due to the autonomous\r\nnature of the technology, the ease at which AI-enabled decision making can be\r\nscaled up, and the commercial pressures to adopt AI. AI systems can amplify biased\r\nand discriminatory decision making, perform unreliably and malfunction, generate\r\ninsights which are difficult to interpret and explain, and cause direct harm to\r\nindividuals or groups. These risks may become more significant as we increasingly\r\nutilise AI to inform, augment and automate decision making and processes in\r\nsensitive areas (e.g. clinical trials and medical decision making).\r\nThe adoption and exploitation of AI is occurring under the backdrop of intense global\r\nmedia scrutiny, heightened political attention and low levels of public trust and\r\nunderstanding. There is also a range of new AI regulations being adopted and\r\nimplemented worldwide, including in the EU, China and the US.\r\nDespite taking measures designed to ensure compliance with\r\napplicable privacy- and AI-related laws and regulations by our\r\npersonnel and our third parties, non-compliance may occur. If future\r\ninstances of non-compliance are deemed significant, these may\r\nattract material regulatory sanctions or fines and corresponding\r\nreputational damage, orders to stop certain processing of personal\r\ndata, or legal action on behalf of impacted individuals. Further, failure\r\nto protect personal data could lead to a competitive disadvantage,\r\nloss of trust from our stakeholders, including patients, and prevent\r\nus from delivering our strategic objectives.\r\nIf the scope of data-related laws is expanded or if the interpretation\r\nor enforcement of existing laws change or new privacy laws are\r\nimplemented, AstraZeneca and its third-party vendors may be\r\nrequired to change their business practices or data processing\r\npractices and policies. This may lead to substantial compliance-\r\nrelated costs or materially adversely impact our business and\r\nfinancial condition.\r\nOur failure to use AI technologies in a way that maintains trust,\r\nquality and control in our business activities would pose reputational,\r\nlegal, regulatory and financial risks to AstraZeneca. Investments in\r\nAI may not realise the benefits that were anticipated.",
+        "Count of Linked KAR": 4,
+        "Count of Linked Material Controls": 3,
+        "Current Impact": "H",
+        "Current Likelihood": "H",
+        "Gross Impact": "H",
+        "Gross Likelihood": "VH",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "High",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "Very High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC004-C1",
+            "Name": "Annual compliance reporting",
+            "Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting"
+          },
+          {
+            "Reference": "MC008-C6",
+            "Name": "Data Enablement Council",
+            "Description": "WHAT & WHY\r\nData controls are required to ensure that data is of high quality and is being managed appropriately.  Review is also required to ensure that legislation (including that relating to AI) understood and being complied with.\r\n\r\nHOW\r\nAs part of the organization's commitment to robust governance and risk management, an Enterprise Data Council (EDC) has been established; along with supporting governance meetings including SEDO forum, Data Assurance Board and the AI Assurance Board, to review and triage risks and issues presented to EDC.   The EDC review the following:\r\n•\tEffectiveness of Data and AI Controls: Assessment of the design, implementation, and ongoing effectiveness of the organization’s data and AI controls.\r\n•\tAssurance:  Summary of findings from assurance providers.\r\n•\tIncidents: Summary of significant incidents, including actions taken and lessons learned.\r\n•\tEmerging Risks: Identification of emerging risks and their potential implications for the organization.\r\n•\tFunction Review: Evaluation of the structure and resources for managing data risks.\r\nThe EDC also opine on whether the controls in place manage the data and AI risks to an acceptable level.  \r\nFor any identified gaps or areas requiring improvement, remediation plans, along with timelines for resolution, are agreed. The EDC are also provided with updates on progress against previously established remediation plans to ensure accountability and continuous improvement.\r\nThe Chair of the EDC summarises the above in a report that is shared with the Audit Committee.\r\n\r\nWHEN\r\nTBC"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 14,
+        "Enduring Risk": "Failure to comply with other regulatory or leglislative requirement (e.g SHE, Modern slavery, financial reporting etc)",
+        "Short Name": "Regulations",
+        "SET Risk Owner": "ALL",
+        "Risk Statement": "TBC",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "M",
+        "Current Likelihood": "M",
+        "Gross Impact": "M",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "Medium",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "No",
+        "Material Controls": [
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 15,
+        "Enduring Risk": "Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment",
+        "Short Name": "Sustainability",
+        "SET Risk Owner": "PC, ALL",
+        "Risk Statement": "Investors are increasingly focusing on environmental issues. We continue to see an increased requirement to quantify the impact of specific environmental issues and to disclose our strategy, targets and performance. \r\nFailure to maximise our environmental sustainability credentials could expose us to increased regulatory risk and put us at a commercial disadvantage relative to our peers. This could adversely impact our financial results and lead to reputational damage. \r\nFailure to proactively manage the physical risks associated with climate change could impact the resilience of our operations and supply chain. This could result in supply interruptions, loss of stock and adversely impact our financial results.",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "M",
+        "Current Likelihood": "M",
+        "Gross Impact": "M",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "Medium",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "No",
+        "Material Controls": [
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 16,
+        "Enduring Risk": "Failure of critical processes",
+        "Short Name": "Critical processes",
+        "SET Risk Owner": "AS",
+        "Risk Statement": "Unexpected events and/or events beyond our control could result in the failure of critical processes within the Group or at third parties on whom we are reliant.\r\nThe business faces threats to business continuity from many directions. Examples of material threats include:\r\n•\tDisruption to our business or the global markets if there is instability in a particular geographic region, including as a result of war, terrorism, pandemics, armed conflicts, riots, unstable governments, civil insurrection or social unrest.\r\n•\tNatural disasters in areas of the world prone to extreme weather events, which may increase in frequency or severity as a result of climate change.\r\n•\tCyber threats similar to those detailed in the ‘Failure in information technology or cybersecurity’ section above.\r\n",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 1,
+        "Current Impact": "M",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 17,
+        "Enduring Risk": "Inadequate disclosure of community investments, patient group support, and product donations ",
+        "Short Name": "Patient support disclosures",
+        "SET Risk Owner": "ALL",
+        "Risk Statement": "TBC",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Decreasing",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "M",
+        "Current Likelihood": "L",
+        "Gross Impact": "M",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "Medium",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC004-C1",
+            "Name": "Annual compliance reporting",
+            "Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 18,
+        "Enduring Risk": "Failure to attract, develop, engage and retain a diverse,  talented and capable workforce at all levels",
+        "Short Name": "Talent",
+        "SET Risk Owner": "JP, ALL",
+        "Risk Statement": " The inability to attract and retain highly skilled personnel may weaken our succession plans for critical positions, impact the implementation of our strategic objectives and ultimately result in the failure of our business operations. \r\nFailure to develop and engage our workforce could result in business disruption, a loss of productivity and higher turnover rates, all of which could materially adversely affect our business.",
+        "Risk Category": "Supply chain and business execution risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Decreasing",
+        "Current Year Update": "Focus in 2025 will be to continue building talent and capability across our global hubs to ensure we are best positioned to support science and the business towards the Ambition 2030. ",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 1,
+        "Current Impact": "L",
+        "Current Likelihood": "L",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Low",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "No",
+        "Material Controls": [
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 19,
+        "Enduring Risk": "Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
+        "Short Name": "Geopolitics & Macroeconomics",
+        "SET Risk Owner": "PS",
+        "Risk Statement": "With an active presence in more than 80 countries, we are subject to political, socio-economic and financial factors around the world. A sustained global economic downturn or significant changes to exchange rates may adversely impact our business. Geopolitical tensions may lead to the imposition, alteration or escalation of trade controls, tariffs, taxes or other restrictions to market access, which may increase our costs or reduce revenues.",
+        "Risk Category": "Economic and financial risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "With an active presence in more than 80 countries, we are subject to political,\r\nsocio-economic and financial factors around the world. A sustained global economic\r\ndownturn, periods of high inflation, stagflation or large fluctuation in exchange rates\r\nmay adversely impact financial markets and/or exacerbate pressure from\r\ngovernments and other healthcare payers on medicine prices and other cost\r\ncontrol measures in order to limit healthcare spending.\r\nGeopolitical tensions may lead to the imposition, alteration or escalation of trade\r\ncontrols, tariffs, taxes or other restrictions to market access which may increase\r\nour costs or reduce revenues.\r\nA severe or prolonged economic downturn could result in a variety\r\nof risks to our business, including weakened demand for medicines\r\nand our ability to raise additional capital when needed or on\r\nfavourable terms, if at all. A weak or declining economy could strain\r\nour suppliers, possibly resulting in supply disruption, or cause\r\ndelays in payments for our services by third-party payers.\r\nMeasures taken to limit healthcare spending may lead to lower than\r\nanticipated rates of growth in some markets and limit the incentives\r\nto develop innovative medicines, resulting in an adverse impact\r\non revenues and profitability.\r\nAny escalation in barriers to the global free flow of medicines could\r\nincrease costs to serve affected markets which may lead to\r\ndownward pressure on margins. While the introduction of severe\r\nsanctions would be unprecedented in relation to medicines, the\r\nlandscape continues to evolve. It could occur if matters escalate\r\nsignificantly and could impact processes for the manufacture,\r\ndistribution and commercialisation of medicines and levels of\r\nsales in affected markets.\r\nAny of the foregoing could harm our business and we cannot\r\nanticipate all of the ways in which the current economic climate and\r\nfinancial market conditions could adversely impact our business.",
+        "Count of Linked KAR": 2,
+        "Count of Linked Material Controls": 5,
+        "Current Impact": "M",
+        "Current Likelihood": "H",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Medium",
+        "Current Likelihood_Level": "High",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC001-O1",
+            "Name": "Pricing policy approval by SET",
+            "Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review"
+          },
+          {
+            "Reference": "MC001-O3",
+            "Name": "Key Market Advocacy Plans",
+            "Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches"
+          },
+          {
+            "Reference": "MC002-O4",
+            "Name": "10yr Long-Range Plan (LRP)",
+            "Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July."
+          },
+          {
+            "Reference": "MC006-O5",
+            "Name": "Supply Chain planning process (S&OP)",
+            "Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months)."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 20,
+        "Enduring Risk": "Failure to achieve strategic plans or meet targets or expectations",
+        "Short Name": "Strategic plans",
+        "SET Risk Owner": "AS",
+        "Risk Statement": "Failure to successfully implement our business strategy may frustrate the achievement of our targets and materially damage our brand, business, financial position or results of operations.",
+        "Risk Category": "Economic and financial risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "When we communicate our business strategy, targets or performance expectations\r\n(for example, the expectations described in Future prospects in the Financial Review\r\non page 64 of AstraZeneca’s Annual Report and Form 20-F Information 2025), all\r\nsuch statements are forward-looking and based on assumptions and judgements,\r\nall of which are subject to significant inherent risks and uncertainties.\r\nSignificant resources may be required to remediate any deficiency\r\nin internal controls. Any such deficiency may trigger related\r\ninvestigations and may result in fines being levied against individual\r\nDirectors or officers. Serious fraud may lead to prosecution of\r\nsenior management. Any of the foregoing could adversely affect\r\nour financial results and lead to reputational damage.",
+        "Count of Linked KAR": 3,
+        "Count of Linked Material Controls": 5,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC002-O2",
+            "Name": "Products to Patients Pipeline Governance",
+            "Description": "WHAT & WHY\r\nA rigorous stage gate process that ensures that new medicines being developed are safe, effective, affordable, profitable and aligned with the Business strategy.  The process also ensures that scarce company resources are being put to the best possible use.\r\n\r\nHOW\r\nThe AstraZeneca “Products to Patients” (P2P) operating model is a series of structured reviews and approval gates for pipeline assets in development.  Global Project Teams (GPTs) bring comprehensive business cases / progress updates to the Early-Stage Product Committee (ESPC) and / or Late-Stage Product Committee (LSPC), which are governance advisory bodies that review, debate, endorse and make recommendations for approval of decisions by the IPCo Board(s) (Company Boards of the Intellectual Property-owning legal entities).\r\n\r\nThe ESPC/LSPC provide consistent, rigorous, and multi-disciplinary assessments of potential investments, including new opportunities, with a focus on risk, time, cost and value.  The committees also review components of TA strategy (e.g. molecule combination strategies, disease area strategies, end-to-end life-cycle management strategies for key brands) as an extension of the annual Therapeutic Area (TA) Strategy review, which is approved by SET.   Through this governance advisory body, AstraZeneca aims to balance portfolio risk across the therapeutic areas.  \r\n\r\nESPC is jointly chaired by the R&D EVPs for each TA unit.  LSPC is chaired by the Chief Executive Officer.  All committee include members of SET and SET-1 leaders.\r\n\r\nWHEN\r\nEvent driven by pipeline progression timetables"
+          },
+          {
+            "Reference": "MC001-O3",
+            "Name": "Key Market Advocacy Plans",
+            "Description": "WHAT & WHY\r\nMarket access strategies ensure that there is a clear need and market for the product and that payers are will and able to pay an appropriate price for the product.\r\n\r\nHOW\r\nIn material markets advocacy is performed with Governments to ensure that sufficient funding is allocated to healthcare systems to enable the development and commercialisation of innovative new medicines. \r\n\r\nWHEN\r\nOngoing as required dependent on the market and product launches"
+          },
+          {
+            "Reference": "MC002-O4",
+            "Name": "10yr Long-Range Plan (LRP)",
+            "Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July."
+          },
+          {
+            "Reference": "MC003-O6",
+            "Name": "SET area performance reporting",
+            "Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 21,
+        "Enduring Risk": "Unexpected deterioration in the company's financial position",
+        "Short Name": "Financial position",
+        "SET Risk Owner": "AS",
+        "Risk Statement": "Foreign exchange rate movements may materially adversely affect our financial condition or results of operations. \r\nIn a sustained economic downturn, such institutions may cease to trade and there can be no guarantee that we will be able to access the full value of our investments.\r\nWe expect that some of our intangible assets will become impaired in the future. Impairment losses may materially adversely affect our financial condition or results of operations.\r\nSolvency levels could fall, adversely impacting our financial position and requiring higher cash contributions if there are: falls in assets; increases in liability valuations (from falls in bond yields, increases in inflation or lower mortality); or changes in regulations. As liability valuation risks are hedged to a material level in some pension schemes, significant collateral may need to be posted to meet margin requirements, which in extreme circumstances, could lead to a short-term liquidity risk in these pension schemes and a request to the Group to provide temporary liquidity.\r\nUninsured losses, or those where an insurer denies coverage, could materially adversely affect our financial condition.\r\nThe resolution of tax disputes can result in incremental tax costs, a reallocation of profits or losses between jurisdictions, or even double taxation, fines and penalties. They are costly, divert management attention and may adversely affect our reputation. \r\nIf tax treaties are withdrawn or amended, or Competent Authorities are unable to reach an agreement that eliminates double taxation, this could materially adversely affect our financial position.\r\nChanges in tax regimes could result in a material impact on the Group’s cash tax liabilities and tax charge, resulting in either an increase or a reduction in financial results.",
+        "Risk Category": "Economic and financial risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Unchanged",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "H",
+        "Current Likelihood": "L",
+        "Gross Impact": "H",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "No",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC003-O6",
+            "Name": "SET area performance reporting",
+            "Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 22,
+        "Enduring Risk": "Failure in financial control or the occurrence of Fraud",
+        "Short Name": "Financial controls",
+        "SET Risk Owner": "AS",
+        "Risk Statement": "Effective internal controls assist in the provision of reliable Financial Statements and the detection and prevention of fraud. Testing of internal controls provides only limited assurance over the accuracy of Financial Statements and may not prevent or detect misstatements or fraud.\r\nThe introduction of new legislation such as the failure to prevent fraud offence in the Economic Crime and Corporate Transparency Act (effective from 1 September 2025) may increase regulator focus on fraud.",
+        "Risk Category": "Economic and financial risks",
+        "Principal Risk?": "No",
+        "Risk Type": "Endurance",
+        "Trend": "Decreasing",
+        "Current Year Update": "TBC",
+        "Count of Linked KAR": 0,
+        "Count of Linked Material Controls": 2,
+        "Current Impact": "L",
+        "Current Likelihood": "L",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "Low",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC009-F2",
+            "Name": "SOx Deficiency Assessment Board",
+            "Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 23,
+        "Enduring Risk": "IP risks related to our products ",
+        "Short Name": "IP",
+        "SET Risk Owner": "JP",
+        "Risk Statement": "The pharmaceutical industry is experiencing pressure from governments and other payers to impose limits on IP protections to manage healthcare costs. If we are unable to obtain, defend and enforce our IP, we may experience accelerated and intensified competition.",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "IP protection provides the foundation for continued investment in developing\r\ninnovative medicines to improve patient health. However, the pharmaceutical\r\nindustry is experiencing pressure from governments and other healthcare payers to\r\nimpose limits on IP protections in an effort to manage healthcare costs. Additionally,\r\npolicymakers are progressively leveraging regulations to expedite the approval of\r\ngeneric drugs and encourage generic drug utilisation. These policies may drive\r\naccelerated utilisation of generic alternatives to our products following expiry\r\nor loss of our IP rights. We also recognise increasing use of compulsory licensing\r\nin some countries in which we operate.\r\nWe are subject to numerous patent challenges relating to various products or\r\nprocesses and assertions of non-infringement of our patents. A loss in any of these\r\nchallenges could result in loss of patent protection on the covered product and a risk\r\nto the revenue generated by the product. We also face the risk that our products may\r\nbe found to infringe patents owned or licensed by third parties and we may be\r\nsubject to monetary damages or compelled to cease sales of the infringing product,\r\nresulting in a potential risk to revenue. These challenges threaten the value of our\r\ninvestment in pharmaceutical development.\r\nIf we are unable to obtain, defend and enforce our IP, we may\r\nexperience accelerated and intensified competition. Also, if our\r\nproducts are found to infringe a third-party patent, we may be\r\nsubject to monetary damages or compelled to cease sales of the\r\ninfringing product. These negative outcomes could have an adverse\r\nmaterial impact on our financial results.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 3,
+        "Current Impact": "H",
+        "Current Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
+        "Current Impact_Level": "High",
+        "Current Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
+        "Science and Innovation": "Yes",
+        "People and Sustainability": "No",
+        "Growth and Therapy Area Leadership": "Yes",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC010-C7",
+            "Name": "Patent filing, docketing and enforcement",
+            "Description": "WHAT & WHY\r\nIntellectual property protection is critical to AstraZeneca’s business model. Each year, AstraZeneca invests billions of dollars into the research and development of innovative medicines and it often takes over 10 years of investment from initial discovery of a potential drug through clinical testing and commercialization. Without adequate patent protection, generic and biosimilar companies could copy and compete with AstraZeneca soon after drug approval by the FDA/EMA or the equivalent foreign regulatory agency. Given the size and complexity of AstraZeneca’s business, it is important to have internal controls which exist to ensure appropriate intellectual property protection is obtained and maintained throughout their lifecycle for material products in key markets, and that “freedom to operate” is assessed prior to commercialization.\r\n\r\nHOW\r\nAstraZeneca’s Global Intellectual Property (GIP) group is accountable for obtaining patent protection for each novel medicine composition of matter (COM) prior to initiation of human clinical trials. Typically, the initial patent applications are filed at the time the Candidate Drug (CD) is approved by the Early Stage Product Committee (ESPC). The number of countries where a patent application is filed is pre-determined by the IP Leadership Team (IPLT). The list is updated by IPLT in collaboration with the appropriate Commercial organization no later than every three years for material products in key markets. The IPLT, organized by therapy area, monitors and assures compliance with control IP001. Each filing is also reviewed by the Quality Enhancement (QE) team (a subgroup of GIP patent attorneys) and the relevant inventors, and the QE team keeps track of COM CD cases reviewed. All deadline-driven activities relating to material COM filings, e.g., annuity due dates, and other substantive correspondence with patent offices around the world are saved and “docketed” in GIP’s document management (iManage) and docketing systems (Anaqua). IPLT is accountable for ensuring Control IP004 is met. IP Operations conducts a monthly review of docketed activities and maintenance requirements and sends this to the SVP IP.\r\n\r\nWHEN\r\nEvent driven (prior to human clinical trials[ for material COM filings], annuity due dates)"
+          },
+          {
+            "Reference": "MC010-C8",
+            "Name": "Patent health check",
+            "Description": "WHAT & WHY\r\nIntellectual property protection is critical to AstraZeneca’s business model.  Each year, AstraZeneca invests billions of dollars into the research and development of innovative medicines and it often takes over 10 years of investment from initial discovery of a potential drug through clinical testing and commercialization.  Without adequate patent protection, generic and biosimilar companies could copy and compete with AstraZeneca soon after drug approval by the FDA/EMA or the equivalent foreign regulatory agency.   Given the size and complexity of AstraZeneca’s business, it is important to have internal controls which exist to ensure appropriate intellectual property protection is obtained, and that “freedom to operate”  is assessed prior to commercialization.  \r\n\r\nHOW\r\nThe Patent Health Check involves assessment of both the scope of patent protection and freedom to operate with respect to the pipeline molecule COM in question.   No later than Phase 3 material investment decision (Phase 3 ID) of a new chemical entity (NCE), which is approved by the Late-Stage Product Committee (LSPC), an assigned patent attorney from GIP performs a “Patent Health Check.”  The Patent Health Check involves assessment of both the scope of patent protection and freedom to operate with respect to the pipeline molecule composition of matter (COM) in question.   Results of the Patent Health Check are communicated to the SVP IP, the IPLT member for the relevant therapy area and the Global Product Team Leader (GPT-L).  The conclusions and analysis are further captured in a written memo to the SVP IP and risk mitigation steps are actioned as necessary.   IPLT is accountable for ensuring that Control IP002 is met.\r\n\r\nWHEN\r\nEvent driven, no later than Phase 3 material investment decision of a NCE."
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      },
+      {
+        "Enduring Risk Number": 24,
+        "Enduring Risk": "Adverse outcome of litigation and / or governmental investigations",
+        "Short Name": "Litigation",
+        "SET Risk Owner": "JP",
+        "Risk Statement": "Our business is subject to a wide range of laws and regulations around the world. Actual or perceived failure to comply may result in AstraZeneca and/or its employees being investigated by government agencies and authorities and/or in civil legal proceedings. Government investigations, litigations, and other legal proceedings, regardless of outcome, could be costly, divert management attention, or damage our reputation and demand for our products. Unfavourable resolutions to proceedings against us could subject us to criminal liability, fines, penalties or other monetary or nonmonetary remedies, including enhanced damages, requiring us to make significant provisions in our accounts relating to legal proceedings, and could materially adversely affect our business or results of operations.",
+        "Risk Category": "Legal, regulatory and compliance risks",
+        "Principal Risk?": "Yes",
+        "Risk Type": "Principal",
+        "Trend": "Unchanged",
+        "Current Year Update": "Our business is subject to a wide range of laws and regulations around the world.\r\nWe have been, and may continue to be, subject to various legal proceedings and\r\ngovernmental investigations.\r\nActual or perceived failure to comply with laws or regulations may result in\r\nAstraZeneca and/or its employees being investigated by government agencies and\r\nauthorities and/or in civil legal proceedings. Relevant authorities have wide-ranging\r\nadministrative powers to deal with any failure to comply with laws, regulations or\r\ncontinuing regulatory oversight, and this could affect us, whether such failure is our\r\nown or that of our contractors or external partners. In particular, the manufacturing,\r\nmarketing, exportation, promotional, clinical, pharmacovigilance and pricing\r\npractices of pharmaceutical manufacturers, as well as manufacturer interaction\r\nwith regulatory agencies, purchasers, prescribers and patients, are subject to\r\nextensive regulation, litigation and governmental investigation. Moreover, such laws,\r\nrules and regulations are subject to change.\r\nMany companies, including AstraZeneca, have been subject to legal\r\nclaims asserted by federal and state governmental authorities and\r\nprivate payers and consumers, which have resulted in substantial\r\nexpense and other significant consequences. Governmental\r\ninvestigations or proceedings could result in civil or criminal\r\nsanctions and/or the payment of fines or damages. Civil litigation,\r\nparticularly in the US, is inherently unpredictable, and unexpectedly\r\nhigh awards for damages can result from an adverse result. In many\r\ncases, litigation adversaries may claim enhanced damages in\r\nextremely high amounts. Government investigations, litigations, and\r\nother legal proceedings, regardless of the outcome, could be costly,\r\ndivert management attention, or damage our reputation and demand\r\nfor our products.\r\nUnfavourable resolutions to current and similar future proceedings\r\nagainst us that could subject us to criminal liability, fines, penalties\r\nor other monetary or non-monetary remedies, including enhanced\r\ndamages, require us to make significant provisions in our accounts\r\nrelating to legal proceedings and could materially adversely affect\r\nour business or results of operations.",
+        "Count of Linked KAR": 1,
+        "Count of Linked Material Controls": 5,
+        "Current Impact": "VH",
+        "Current Likelihood": "L",
+        "Gross Impact": "VH",
+        "Gross Likelihood": "M",
+        "Current Impact_Level": "Very High",
+        "Current Likelihood_Level": "Low",
+        "Gross Impact_Level": "Very High",
+        "Gross Likelihood_Level": "Medium",
+        "Science and Innovation": "No",
+        "People and Sustainability": "Yes",
+        "Growth and Therapy Area Leadership": "No",
+        "Achieve Group Financial Targets": "Yes",
+        "Material Controls": [
+          {
+            "Reference": "MC004-C1",
+            "Name": "Annual compliance reporting",
+            "Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting"
+          },
+          {
+            "Reference": "MC011-O7",
+            "Name": "Review of litigation matters",
+            "Description": "WHAT & WHY\r\nLegal proceedings need to be disclosed to ensure investors are provided with clear and balanced information about the company. (in line with listing requirements)\r\n\r\nHOW\r\nEach quarter, a member of B&CS sends an e-mail to each member of the LSMT (excluding the Company Secretary) asking them to disclose any known material litigation and to review the Legal Proceedings note disclosed in the quarterly results announcements and to consider:\r\n(i) whether any material developments have occurred that require those disclosures to be updated; and\r\n(ii) whether there are any material developments in the previously disclosed Legal Proceedings note (including threatened and/or pending legal proceedings) and/or new legal proceedings (including threatened and/or pending legal proceedings) which may require to be disclosed in the Legal Proceedings note disclosed in the quarterly results announcements. Material developments are changes that would cause an investor to alter their forecasts.\r\n\r\nAll responses from the LSMT are to be collected prior to the GFR lock meeting that precedes approval of the final quarterly results announcement and are held on file. A member of B&CS under supervision of the Deputy Company Secretary or the Company Secretary ensures that all changes identified in this process are considered for inclusion the Legal Proceedings note.\r\nIn the event that any LSMT member fails to provide a response, the Deputy Company Secretary or the General Counsel may confirm their approval of the disclosures to satisfy the control. Any such confirmations are to be noted in writing (including email) and held on file.\r\n\r\nNotice of material litigations occur by either in-person, email, or mail service to AZ central offices and are sent to the accountable member of the Legal Senior Management Team.  On a quarterly basis, a list of pending litigation matters from Counsellink is sent to all case managers and email confirmation is required to ensure that there are no pending material (against a materiality threshold of US $100m) litigation matters that do not appear on this list. \r\n\r\nAn internal legal and risk meeting is held (between Legal and Finance) to discuss open material litigation and any developments that may or may not require a provision to be established. Discussions are held through the quarter relating to the accounting considerations.  A formal meeting is then conducted at the quarter end.  Minutes are taken and approved under the Accounting issues control.  (This is part of GFR C36 controls).\r\n\r\nIn addition, the litigation disclosures are set out in a separate Legal Log by a member of Legal under supervision of the Deputy General Counsel (the Legal Log). The Legal Log includes legal entity information and accounting treatment for each legal matter, detailing which matters are disclosed for the purposes of contingent liabilities, provisions and contingent assets. Each quarter the Legal Log is sent by the Deputy General Counsel to the Head of Technical Accounting Compliance & UK Reporting for review. Once agreed by the Head of Technical Accounting Compliance & UK Reporting and the Deputy General Counsel, the Legal Log confirms the final accounting position for each legal matter disclosed in the Legal Proceedings note for the quarter.\r\n\r\nPrior to the GFR lock meeting that precedes approval of the final quarterly results announcement, the Head of Technical Accounting Compliance & UK Reporting confirms to the Deputy Company Secretary that the Legal Log has been updated and agreed between the Head of Technical Accounting Compliance & UK Reporting and the Deputy General Counsel and that the agreed accounting positions are reflected in the quarterly results announcement. \r\n\r\nWHEN\r\nQuarterly"
+          },
+          {
+            "Reference": "MC012-O8",
+            "Name": "Global DOA",
+            "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
+          },
+          {
+            "Reference": "MC015-F1",
+            "Name": "Accounting issues",
+            "Description": "WHAT & WHY\r\nQuarterly Accounting Issue meetings are held with FSMT VP's (or delegate) and significant business function key finance staff (VP or delegate) to ensure that GFR is informed of all significant accounting issues, with the exception of deals which are confirmed with Deal Finance and the SVP GPPM, Strategic Planning and Business Development. GFR then review the quarterly ERH submission to ensure all reported matters deemed significant (generally new, unusual and above $20m) are included in the quarterly reported numbers. The purpose of this control is to ensure that the quarterly, half year and annual financial statements reflect all significant accounting matters and such matters are appropriately recorded in the books and records of the AZ Group.\r\n\r\nHOW\r\nSET area Accounting Issues summary documents are provided by the SET areas, and provided to GFR, or emails detailing the issues raised are sent and agreement by the appropriate contact is obtained.\r\n\r\nConfirmations are filed on the quarter end SOX file and evidence of completeness of receipt of minutes and appropriate SET area sign off. A quarterly summary of Group issues is prepared by the GFR Head of Technical Accounting & Compliance based on the confirmations received, and other accounting issues notifications and discussions in the quarter. Evidence of review of the minutes for evidence of matters being considered for inclusion in the quarterly summary document is included in the quarter end SOX file.\r\n\r\nThe quarterly summary is reviewed with the SVP Finance Group Controller (or delegate), and VP Finance, Group Financial Reporting (or delegate), who confirm their agreement with the summary (meeting normally WD -1).\r\n\r\nCompleteness and accuracy of the SET area accounting issues minutes are confirmed by the FSMT VP's (or in exceptional circumstances, delegate) prior to final Working Day 8 lock, with the exception of deals which are confirmed by the SVP GPPM, Strategic Planning and Business Development. Any outstanding FSMT confirmations are noted in the work day 8 lock meeting and followed up in the final pre-announcement lock meeting to make sure confirmation have been received.\r\n\r\nThe accounting issues identified in the quarterly summary are reviewed by the statement accountants against the financial statements used for the full lock meeting to ensure all are dealt with appropriately in those statements.\r\n\r\nWHEN\r\nQuarterly"
+          },
+          {
+            "Reference": "MC015-R1",
+            "Name": "Subsequent events",
+            "Description": "WHAT & WHY\r\nThe subsequent event returns are collated by the Consolidation accountants who obtain returns from FSMT/SET area VP's or equivalent/delegate to populate the Subsequent Events Control Sheet on a quarterly basis.  This is then reviewed by the VP of Group Reporting or delegate (Head of Technical Accounting and Compliance or the Head of Technical Accounting and Group Consolidation) and reflected, as appropriate, in the financial statements.  The purpose of this control is to ensure that any significant items with an accounting impact of $10m that have arisen post lock meeting are considered and concluded on as adjusting or non-adjusting events and for disclosure purposes.\r\n\r\nHOW\r\ni) Email confirmations are collated from all SET areas prior to final lock meeting, requesting information on any events that have arisen post Lock meeting\r\nii) The VP of Group Reporting checks all confirmations have been received, and the items contained in the confirmations are appropriately included in the Subsequent Events Control Sheet.\r\niii) The results are assessed un the criteria contained within IAS10, as to whether they are considered adjusting or non-adjusting, and whether disclosure is required, both individually and in aggregate and are discussed and minuted at pre-announcement lock meeting.\r\niv) Evidence of this review is documented on the Subsequent Events Control Sheet.  Any appropriate events are considered at the pre-announcement lock meeting, this review is document in the pre-announcement lock meeting minutes.\r\n\r\nWHEN"
+          }
+        ],
+        "Other Mitigations": [],
+        "KRIs": []
+      }
+    ]
+  }
+}

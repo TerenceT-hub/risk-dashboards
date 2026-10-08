@@ -1,0 +1,90 @@
+{
+  "rows": {
+    "rows": [
+      {
+        "Short Name": "Pricing",
+        "Key Active Risk": "Pricing and Access to Medicines"
+      },
+      {
+        "Short Name": "Commercial",
+        "Key Active Risk": "Pricing and Access to Medicines"
+      },
+      {
+        "Short Name": "ABAC",
+        "Key Active Risk": "Key Legal and Litigation Matters"
+      },
+      {
+        "Short Name": "Pipeline",
+        "Key Active Risk": "Pricing and Access to Medicines"
+      },
+      {
+        "Short Name": "Pipeline",
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Ethical requirements",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
+      },
+      {
+        "Short Name": "Supply",
+        "Key Active Risk": "Supply Chain Capability"
+      },
+      {
+        "Short Name": "IT & Cyber",
+        "Key Active Risk": "Information Technology and Cyber Security"
+      },
+      {
+        "Short Name": "IT & Cyber",
+        "Key Active Risk": "Data Security and Information Governance"
+      },
+      {
+        "Short Name": "IT & Cyber",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
+      },
+      {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Data Security and Information Governance"
+      },
+      {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Rapid Evolution of Regulation and Increased Regulatory Scrutiny"
+      },
+      {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
+      },
+      {
+        "Short Name": "Geopolitics & Macroeconomics",
+        "Key Active Risk": "Pricing and Access to Medicines"
+      },
+      {
+        "Short Name": "Geopolitics & Macroeconomics",
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Strategic plans",
+        "Key Active Risk": "Pricing and Access to Medicines"
+      },
+      {
+        "Short Name": "Strategic plans",
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Strategic plans",
+        "Key Active Risk": "Response to global / regional conflict "
+      },
+      {
+        "Short Name": "IP",
+        "Key Active Risk": "Key Legal and Litigation Matters"
+      },
+      {
+        "Short Name": "Litigation",
+        "Key Active Risk": "Key Legal and Litigation Matters"
+      }
+    ]
+  }
+}
