@@ -19,7 +19,11 @@
       },
       {
         "Short Name": "Pipeline",
-        "Key Active Risk": "Strategic Execution and Pipeline Delivery"
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Ethical requirements",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
       },
       {
         "Short Name": "Supply",
@@ -31,23 +35,35 @@
       },
       {
         "Short Name": "IT & Cyber",
-        "Key Active Risk": "Data Security, AI and Information Governance"
+        "Key Active Risk": "Data Security and Information Governance"
+      },
+      {
+        "Short Name": "IT & Cyber",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
       },
       {
         "Short Name": "Data and AI",
-        "Key Active Risk": "Data Security, AI and Information Governance"
+        "Key Active Risk": "Data Security and Information Governance"
       },
       {
         "Short Name": "Data and AI",
         "Key Active Risk": "Rapid Evolution of Regulation and Increased Regulatory Scrutiny"
       },
       {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+      },
+      {
+        "Short Name": "Data and AI",
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
+      },
+      {
         "Short Name": "Geopolitics & Macroeconomics",
         "Key Active Risk": "Pricing and Access to Medicines"
       },
       {
         "Short Name": "Geopolitics & Macroeconomics",
-        "Key Active Risk": "Strategic Execution and Pipeline Delivery"
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
       },
       {
         "Short Name": "Strategic plans",
@@ -55,7 +71,7 @@
       },
       {
         "Short Name": "Strategic plans",
-        "Key Active Risk": "Strategic Execution and Pipeline Delivery"
+        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
       },
       {
         "Short Name": "Strategic plans",
