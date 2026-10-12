@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-risk-dashboard
+spec:
+  selector:
+    app: nexus-risk-dashboard
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP

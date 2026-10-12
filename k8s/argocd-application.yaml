@@ -1,0 +1,27 @@
+# This is typically registered by a platform admin (or via Azimuth's own
+# portal/CLI) rather than applied directly -- check with whoever manages
+# ArgoCD on Azimuth for how new Applications actually get onboarded there.
+# Included here so the intent is explicit and it's ready to hand over /
+# apply once confirmed.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nexus-risk-dashboard
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # TODO: update to the Enterprise repo URL ArgoCD should actually pull from.
+    repoURL: https://github.com/azu-business/risk-dashboards.git
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    # TODO: replace with your actual Azimuth namespace.
+    namespace: NAMESPACE_PLACEHOLDER
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false

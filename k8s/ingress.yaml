@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexus-risk-dashboard
+  annotations:
+    # TODO: confirm with whoever administers Azimuth -- this assumes an
+    # nginx-ingress-controller-style OAuth2 Proxy setup (the common pattern
+    # for gating an Ingress behind AAD/SSO), but Azimuth may use a different
+    # ingress controller or a platform-specific auth mechanism instead.
+    # If so, these two annotations need to be swapped for whatever their
+    # actual convention is.
+    nginx.ingress.kubernetes.io/auth-url: "AUTH_URL_PLACEHOLDER"
+    nginx.ingress.kubernetes.io/auth-signin: "AUTH_SIGNIN_URL_PLACEHOLDER"
+spec:
+  rules:
+    # TODO: confirm the actual hostname Azimuth will assign/allow.
+    - host: nexus-risk-dashboard.HOST_PLACEHOLDER
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-risk-dashboard
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - nexus-risk-dashboard.HOST_PLACEHOLDER
+      # TODO: confirm whether Azimuth auto-provisions TLS certs (e.g. via
+      # cert-manager) or whether a secretName needs to be created/referenced
+      # here manually.

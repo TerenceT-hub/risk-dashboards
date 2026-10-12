@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-risk-dashboard
+  labels:
+    app: nexus-risk-dashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nexus-risk-dashboard
+  template:
+    metadata:
+      labels:
+        app: nexus-risk-dashboard
+    spec:
+      containers:
+        - name: nexus-risk-dashboard
+          # TODO: replace with the actual Harbor (or other registry) path once
+          # confirmed -- e.g. harbor.azimuth.<astrazeneca-domain>/<project>/nexus-risk-dashboard:<tag>
+          image: REGISTRY_PLACEHOLDER/nexus-risk-dashboard:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 30

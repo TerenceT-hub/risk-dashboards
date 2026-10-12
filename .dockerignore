@@ -1,0 +1,8 @@
+.git/
+node_modules/
+copilot-knowledge/
+auto-refresh.log
+watcher.log
+*.ps1
+*.vbs
+k8s/
