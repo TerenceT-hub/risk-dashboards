@@ -13,8 +13,10 @@ metadata:
     nginx.ingress.kubernetes.io/auth-signin: "AUTH_SIGNIN_URL_PLACEHOLDER"
 spec:
   rules:
-    # TODO: confirm the actual hostname Azimuth will assign/allow.
-    - host: nexus-risk-dashboard.HOST_PLACEHOLDER
+    # "nexus" matches the branding used everywhere else in the app -- change
+    # the prefix here to whatever you'd prefer; HOST_PLACEHOLDER still needs
+    # confirming (the domain suffix Azimuth actually serves).
+    - host: nexus.HOST_PLACEHOLDER
       http:
         paths:
           - path: /
@@ -26,7 +28,7 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - nexus-risk-dashboard.HOST_PLACEHOLDER
+        - nexus.HOST_PLACEHOLDER
       # TODO: confirm whether Azimuth auto-provisions TLS certs (e.g. via
       # cert-manager) or whether a secretName needs to be created/referenced
       # here manually.
