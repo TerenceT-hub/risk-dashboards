@@ -30,6 +30,10 @@
         "Key Active Risk": "Supply Chain Capability"
       },
       {
+        "Short Name": "Supply",
+        "Key Active Risk": "Response to global / regional conflict "
+      },
+      {
         "Short Name": "IT & Cyber",
         "Key Active Risk": "Information Technology and Cyber Security"
       },
@@ -63,7 +67,11 @@
       },
       {
         "Short Name": "Geopolitics & Macroeconomics",
-        "Key Active Risk": "Harnessing the Power of AI, Strategic Execution and Pipeline Delivery"
+        "Key Active Risk": "Rapid Evolution of Regulation, Regulatory Fragmentation and Increased Scrutiny"
+      },
+      {
+        "Short Name": "Geopolitics & Macroeconomics",
+        "Key Active Risk": "Response to global / regional conflict "
       },
       {
         "Short Name": "Strategic plans",
