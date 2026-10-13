@@ -23,10 +23,11 @@ deployment just serves whatever's currently in the repo.
 
 Confirmed from our conversation:
 - Deployment model is GitOps (ArgoCD watching a repo path) -- `argocd-application.yaml` is built for that.
-- You can create your own namespace/project.
+- A namespace/project has been created in Azimuth (exact name still needed -- see item 4 below).
 - SSO gating of the app is supported on Azimuth -- the Ingress has a placeholder for it.
+- ArgoCD access is self-service -- Applications get registered by applying the manifest yourself, no admin hand-off needed for that step.
 
-Still needs confirming with whoever administers Azimuth, before this can actually run:
+Still needs confirming before this can actually run:
 
 1. **Container registry** -- `deployment.yaml`'s `image:` field is a placeholder
    (`REGISTRY_PLACEHOLDER/...`). Azimuth's stack includes Harbor, so this is
@@ -42,16 +43,13 @@ Still needs confirming with whoever administers Azimuth, before this can actuall
    common way to gate an Ingress behind AAD, but Azimuth may use a different
    ingress controller or its own convention. The two placeholder annotations
    need swapping for whatever the real pattern is.
-4. **Hostname + TLS** -- `ingress.yaml` has a placeholder host and assumes TLS
-   is either auto-provisioned (e.g. cert-manager) or needs a `secretName`
-   added manually; needs confirming either way.
-5. **How Applications actually get registered in ArgoCD** -- `argocd-application.yaml`
-   is written as if you'd `kubectl apply` it directly, but many platforms
-   have admins (or a self-service portal) register new Applications instead.
-   Worth checking the expected onboarding path before applying it yourself.
+4. **Namespace name + hostname + TLS** -- `argocd-application.yaml`'s
+   `NAMESPACE_PLACEHOLDER` and `ingress.yaml`'s `nexus.HOST_PLACEHOLDER` both
+   need the real values once known, and whether TLS is auto-provisioned
+   (e.g. cert-manager) or needs a `secretName` added manually.
 
 ## Suggested next step
 
-Take this folder to whoever administers Azimuth access for you, confirm the
-5 items above, and I'll fill in the placeholders and build the missing CI
-image-build workflow once they're known.
+Get the 4 items above (registry path, CI expectations, SSO auth pattern, and
+your actual namespace/hostname), send them over, and I'll fill in every
+placeholder and build the missing CI image-build workflow.

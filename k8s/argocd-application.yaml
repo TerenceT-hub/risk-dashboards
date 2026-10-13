@@ -1,8 +1,7 @@
-# This is typically registered by a platform admin (or via Azimuth's own
-# portal/CLI) rather than applied directly -- check with whoever manages
-# ArgoCD on Azimuth for how new Applications actually get onboarded there.
-# Included here so the intent is explicit and it's ready to hand over /
-# apply once confirmed.
+# Confirmed: self-service ArgoCD access -- you register this Application
+# yourself (no admin hand-off needed for this step). Still needs
+# NAMESPACE_PLACEHOLDER (below) replaced with your actual Azimuth namespace
+# before applying it.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
