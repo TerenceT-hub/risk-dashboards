@@ -7,8 +7,8 @@
         "Control Name": "Pricing policy approval by SET ",
         "Control Description": "WHAT & WHY\r\nSET price guidance sets the methods and practical considerations to support implementation of the pricing policy, such that approved pricing policies ensure that prices charged for products are appropriate to give value to patients and HCP, are not seen as anti-competitive and are in line with business case.  Any exceptions to the agreed policy are subject to appropriate approvals.\r\n \r\n \r\nHOW\r\nThe Pricing and Market Access Director for each brand works with Global Price implementation team (and others) to develop a pricing policy that is in line with the guidance approved and issued by SET.  Price policy is periodically reviewed (usually every 2 years - it can be updated ad hoc) and re-approved as required.  Policy includes target and floor prices (set for each of the 3 access tiers).  Price approvals are submitted by Marketing companies into the PRICE tool and if above floor can be approved by Area VP.   All prices that go beyond boundary of pricing policy require (BU) EVP approval.\r\n \r\nWHEN\r\nEvent driven (new product launches, changing environment, out of thresholds) or periodic review ",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "1, 4, 5, 19",
-        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failure to comply with applicable laws, rules and regulations relating to anti-competitive behaviour; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
+        "Linked Enduring Risk IDs": "1, 5, 19",
+        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failure or delay in the delivery of our pipeline or launch of new medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
         "Linked Principal Risk IDs": "1, 5, 19"
       },
       {
