@@ -37,8 +37,8 @@
         "Control Name": "10yr Long-Range Plan (LRP)",
         "Control Description": "WHAT & WHY\r\nThe Long-Term Plan (LTP) is the annual 10-year financial plan, agreed with the CEO and CFO and approved by the Board in July.  It serves as the plan of record for the current year; supports balance sheet and intangible asset calculations; supports the Company’s long-term ambition on revenue and growth.\r\n \r\nHOW\r\nThe LTP integrates TA Strategy and long-term forecasting into a single 10-year financial plan. The TA Strategy process that underpins the LTP is developed collaboratively by Commercial, R&D, Finance, and GPPM teams across the Therapeutic Areas and central functions.  The first four years of the LTP are effectively superseded by the Mid-Term Plan (MTP), which operationalises the LTP and informs the following year’s budget-setting process. In this way, the LTP helps aligns medium- and short-term plans to long-term targets.\r\n \r\nWHEN\r\nAnnually in June and approved by the Board in July.",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "2, 8, 19, 20",
-        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure to maintain supply of compliant, quality medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
+        "Linked Enduring Risk IDs": "2, 5, 8, 19, 20",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Failure to maintain supply of compliant, quality medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations",
         "Linked Principal Risk IDs": "2, 8, 19, 20"
       },
       {
@@ -47,8 +47,8 @@
         "Control Name": "SET area performance reporting",
         "Control Description": "WHAT & WHY\r\nInternal reporting to the SET on AZ Group's financial performance against Budget and in-year reforecasts (RBU2LTP, MTP). The SET receive monthly Performance Reports, tracking the Enterprise's in year progress against key financial measures and Global Scorecard KPIs. \r\nIn addition, periodic in-year financial reforecasts are performed as part of our annual planning cycle; with updates presented against the agreed Budget baseline, allowing changes to be made and implemented (as required).\r\n \r\nHOW\r\nThe SET receive monthly Performance Reports from the Group Business Performance team, incorporating YTD performance against Budget and latest financial reforecasts (as relevant) along with progress against our Global Scorecard KPIs. \r\nFinancial reforecasts are presented and discussed with the SET on a periodic basis, as part of the annual planning cycle.   \r\n\r\nWHEN\r\nInternal SET Performance Reports are distributed on a monthly basis. \r\nFinancial reforecasts are performed on a periodic basis as part of the annual planning cycle.",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "2, 20, 21",
-        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure to achieve strategic plans or meet targets or expectations; Unexpected deterioration in the company's financial position",
+        "Linked Enduring Risk IDs": "2, 20",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure to achieve strategic plans or meet targets or expectations",
         "Linked Principal Risk IDs": "2, 20"
       },
       {
@@ -57,8 +57,8 @@
         "Control Name": "Annual compliance reporting",
         "Control Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "3, 13, 17, 24",
-        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Inadequate disclosure of community investments, patient group support, and product donations ; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Enduring Risk IDs": "3, 12, 13, 24",
+        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure in Information technology or cyber security; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Adverse outcome of litigation and / or governmental investigations",
         "Linked Principal Risk IDs": "3, 13, 24"
       },
       {
@@ -77,15 +77,15 @@
         "Control Name": "Supply Chain planning process (S&OP)",
         "Control Description": "WHAT & WHY\r\nUnderstanding the demand and supply for our products (over the next three years) allows us to balance customer service, plant capacity and stock levels and ensures that we can provide patients with life changing medicines whilst keeping control over capital (working and fixed capital needed)\r\n\r\nHOW\r\nGlobal supply planning is performed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).  Confirm that plans are in place and have appropriate approvals for each timeframe e.g. S&OP imbalances approved by Supply chain council.  That appropriate policy/safety stocks levels have been agreed and are in place (e.g. FP stock renewal) and that metrics are in place to report on outcomes being achieved, such as OTIF performance, stock turn etc with monitoring and actions to address any performance issues.\r\n\r\nWHEN\r\nPerformed over three time frames:  Strategic (3+ years), Tactical (3months to 3years) and Operational (0 to 3months).",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "2, 5, 8, 10, 14, 15, 19",
-        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Failure to maintain supply of compliant, quality medicines; Reliance on 3rd party goods and services; Failure to comply with other regulatory or leglislative requirement (e.g SHE, Modern slavery, financial reporting etc); Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
+        "Linked Enduring Risk IDs": "2, 5, 7, 8, 19",
+        "Linked Enduring Risks": "Failures or delays in the quality and execution of the Group's commercial strategies; Failure or delay in the delivery of our pipeline or launch of new medicines; Failure to meet regulatory or ethical requirements for medicine development or approval; Failure to maintain supply of compliant, quality medicines; Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
         "Linked Principal Risk IDs": "2, 5, 8, 19"
       },
       {
         "MC_ID": 9,
         "Control Reference": "MC007-C9",
         "Control Name": "IT Security Governance",
-        "Control Description": "WHAT & WHY\r\nMeasures to track whether the IT security controls are effective.\r\n\r\nHOW\r\nThe CISO puts in place measures to monitor the effectiveness of the IT security controls and whether the strategic vision of the security programme is being achieved (and risks are being managed to an acceptable level).  \r\n\r\nMitigations in place to manage these risks are monitored, and their effectiveness regularly reported, for example in KPI dashboards provided to management and the Audit Committee.  This dashboard is used to support the Audit Committee perform and in depth review of cybersecurity risks.\r\n\r\nWHEN\r\nTBC",
+        "Control Description": "WHAT & WHY\r\nThe Cyber Governance and Risk Meeting provides oversight of cybersecurity, IT, operational resilience and related regulatory risks that could cause significant disruption to AstraZeneca’s IT systems, result in cybersecurity breaches, or lead to non-compliance with applicable laws and regulations.\r\n\r\nHOW\r\nA monthly cross-functional forum with stakeholders from IT, ERM, GIA, Global Security, Legal and Compliance reviews and challenges where applicable:\r\n•Key cyber risk assessments, metrics and KRIs.\r\n•Current and emerging cyber threats, incidents, third-party risks and regulatory requirements.\r\n•IT risks, exceptions, non-compliance, audit findings and remediation progress.\r\n•Operational resilience and key cyber initiatives that may affect the business.\r\n\r\nThe forum agrees mitigation actions, remediation priorities, risk acceptance and exception decisions where required. Actions, owners and target dates are recorded and monitored, with material, overdue or off-track risks escalated through appropriate governance channels.\r\n\r\nWHEN\r\nMonthly",
         "Control Owner": "Martyn Mount",
         "Linked Enduring Risk IDs": "12",
         "Linked Enduring Risks": "Failure in Information technology or cyber security",
@@ -107,8 +107,8 @@
         "Control Name": "SOx Deficiency Assessment Board",
         "Control Description": "WHAT & WHY\r\nSOX control deficiencies are monitored via the Deficiency Assessment Board, which monitors the effectiveness of SOx control operation and ensures that any deficiencies noted are remediated.\r\n\r\nHOW\r\nSOX control deficiencies are monitored via the Deficiency Assessment Board.  Control deficiencies are reviewed to ensure that the route causes can be identified, impacts understood and remediation tracked and assured via retesting.  (IRM:  CTRL0032433 and CTRL0032413)\r\n\r\nWHEN\r\nMonthly, beginning in June. More frequently towards year end as required",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "22",
-        "Linked Enduring Risks": "Failure in financial control or the occurrence of Fraud",
+        "Linked Enduring Risk IDs": "NaN",
+        "Linked Enduring Risks": "",
         "Linked Principal Risk IDs": ""
       },
       {
@@ -147,8 +147,8 @@
         "Control Name": "Global DOA ",
         "Control Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates.",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24",
-        "Linked Enduring Risks": "Pricing, affordability, access and competitive pressures; Failures or delays in the quality and execution of the Group's commercial strategies; Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure to comply with applicable laws, rules and regulations relating to anti-competitive behaviour; Failure or delay in the delivery of our pipeline or launch of new medicines; Safety & efficacy of marketed medicines is questioned; Failure to meet regulatory or ethical requirements for medicine development or approval; Failure to maintain supply of compliant, quality medicines; Illegal trade in the Group's medicines; Reliance on 3rd party goods and services; Failure to comply with trade control requirements; Failure in Information technology or cyber security; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Failure to comply with other regulatory or leglislative requirement (e.g SHE, Modern slavery, financial reporting etc); Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment; Failure of critical processes; Inadequate disclosure of community investments, patient group support, and product donations ; Failure to attract, develop, engage and retain a diverse,  talented and capable workforce at all levels; Geopolitical and / or macroeconomic volatility disrupts operation of our global business; Failure to achieve strategic plans or meet targets or expectations; Unexpected deterioration in the company's financial position; Failure in financial control or the occurrence of Fraud; IP risks related to our products ; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Enduring Risk IDs": "NaN",
+        "Linked Enduring Risks": "",
         "Linked Principal Risk IDs": "1, 2, 3, 5, 6, 7, 8, 12, 13, 19, 20, 23, 24"
       },
       {
@@ -157,7 +157,7 @@
         "Control Name": "Disclosure committee",
         "Control Description": "WHAT & WHY\r\nThe Company is required to disclose certain information to the market to comply with obligations arising from its LSE, NYSE and Stockholm listings. All disclosures should be fair, balanced, complete, accurate and not misleading (including via omission). Certain information could cause significant movements in the share price of AZ PLC; UK and EU Market Abuse Regulations require information that constitutes inside information to be handled properly and disclosed as soon as possible (using appropriate channels).\r\n\r\nHOW\r\nThe CEO is responsible for corporate disclosures (and is supported in doing this by advice from the Disclosure Committee) and makes the final decision on whether inside information has arisen within the business.  The Disclosure Committee reviews and approves Stock Exchange announcements (released via RNS) and global press releases, including announcements which contain inside information. Announcements may alternatively be reviewed by the Board.\r\n\r\nAnnouncements released via RNS are also typically filed with the US SEC on a form 6-K and disclosed via Nasdaq in Sweden. \r\n\r\nWHEN\r\nEvent driven",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "",
+        "Linked Enduring Risk IDs": "NaN",
         "Linked Enduring Risks": "",
         "Linked Principal Risk IDs": ""
       },
@@ -167,7 +167,7 @@
         "Control Name": "Approval of annual report (and other ARA supplements) by Management & the Board",
         "Control Description": "WHAT & WHY\r\nInvestor needs (and listing requirements) require the company to make accurate and unbiased submissions.  These submissions must contain certain information to be compliant with listing rules.  Failure to report fully or inaccurate reporting can lead to financial and reputational consequences for the company.  It may also deter investors which could reduce the funds available to the company.\r\n\r\nHOW\r\nAnnual report (and other ARA supplements) have been reviewed and approved by Management and the Board prior to being published.\r\n\r\nWHEN\r\nAnnually at year end.",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "",
+        "Linked Enduring Risk IDs": "NaN",
         "Linked Enduring Risks": "",
         "Linked Principal Risk IDs": ""
       },
@@ -177,8 +177,8 @@
         "Control Name": "Executive Safety Board",
         "Control Description": "WHAT & WHY\r\nThe Executive Safety Board (ESB) is the highest level of safety governance at AstraZeneca for patient and product safety matters. The ESB makes decisions related to the following topics, when a company position/strategy is required:\r\n• Safety of patients who receive treatment with AstraZeneca products\r\n• Any safety risk, concern or finding that impacts the benefit/risk profile of an AstraZeneca product(s)\r\n\r\nThe Executive Safety Board will be automatically triggered for important emerging safety concerns/issues that impact the benefit risk profile of an AstraZeneca product including but not limited to a product in development (investigational product) or a product being used in post marketed setting.\r\n\r\nHOW\r\nESB topics are to include important emerging safety concern(s), or safety advice seeking matters, related to an investigational or a marketed product:\r\n• Review and evaluation of the impact of significant new toxicology or safety findings that could affect the benefit-risk profile of a product and/or the continuation and dosing of clinical studies or the withdrawal of a product from the market. This includes unexpected serious safety matters identified by a Data Monitoring Committee (DMC). \r\n• Proposal for re-entry of a product into clinical development when safety was a factor leading to its discontinuation and approve the decision to continue dosing in a study where dosing had been previously discontinued due to safety concerns.\r\n• Proposal for re-starting dosing in a study and/or clinical program when safety was a factor leading to its clinical hold and/or decision to discontinue enrolment/dosing.\r\n• Guidance on complex safety matters related, including those related to product labelling.\r\n• As per SOP MANAGEMENT OF IMPORTANT NEW SAFETY ISSUES (SOP-0108734, V3)\r\n\r\nIf a decision cannot be reached by the PS TA VP and QPPV, the issue can be escalated to the ESB for final resolution. The QPPV also has single authority to escalate the matter to ESB (see QPPV SOP). The SSaMT members, SPVMD and TPL (for non-clinical INSIs) should be included in any discussion relating to the dispute. Due to the potential impact on the overall benefit/risk of the product and public health, dispute resolution discussions must occur with the utmost urgency following initial awareness of the safety signal. If resolution cannot be reached within an appropriate timeframe and without undue delay, the default position is to proceed with reporting.\r\n\r\n· PS TA VP can raise a topic for ESB on an ad-hoc basis.\r\n\r\nThe ESB should be informed of endorsements for recommendations made in the management of an INSI (for clinical and non-clinical topics). When a joint decision has not been reached between PS TA VP and clinical development VP or PS TA VP wants to specially escalate ESB for ESB review\r\n\r\nWHEN\r\nEvent driven due to emerging safety concerns/issues",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "6",
-        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned",
+        "Linked Enduring Risk IDs": "6, 7",
+        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned; Failure to meet regulatory or ethical requirements for medicine development or approval",
         "Linked Principal Risk IDs": "6"
       },
       {
@@ -187,8 +187,8 @@
         "Control Name": "Pharmacovigilance Council",
         "Control Description": "TBC",
         "Control Owner": "Martyn Mount",
-        "Linked Enduring Risk IDs": "6",
-        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned",
+        "Linked Enduring Risk IDs": "6, 7",
+        "Linked Enduring Risks": "Safety & efficacy of marketed medicines is questioned; Failure to meet regulatory or ethical requirements for medicine development or approval",
         "Linked Principal Risk IDs": "6"
       },
       {
@@ -220,6 +220,36 @@
         "Linked Enduring Risk IDs": "3",
         "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges",
         "Linked Principal Risk IDs": "3"
+      },
+      {
+        "MC_ID": 23,
+        "Control Reference": "MC016-O9",
+        "Control Name": "Priority AI Projects Governance",
+        "Control Description": "TBC",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "13",
+        "Linked Enduring Risks": "Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives",
+        "Linked Principal Risk IDs": ""
+      },
+      {
+        "MC_ID": 24,
+        "Control Reference": "MC017-C10",
+        "Control Name": "Cyber Regulatory Steering Committee",
+        "Control Description": "WHAT & WHY\r\nThe Cyber Regulatory Steering Committee provides executive oversight of cyber regulatory compliance obligations, including NIS2 and related requirements. It supports timely identification, prioritisation and remediation of regulatory deficiencies, reducing the risk of significant IT disruption, cybersecurity breaches, regulatory non-compliance, reputational harm and material financial impact.\r\n\r\nHOW\r\nA cross-functional steering committee reviews regulatory developments, market and entity registration status, incident-reporting arrangements, regulatory deficiencies, audit readiness and remediation progress. The committee confirms accountable owners, challenges remediation plans and addresses material risks, ownership gaps and delivery delays. Decisions, actions, target dates and escalations are documented and monitored.\r\n\r\nWHEN\r\nMonthly",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "12",
+        "Linked Enduring Risks": "Failure in Information technology or cyber security",
+        "Linked Principal Risk IDs": "12"
+      },
+      {
+        "MC_ID": 25,
+        "Control Reference": "MC017-C11",
+        "Control Name": "Information Protection Steering Committee",
+        "Control Description": "TBC",
+        "Control Owner": "Martyn Mount",
+        "Linked Enduring Risk IDs": "12",
+        "Linked Enduring Risks": "Failure in Information technology or cyber security",
+        "Linked Principal Risk IDs": "12"
       }
     ]
   }
