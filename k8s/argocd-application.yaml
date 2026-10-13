@@ -1,16 +1,18 @@
 # Confirmed: self-service ArgoCD access -- you register this Application
-# yourself (no admin hand-off needed for this step). Still needs
-# NAMESPACE_PLACEHOLDER (below) replaced with your actual Azimuth namespace
-# before applying it.
+# yourself (no admin hand-off needed for this step), though your account
+# currently lacks the "create" RBAC permission for Applications in the
+# Risk_Reporting project -- that needs granting before this can actually
+# be submitted (see k8s/README.md). Still needs NAMESPACE_PLACEHOLDER
+# (below) replaced with your actual Azimuth namespace before applying it.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: nexus-risk-dashboard
   namespace: argocd
 spec:
-  project: default
+  # Confirmed via ArgoCD's own permission-denied error message.
+  project: Risk_Reporting
   source:
-    # TODO: update to the Enterprise repo URL ArgoCD should actually pull from.
     repoURL: https://github.com/azu-business/risk-dashboards.git
     targetRevision: main
     path: k8s
