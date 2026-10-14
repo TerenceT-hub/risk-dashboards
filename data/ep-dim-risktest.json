@@ -259,7 +259,6 @@
             "Values": [
               1,
               1,
-              1,
               1
             ]
           }
@@ -437,9 +436,8 @@
             "LowerTolerance": 0.995,
             "Values": [
               0.998,
-              0.998,
-              0.998,
-              0.998
+              0.999,
+              1
             ]
           },
           {
@@ -449,7 +447,6 @@
             "LowerThreshold": null,
             "LowerTolerance": null,
             "Values": [
-              0,
               0,
               0,
               0
@@ -462,10 +459,9 @@
             "LowerThreshold": 0.95,
             "LowerTolerance": 0.99,
             "Values": [
-              1.0442,
-              1.0887,
-              1.095,
-              1.104
+              1.0365,
+              1.0291,
+              1.0038
             ]
           }
         ]
