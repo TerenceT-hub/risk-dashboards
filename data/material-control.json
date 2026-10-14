@@ -58,7 +58,7 @@
         "Control Description": "WHAT & WHY\r\nThe compliance programme (and the controls contained therein) provide the key mitigation for our compliance risks.  The Annual Review monitors the effectiveness of the programme as a whole and the specific controls therein and sets out any improvements that are needed.\r\n\r\nHOW\r\nThere is an annual cycle of reporting from the Chief Compliance Officer to the Audit Committee on the following areas of internal control:    \r\n- Adequacy of the AZ Ethics Helpline (AZ Ethics point);                                                                                                             \r\n -  Monitoring and review of the effectiveness of our anti-bribery and anti-corruption controls        \r\n- Review of the Code of Ethics (and related policies);                                                                                                                                                                                                 \r\n-  Service assurance of the implementation and operation of the Code of Ethics;                 \r\n- review the Company’s procedures for detecting fraud                                                                                                                      \r\n- Review of the scope for compliance effectiveness reviews and review of the resources for, the role, effectiveness, structure and organisation of the compliance function.  (IRM:  CTRL0032451 and CTRL0032454)\r\n\r\nWHEN\r\nAnnual cycle of reporting",
         "Control Owner": "Martyn Mount",
         "Linked Enduring Risk IDs": "3, 12, 13, 24",
-        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure in Information technology or cyber security; Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives; Adverse outcome of litigation and / or governmental investigations",
+        "Linked Enduring Risks": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges; Failure in Information technology or cyber security; Failure to adopt and scale AI; Adverse outcome of litigation and / or governmental investigations",
         "Linked Principal Risk IDs": "3, 13, 24"
       },
       {
@@ -98,7 +98,7 @@
         "Control Description": "WHAT & WHY\r\nData controls are required to ensure that data is of high quality and is being managed appropriately.  Review is also required to ensure that legislation (including that relating to AI) understood and being complied with.\r\n\r\nHOW\r\nAs part of the organization's commitment to robust governance and risk management, an Enterprise Data Council (EDC) has been established; along with supporting governance meetings including SEDO forum, Data Assurance Board and the AI Assurance Board, to review and triage risks and issues presented to EDC.   The EDC review the following:\r\n•\tEffectiveness of Data and AI Controls: Assessment of the design, implementation, and ongoing effectiveness of the organization’s data and AI controls.\r\n•\tAssurance:  Summary of findings from assurance providers.\r\n•\tIncidents: Summary of significant incidents, including actions taken and lessons learned.\r\n•\tEmerging Risks: Identification of emerging risks and their potential implications for the organization.\r\n•\tFunction Review: Evaluation of the structure and resources for managing data risks.\r\nThe EDC also opine on whether the controls in place manage the data and AI risks to an acceptable level.  \r\nFor any identified gaps or areas requiring improvement, remediation plans, along with timelines for resolution, are agreed. The EDC are also provided with updates on progress against previously established remediation plans to ensure accountability and continuous improvement.\r\nThe Chair of the EDC summarises the above in a report that is shared with the Audit Committee.\r\n\r\nWHEN\r\nTBC",
         "Control Owner": "Martyn Mount",
         "Linked Enduring Risk IDs": "13",
-        "Linked Enduring Risks": "Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives",
+        "Linked Enduring Risks": "Failure to adopt and scale AI",
         "Linked Principal Risk IDs": "13"
       },
       {
@@ -228,7 +228,7 @@
         "Control Description": "TBC",
         "Control Owner": "Martyn Mount",
         "Linked Enduring Risk IDs": "13",
-        "Linked Enduring Risks": "Failure to collect and manage data or AI in line with legal and regulatory requirements and strategic objectives",
+        "Linked Enduring Risks": "Failure to adopt and scale AI",
         "Linked Principal Risk IDs": ""
       },
       {

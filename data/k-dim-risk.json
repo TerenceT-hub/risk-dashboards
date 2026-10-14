@@ -41,7 +41,7 @@
         "KAR Mitigation List": "• Data Enablement Council (incorporating AI governance) in place and maturing to drive regulatory compliance and to monitor risk based decisions, governance of data and information protection.\n• Project Streamline continuing with an “AI first” approach to AI governance to accelerate and simplify compliance across multiple regulatory domains, including data privacy.\n• Closure of remaining actions from GIA EU AI Act report linked to evolving EU regulations.\n• Data security and information governance enhancements including strengthened control frameworks.\n• Technical remediation of high-risk areas including restrictions on the use of unapproved AI or third party sharing platforms.\n• Contractual terms and conditions with AI and IT vendors prohibit the use of AZ data for training third party models.",
         "Linked Principal Risk Count": 2,
         "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements; Failure in Information technology or cyber security",
-        "Linked Principal Risk IDs": "12, 13"
+        "Linked Principal Risk IDs": "7, 12"
       },
       {
         "KAR_ID": 3,
@@ -125,7 +125,7 @@
         "KAR Mitigation List": "• Regulatory compliance programmes continue across multiple teams (e.g. NIS2, US and China data transfer regulations, EU Pay Transparency, Trade Sanctions).\n• Project Streamline continuing with an “AI first” approach to AI governance, accelerating and simplifying compliance across multiple regulatory domains.\n• Ongoing advocacy to reinforce the importance of PFAS derogations.",
         "Linked Principal Risk Count": 1,
         "Linked Principal Risks": "Failure to collect and manage data in line with legal and regulatory requirements",
-        "Linked Principal Risk IDs": "13"
+        "Linked Principal Risk IDs": "7"
       },
       {
         "KAR_ID": 7,
