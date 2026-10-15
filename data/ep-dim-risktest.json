@@ -689,11 +689,11 @@
         ],
         "Other Mitigations": [
           {
-            "Activity": "Penetration testing and targeted remediation.",
+            "Activity": "Penetration testing and targeted remediation including defence operations capability upgrade.",
             "Update": ""
           },
           {
-            "Activity": "Identity and network controls improvement to protect priority areas.",
+            "Activity": "Identity and network controls improvement to protect priority areas including data and application access hardening.",
             "Update": ""
           },
           {
@@ -706,6 +706,10 @@
           },
           {
             "Activity": "Regular cybersecurity and privacy training for employees.",
+            "Update": ""
+          },
+          {
+            "Activity": "Strengthening user device authentication.",
             "Update": ""
           }
         ],
@@ -753,7 +757,24 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Enterprise AI Unit",
+            "Update": ""
+          },
+          {
+            "Activity": "Data Enablement Council",
+            "Update": ""
+          },
+          {
+            "Activity": "AI talent and capability programmes",
+            "Update": ""
+          },
+          {
+            "Activity": "AI30 Data Fuel Enterprise Initiative",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -771,11 +792,11 @@
         "Count of Linked Material Controls": 0,
         "Current Impact": "H",
         "Current Likelihood": "M",
-        "Gross Impact": "M",
+        "Gross Impact": "H",
         "Gross Likelihood": "M",
         "Current Impact_Level": "High",
         "Current Likelihood_Level": "Medium",
-        "Gross Impact_Level": "Medium",
+        "Gross Impact_Level": "High",
         "Gross Likelihood_Level": "Medium",
         "Science and Innovation": "No",
         "People and Sustainability": "Yes",
@@ -811,11 +832,11 @@
         "Count of Linked Material Controls": 0,
         "Current Impact": "H",
         "Current Likelihood": "M",
-        "Gross Impact": "M",
+        "Gross Impact": "H",
         "Gross Likelihood": "H",
         "Current Impact_Level": "High",
         "Current Likelihood_Level": "Medium",
-        "Gross Impact_Level": "Medium",
+        "Gross Impact_Level": "High",
         "Gross Likelihood_Level": "High",
         "Science and Innovation": "No",
         "People and Sustainability": "Yes",
@@ -886,12 +907,12 @@
         "Count of Linked Material Controls": 0,
         "Current Impact": "H",
         "Current Likelihood": "L",
-        "Gross Impact": "M",
-        "Gross Likelihood": "M",
+        "Gross Impact": "H",
+        "Gross Likelihood": "H",
         "Current Impact_Level": "High",
         "Current Likelihood_Level": "Low",
-        "Gross Impact_Level": "Medium",
-        "Gross Likelihood_Level": "Medium",
+        "Gross Impact_Level": "High",
+        "Gross Likelihood_Level": "High",
         "Science and Innovation": "",
         "People and Sustainability": "Yes",
         "Growth and Therapy Area Leadership": "No",
@@ -961,11 +982,11 @@
         "Count of Linked Material Controls": 4,
         "Current Impact": "H",
         "Current Likelihood": "H",
-        "Gross Impact": "H",
+        "Gross Impact": "VH",
         "Gross Likelihood": "H",
         "Current Impact_Level": "High",
         "Current Likelihood_Level": "High",
-        "Gross Impact_Level": "High",
+        "Gross Impact_Level": "Very High",
         "Gross Likelihood_Level": "High",
         "Science and Innovation": "Yes",
         "People and Sustainability": "Yes",
@@ -998,7 +1019,24 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Focus on key products.",
+            "Update": ""
+          },
+          {
+            "Activity": "Demonstrate value of medicines/health economics.",
+            "Update": ""
+          },
+          {
+            "Activity": "Diversified portfolio.",
+            "Update": ""
+          },
+          {
+            "Activity": "Global manufacturing capability.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -1053,7 +1091,24 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Focus on key products and innovative science in our core therapy areas.",
+            "Update": ""
+          },
+          {
+            "Activity": "Strengthen pipeline through acquisitions, licensing and collaborations.",
+            "Update": ""
+          },
+          {
+            "Activity": "Appropriate capital structure and balance sheet.",
+            "Update": ""
+          },
+          {
+            "Activity": "Portfolio-driven decision-making process governed by senior executive-led committees.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -1178,7 +1233,12 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Active management of IP rights and IP litigation.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -1233,7 +1293,16 @@
             "Description": "WHAT & WHY\r\nThe subsequent event returns are collated by the Consolidation accountants who obtain returns from FSMT/SET area VP's or equivalent/delegate to populate the Subsequent Events Control Sheet on a quarterly basis.  This is then reviewed by the VP of Group Reporting or delegate (Head of Technical Accounting and Compliance or the Head of Technical Accounting and Group Consolidation) and reflected, as appropriate, in the financial statements.  The purpose of this control is to ensure that any significant items with an accounting impact of $10m that have arisen post lock meeting are considered and concluded on as adjusting or non-adjusting events and for disclosure purposes.\r\n\r\nHOW\r\ni) Email confirmations are collated from all SET areas prior to final lock meeting, requesting information on any events that have arisen post Lock meeting\r\nii) The VP of Group Reporting checks all confirmations have been received, and the items contained in the confirmations are appropriately included in the Subsequent Events Control Sheet.\r\niii) The results are assessed un the criteria contained within IAS10, as to whether they are considered adjusting or non-adjusting, and whether disclosure is required, both individually and in aggregate and are discussed and minuted at pre-announcement lock meeting.\r\niv) Evidence of this review is documented on the Subsequent Events Control Sheet.  Any appropriate events are considered at the pre-announcement lock meeting, this review is document in the pre-announcement lock meeting minutes.\r\n\r\nWHEN"
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Established compliance framework with strong ethical and compliance culture.",
+            "Update": ""
+          },
+          {
+            "Activity": "Combined internal and external counsel management.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       }
     ]
