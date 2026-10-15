@@ -1,25 +1,21 @@
-# Confirmed: self-service ArgoCD access -- you register this Application
-# yourself (no admin hand-off needed for this step), though your account
-# currently lacks the "create" RBAC permission for Applications in the
-# Risk_Reporting project -- that needs granting before this can actually
-# be submitted (see k8s/README.md). Still needs NAMESPACE_PLACEHOLDER
-# (below) replaced with your actual Azimuth namespace before applying it.
+# Confirmed working -- this Application was successfully created in ArgoCD
+# (project: enterprise-risk-reporting, same value used for the namespace).
+# It's currently Missing/OutOfSync while the container image and other
+# placeholders below still need resolving.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: nexus-risk-dashboard
   namespace: argocd
 spec:
-  # Confirmed via ArgoCD's own permission-denied error message.
-  project: Risk_Reporting
+  project: enterprise-risk-reporting
   source:
     repoURL: https://github.com/azu-business/risk-dashboards.git
     targetRevision: main
     path: k8s
   destination:
     server: https://kubernetes.default.svc
-    # TODO: replace with your actual Azimuth namespace.
-    namespace: NAMESPACE_PLACEHOLDER
+    namespace: enterprise-risk-reporting
   syncPolicy:
     automated:
       prune: true

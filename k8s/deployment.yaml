@@ -31,6 +31,16 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
+            # Matches the Kubernetes "restricted" Pod Security Standard --
+            # several admission/policy engines (Azimuth's stack includes
+            # Kyverno) reject pods outright if these aren't set, which can
+            # surface in ArgoCD as the resource simply never appearing in
+            # the cluster rather than a clearer pod-level error.
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           readinessProbe:
             httpGet:
               path: /index.html
