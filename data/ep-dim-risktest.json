@@ -6,7 +6,7 @@
         "Enduring Risk": "Pricing, affordability, access and competitive pressures",
         "Short Name": "Pricing",
         "SET Risk Owner": "RD, DF,IR, MD",
-        "Risk Statement": "The pricing and market access environment is\r\nhighly complex and subject to dynamic economic,\r\npolitical and social pressures. Deterioration in\r\nsocio-economic conditions may affect customers’\r\nability or willingness to purchase our medicines\r\nand may adversely affect our business and\r\nresults of operations.",
+        "Risk Statement": "At AstraZeneca, our approach to pricing balances the priorities of patients, their physicians, payers, society and our business. Our four guiding principles – Access, Value, Sustainability and Equity – aligned to our overarching Company Values, form the cornerstones of our brand pricing strategies. Our prices are rooted in the assurance of our high-quality science, and the benefit this brings to patients. They\r\nalso reflect holistic value, in the context of healthcare systems and market dynamics, affordability and equity; so that we can adapt our prices across the more than 80 countries in which we have an active presence and help support long-term healthcare system resilience.\r\nOur pricing approach, as described in the previous paragraph, is a key contributor to our success. However, there are various external risk factors that could compromise our ability to execute our pricing strategies as planned. The market access environment is highly complex and subject to dynamic economic, political and social pressures. Globally, there are increasing cost-containment measures,\r\ngreater calls for net price and R&D cost transparency, as well as early discussions towards pooled procurement mechanisms beyond emergency countermeasures and essential medicines.",
         "Risk Category": "Commercialisation risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -48,7 +48,32 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Implementation of pricing, reimbursement\r\nand policy frameworks.",
+            "Update": ""
+          },
+          {
+            "Activity": "Focus on key products.",
+            "Update": "• Demonstrate value of medicines/health"
+          },
+          {
+            "Activity": "Demonstrate value of medicines/health economics.",
+            "Update": "• Implement innovative value-based agreements"
+          },
+          {
+            "Activity": "Implement innovative value-based agreements focused on patient outcomes.",
+            "Update": "• Global footprint."
+          },
+          {
+            "Activity": "Global footprint.",
+            "Update": "• Global footprint."
+          },
+          {
+            "Activity": "Diversified portfolio.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -56,7 +81,7 @@
         "Enduring Risk": "Failures or delays in the quality and execution of the Group's commercial strategies",
         "Short Name": "Commercial",
         "SET Risk Owner": "RD, DF,IR, MD",
-        "Risk Statement": "A failure to execute our commercial strategies or achieve the level of sales anticipated for a medicine could materially impact our business results.",
+        "Risk Statement": "Maximising the commercial potential of our new products underpins the success of our strategy and the delivery of our short- and medium-term targets. We may ultimately be unable to achieve commercial success for various reasons, including:\r\n• Difficulties in manufacturing sufficient quantities of the product\r\n• Any price control measures imposed by governments and healthcare authorities\r\n• Patient access to healthcare\r\n• Diagnosis rates\r\n• Erosion of IP rights\r\n• Failure to show a differentiated product profile\r\n• Changes in prescribing habits.\r\nThe ability to successfully carry out business in emerging markets can be more challenging than in established markets. Such challenges may include:\r\n• Volatility in economic or political climates\r\n• Inadequate protection against crime (including counterfeiting, corruption and fraud)\r\n• Inadvertent breaches of local and international law.",
         "Risk Category": "Commercialisation risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -108,7 +133,20 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Focus on key products.",
+            "Update": ""
+          },
+          {
+            "Activity": "Substantial investment in sales and marketing activities.",
+            "Update": ""
+          },
+          {
+            "Activity": "Accelerate execution of plans and risk sharing through business development and strategic collaborations and alliances.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -116,7 +154,7 @@
         "Enduring Risk": "Failure to meet regulatory & ethical expectations on commercial practices, including anti-bribery and corruption, and scientific exchanges",
         "Short Name": "ABAC",
         "SET Risk Owner": "RD, DF,IR, MD",
-        "Risk Statement": "Any failure to comply with applicable laws, rules and regulations, including anti-bribery/anti-corruption and anti-fraud legislation, may result in civil and/or criminal legal proceedings and/or regulatory sanctions, fines or penalties, impacting financial results.",
+        "Risk Statement": "There remains an increased global focus on the implementation and enforcement of anti-bribery/anti-corruption and anti-fraud legislation. Four relevant pieces of legislation include the UK Bribery Act, the UK Economic Crime and Corporate Transparency Act the UK Crime and Policing Act and the US Foreign Corrupt Practices Act. Many other countries where we operate are also enforcing their own laws more aggressively and/or adopting tougher new measures. There has also been an increase in cooperation and coordination between regulators and prosecutors across countries with respect to investigation and enforcement. We have been the subject of anti-corruption investigations and there can be no assurance that we will not, from time to time, be subject to informal enquiries and formal investigations from governmental agencies. In the context\r\nof our business, governmental officials interact with us in various roles that are important to our operations, such as in the capacity of a regulator, partner or healthcare payer, reimburser or prescriber, among others. To the extent we are the subject of any such pending and material matters, details are included in Note 30 to the Financial Statements from page 181 of AstraZeneca’s Annual Report and\r\nForm 20-F Information 2025.",
         "Risk Category": "Legal, regulatory and compliance risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -153,7 +191,20 @@
             "Description": "WHAT & WHY\r\nThe Year End Governance & Assurance Paper describes the assurance processes performed in the year and the outcome.\r\n\r\nHOW\r\nThe Year End Governance & Assurance Paper is presented to the Audit Committee in January.  It describes the assurance processes performed in the year and the outcome.  (IRM:  CTRL0032399)\r\n\r\nWHEN\r\nAnnually in January"
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Strong ethical and compliance culture.",
+            "Update": ""
+          },
+          {
+            "Activity": "Established compliance framework including annual Code of Ethics training for all employees.",
+            "Update": ""
+          },
+          {
+            "Activity": "Focus on due diligence and oversight of third-party engagements.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -201,7 +252,7 @@
         "Enduring Risk": "Failure or delay in the delivery of our pipeline or launch of new medicines",
         "Short Name": "Pipeline",
         "SET Risk Owner": "SB, SG, MD",
-        "Risk Statement": "The development of pharmaceutical product candidates is a complex, risky and lengthy process involving significant resources. A project may fail at any stage of the process due to a number of factors, which could adversely affect our future business and results of operations.",
+        "Risk Statement": "Our continued success depends on the development and successful launch of innovative new drugs.\r\nThe development of pharmaceutical product candidates is a complex, risky and lengthy process involving significant resources. Projects have failed, and may fail in the future, at any stage of the process due to various factors, including: failure to obtain the required regulatory or marketing approvals, unfavourable clinical efficacy data, safety concerns, failure to demonstrate adequate cost-effective benefits to regulatory authorities and/or payers, and the emergence of competing products.\r\nLaunch activities have been delayed, and may be delayed in the future, by a number of factors, including: adverse findings in preclinical or clinical studies, regulatory demands, price negotiation, large-scale natural disasters or global pandemics, competitor activity and technology transfer.\r\nIn addition to developing products in-house, we continue to expand our portfolio through licensing arrangements and strategic collaborations which may not ultimately be successful.",
         "Risk Category": "Product pipeline risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -248,7 +299,24 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Prioritise and accelerate our pipeline.",
+            "Update": ""
+          },
+          {
+            "Activity": "Strengthen pipeline through acquisitions, licensing and collaborations.",
+            "Update": ""
+          },
+          {
+            "Activity": "Focus on innovative science in our main therapy areas.",
+            "Update": ""
+          },
+          {
+            "Activity": "Improve R&D productivity.",
+            "Update": ""
+          }
+        ],
         "KRIs": [
           {
             "Name": "% On Time NPI Launches",
@@ -269,7 +337,7 @@
         "Enduring Risk": "Safety & efficacy of marketed medicines is questioned",
         "Short Name": "Safety",
         "SET Risk Owner": "SB, SG, MD",
-        "Risk Statement": "Safety concerns relating to our products may lead to recalls, seizures, interruption of supply and loss of product approvals, which could adversely affect patient access, our reputation and our revenues. Significant product liability claims could also arise, which may be costly, divert management attention, reduce demand for our products and damage our reputation.",
+        "Risk Statement": "Our ability to accurately assess, prior to launch, the eventual safety or efficacy of a new product once in broader clinical use can only be based on data available at that time, which is inherently limited due to relatively short periods of product testing and relatively small clinical study patient samples.\r\nAny unforeseen safety concerns or adverse events relating to our products, or failure to comply with laws, rules and regulations relating to provision of appropriate warnings concerning the dangers and risks of our products that result in injuries, could expose us to large product liability claims, settlements and awards, particularly in the US. Adverse publicity relating to the safety of a product, or of other competing products, may increase the risk of product liability claims.",
         "Risk Category": "Legal, regulatory and compliance risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -311,7 +379,12 @@
             "Description": "TBC"
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Robust processes and systems in place to manage patient safety and efficacy trends as well as externally reported risks through regulatory agencies and other parties. This includes a comprehensive pharmacovigilance programme supplemented by close monitoring and review of adverse events.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -319,7 +392,7 @@
         "Enduring Risk": "Failure to meet regulatory or ethical requirements for medicine development or approval",
         "Short Name": "Ethical requirements",
         "SET Risk Owner": "SB, SG, MD",
-        "Risk Statement": "We are subject to laws and regulations that control our ability to market our pharmaceutical products. Delays in regulatory approvals could delay our ability to market our products and may adversely affect our revenue.",
+        "Risk Statement": "We are subject to laws and regulations that control our ability to market our pharmaceutical products. Our development programmes must meet many standards to prove our products are safe, effective and of high quality. Health authorities, such as the FDA in the US and the European Medicines Agency in the EU, can refuse to approve our products or require us to conduct additional clinical trials or scientific testing before they will approve them for marketing. Many factors influence health authority decisions to approve or reject a marketing application for a pharmaceutical product. These include advances in science and technology, new laws, regulations\r\nand policies, and different standards for evaluating safety and effectiveness.",
         "Risk Category": "Product pipeline risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -351,7 +424,16 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Quality management systems incorporating\r\nmonitoring, training and assurance activities.",
+            "Update": ""
+          },
+          {
+            "Activity": "Collaborating with regulatory bodies and advocacy groups to monitor and respond to changes in the regulatory environment, including revised processes, timelines and guidance.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -359,7 +441,7 @@
         "Enduring Risk": "Failure to maintain supply of compliant, quality medicines",
         "Short Name": "Supply",
         "SET Risk Owner": "PC, MD",
-        "Risk Statement": "Supply chain difficulties may result in product shortages which could lead to lost product sales and materially affect our reputation and results of operations.",
+        "Risk Statement": "We may experience challenges, delays or interruptions in the manufacturing and supply of our products for various reasons, including:\r\n• Supply shortages or delays in construction of facilities to support future demand of our products caused by significant unforecasted demand growth or supply chain disruptions (e.g. natural disasters, climate impacts, pandemics, conflict or political unrest, failure in IT (including cyber-attack)).\r\n• The inability to supply products due to a product quality failure or regulatory compliance action such as licence withdrawal, product recall or change of regulatory standards (e.g. nitrosamines, where regulators have been introducing new limits/expectations for regulatory filings). \r\nIt is necessary for us to meet all regulations, including compliance with Good Manufacturing Practices and Good Distribution Practices and comparable regulatory dossier conditions of approval in all countries in which our products are licensed, manufactured or sold.\r\nWe rely significantly on third parties for the timely supply of goods (e.g. active ingredients and packaging components, many of which are difficult to substitute in a timely manner or at all).",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -403,28 +485,20 @@
         ],
         "Other Mitigations": [
           {
-            "Activity": "Supply Chain Mapping and Network Resilience",
+            "Activity": "Establishment of new manufacturing facilities, creating capacity and technical capability to support new product launches.",
             "Update": "End‑to‑end supply chain mapping and network strategy assessments to increase visibility of lower‑tier suppliers, identify dependency risks and strengthen resilience through alternate sourcing and network options."
           },
           {
-            "Activity": "Business Continuity Planning and Crisis Response",
+            "Activity": "Contingency plans, including dual sourcing, multiple suppliers and close monitoring and maintenance of stock levels.",
             "Update": "Business Continuity Plans in place across all production sites, with regular reviews. Regional and local Incident Management Teams activated in response to geopolitical events, supported by hyper‑care crisis planning for acute supply risks."
           },
           {
-            "Activity": "Geopolitical and Trade‑Control Mitigation",
+            "Activity": "Business continuity and resilience initiatives, disaster and data recovery, and emergency response plans.",
             "Update": "Active monitoring of sanctions, tariffs and export controls, supported by a Global Export Standard and Trade Controls Compliance Framework, restricted‑party screening and scenario planning for logistics, fuel and cost disruption."
           },
           {
-            "Activity": "Supply & Operations Planning (S&OP) and Inventory Management",
+            "Activity": "Quality management systems.",
             "Update": "Integrated S&OP governance across Operations and Market Companies, supported by scenario alignment, close stock management and selective buffering of priority products, with longer‑term supply options under development for higher‑risk markets."
-          },
-          {
-            "Activity": "Third‑Party and Distributor Oversight",
-            "Update": "Enhanced oversight of third‑party suppliers and distributors, including financial stability and GxP compliance monitoring, audits, training and product security controls, particularly in sanction‑ or stress‑impacted markets."
-          },
-          {
-            "Activity": "Governance, Escalation and Senior Oversight",
-            "Update": "Supply chain risks reviewed through enterprise and regional governance forums, with escalation into Key Active Risks where thresholds are met and regular reporting to senior leadership (including SET) on supply continuity and emerging risks."
           }
         ],
         "KRIs": [
@@ -471,7 +545,7 @@
         "Enduring Risk": "Illegal trade in the Group's medicines",
         "Short Name": "Illegal trade",
         "SET Risk Owner": "PC",
-        "Risk Statement": "The illegal trade of pharmaceutical products, including counterfeiting, tampering, theft and illegal diversion (where products are found in a market where we did not send them and where they are not approved to be sold) may lead to a loss of public confidence in the integrity of medicines.",
+        "Risk Statement": "The illegal trade of pharmaceutical products, including counterfeiting, tampering,\r\ntheft and illegal diversion (where products are found in a market where we did not send them and where they are not approved to be sold) may lead to a loss of public confidence in the integrity of medicines.",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -506,7 +580,7 @@
         "Enduring Risk": "Reliance on 3rd party goods and services",
         "Short Name": "Third parties",
         "SET Risk Owner": "PC, ALL",
-        "Risk Statement": "Failure to successfully secure, onboard and manage outsourced services, particularly with continued inflationary pressures, or the failure of outsourced providers to deliver timely services, and to the required level of quality, could materially adversely affect our reputation, our financial condition and operating results as well as our ability to deliver medicines to patients. \r\nFailure to effectively manage third-party suppliers when external factors, including geopolitical tensions or raw materials and components shortages, place increased pressure on AstraZeneca’s ability to purchase goods and services may lead to major business disruption.\r\nAny breach of security, whether physical, cyber or data related, or failure of these third parties to operate in a way that is consistent with laws or regulations, may lead to regulatory penalties, materially affect the results of operations and adversely impact our reputation.",
+        "Risk Statement": "A significant proportion of AstraZeneca’s annual costs relates to spend with\r\nthird-party suppliers. The level of spend supports the length of our value chain from discovery to manufacture and commercialisation of our medicines.\r\nMany of our business-critical operations are outsourced to third-party providers. \r\nWe are, therefore, heavily reliant on these third parties to get medicines to patients, comply with applicable laws and regulations, while also ensuring prudent use of AstraZeneca’s financial resources.",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -581,7 +655,7 @@
         "Enduring Risk": "Failure in Information technology or cyber security",
         "Short Name": "IT & Cyber",
         "SET Risk Owner": "PC",
-        "Risk Statement": "Significant disruption to our IT systems, including cybersecurity breaches, or failure to comply with applicable laws or regulations could harm our reputation and materially affect our financial condition or results of operations.",
+        "Risk Statement": "IT systems enable critical business functions which are increasingly dependent on solution provider cybersecurity controls and maturity. High availability and resilient IT systems remain a business imperative, providing our workforce with continuous access to AI tools, collaboration environments, global communications channels, applications and data. In addition to availability and reliability, these systems must comply with provisions specified in cybersecurity, data security, privacy and individual protection laws.\r\nWe prioritise data protection and access to delivery innovation, business growth, and uninterrupted medicine supply. Data is often characterised as strictly confidential including clinical trial records, personal information, IP, R&D data, and compliance information. IT systems and data are potentially vulnerable to service interruptions and security breaches via attacks by malicious third parties or\r\nintentional or inadvertent actions by our employees or vendors. Attempts to exploit AstraZeneca’s IT systems and data are increasingly sophisticated with increased volume and fuelled by malicious AI use. Threat actors include organised criminal groups, ‘hacktivists’, nation states, employees and others. Privacy legislation includes obligations to report data protection breaches to regulators and affected\r\nindividuals within expedited timeframes.\r\nThe internet is our primary critical business transaction channel. Internet availability remains at risk due to geopolitical tensions and conflict.",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -613,7 +687,28 @@
             "Description": "WHAT & WHY\r\nThe authority framework sets limits for the type and value of decision(s) that each role can make.  Where decisions exceed their authority a role with a higher level of approval will need to give their approval.\r\n\r\nHOW\r\nA global DOA exists to clearly define and enforce responsibilities and levels of authorisation  (IRM:  CTRL0032452)\r\n\r\nWHEN\r\nMixture of automated controls that apply the approval limits, periodic review of limits and event driven updates."
           }
         ],
-        "Other Mitigations": [],
+        "Other Mitigations": [
+          {
+            "Activity": "Penetration testing and targeted remediation.",
+            "Update": ""
+          },
+          {
+            "Activity": "Identity and network controls improvement to protect priority areas.",
+            "Update": ""
+          },
+          {
+            "Activity": "Compliance with emerging cybersecurity laws and regulations.",
+            "Update": ""
+          },
+          {
+            "Activity": "Enhanced Cloud asset monitoring.",
+            "Update": ""
+          },
+          {
+            "Activity": "Regular cybersecurity and privacy training for employees.",
+            "Update": ""
+          }
+        ],
         "KRIs": []
       },
       {
@@ -621,7 +716,7 @@
         "Enduring Risk": "Failure to adopt and scale AI",
         "Short Name": "Adopt & scale AI",
         "SET Risk Owner": "ACG",
-        "Risk Statement": "Failure to adopt and scale Artificial Intelligence (\"AI\") at a pace, scale and effectiveness comparable to competitors could result in a loss of competitive advantage and impact delivery of the Group's strategic objectives. The performance and differentiation of the Group's AI capabilities depend on the availability, quality and accuracy of data used to develop, train and operate AI models.  There can be no assurance that significant investments in data and AI will perform reliably at scale or realise anticipated benefits within expected timeframes, which could result in asset impairment, misallocation of resources and adverse financial and reputational impacts.  ",
+        "Risk Statement": "If we fail to adopt, develop and scale artificial intelligence (\"AI\") effectively, responsibly and at a pace comparable with our competitors, our competitive position, strategic objectives and financial performance could be materially and adversely affected. \r\nOur strategy identifies AI as a core enabler of productivity and differentiation across research, clinical development, manufacturing, commercial and enabling functions, and we are making significant and continuing investment in AI capabilities, including proprietary models developed using our own data. The pharmaceutical industry is being transformed as established peers, technology companies and AI-native biotechnology companies deploy AI at scale. AI may also enable disruptive business models and lower barriers to entry for new competitors, eroding advantages built over many years. \r\nThe performance and differentiation of our AI capabilities depend on the availability, quality, accuracy, completeness, provenance and appropriate governance of the scientific, clinical, manufacturing, commercial and operational data on which our models rely. High-quality data is foundational to AI. Inadequate, biased or poorly governed data, or flaws in underlying algorithms, could cause our AI systems to perform unreliably or to produce misleading, opaque or non-explainable outputs. Models may also degrade or drift over time, requiring ongoing monitoring, validation and revalidation, particularly in regulated settings such as clinical development, pharmacovigilance and manufacturing. ",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -706,7 +801,7 @@
         "Enduring Risk": "Failure to meet our sustainability targets, regulatory requirements and stakeholder expectations with respect to the environment",
         "Short Name": "Sustainability",
         "SET Risk Owner": "PC, ALL",
-        "Risk Statement": "Investors are increasingly focusing on environmental issues. We continue to see an increased requirement to quantify the impact of specific environmental issues and to disclose our strategy, targets and performance. \r\nFailure to maximise our environmental sustainability credentials could expose us to increased regulatory risk and put us at a commercial disadvantage relative to our peers. This could adversely impact our financial results and lead to reputational damage. \r\nFailure to proactively manage the physical risks associated with climate change could impact the resilience of our operations and supply chain. This could result in supply interruptions, loss of stock and adversely impact our financial results.",
+        "Risk Statement": "Environmental issues will become more important as healthcare systems continue to adopt net-zero climate targets and environmental considerations are embedded in the public procurement of medicinal products and devices.\r\nInvestors, governments and non-governmental organisations will scrutinise our environmental targets and performance.\r\nSpecific materials used to manufacture medicines, or used as excipients or propellants, are coming under increased regulation and may be subject to time-limited exemptions or potential phase-out.\r\nThe physical impacts of climate change could impact the resilience of our business operations and supply chain.",
         "Risk Category": "Legal, regulatory and compliance risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -746,7 +841,7 @@
         "Enduring Risk": "Failure of critical processes",
         "Short Name": "Critical processes",
         "SET Risk Owner": "AS",
-        "Risk Statement": "Unexpected events and/or events beyond our control could result in the failure of critical processes within the Group or at third parties on whom we are reliant.\r\nThe business faces threats to business continuity from many directions. Examples of material threats include:\r\n•\tDisruption to our business or the global markets if there is instability in a particular geographic region, including as a result of war, terrorism, pandemics, armed conflicts, riots, unstable governments, civil insurrection or social unrest.\r\n•\tNatural disasters in areas of the world prone to extreme weather events, which may increase in frequency or severity as a result of climate change.\r\n•\tCyber threats similar to those detailed in the ‘Failure in information technology or cybersecurity’ section above.\r\n",
+        "Risk Statement": "Unexpected events including those beyond our control could result in the failure of critical processes within the Group or at third parties on whom we are reliant.\r\nExamples of threats include:\r\n• Instability including as a result of war or armed conflicts, terrorism, pandemics, riots, unstable governments, civil insurrection or social unrest \r\n•Natural disasters and extreme weather events\r\n•Cyber threats detailed in ‘Failure in information technology or cybersecurity’ risk on the previous page.",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -821,7 +916,7 @@
         "Enduring Risk": "Failure to attract, develop, engage and retain a diverse,  talented and capable workforce at all levels",
         "Short Name": "Talent",
         "SET Risk Owner": "JP, ALL",
-        "Risk Statement": " The inability to attract and retain highly skilled personnel may weaken our succession plans for critical positions, impact the implementation of our strategic objectives and ultimately result in the failure of our business operations. \r\nFailure to develop and engage our workforce could result in business disruption, a loss of productivity and higher turnover rates, all of which could materially adversely affect our business.",
+        "Risk Statement": "We rely heavily on recruiting and retaining talented employees with a diverse range of skills and capabilities to meet our strategic objectives. Externally there is intense competition for well-qualified individuals, as the supply of people with certain skills or in specific geographic regions may be limited.\r\nEnsuring our employees are continually developed so that they can fully exploit the opportunities presented by new technologies will be important for our ongoing success.",
         "Risk Category": "Supply chain and business execution risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -856,7 +951,7 @@
         "Enduring Risk": "Geopolitical and / or macroeconomic volatility disrupts operation of our global business",
         "Short Name": "Geopolitics & Macroeconomics",
         "SET Risk Owner": "PS",
-        "Risk Statement": "With an active presence in more than 80 countries, we are subject to political, socio-economic and financial factors around the world. A sustained global economic downturn or significant changes to exchange rates may adversely impact our business. Geopolitical tensions may lead to the imposition, alteration or escalation of trade controls, tariffs, taxes or other restrictions to market access, which may increase our costs or reduce revenues.",
+        "Risk Statement": "With an active presence in more than 80 countries, we are subject to political, socio-economic and financial factors around the world. A sustained global economic downturn, sudden changes in asset valuations, periods of high inflation, stagflation or large fluctuation in exchange rates may adversely impact financial markets and/or exacerbate pressure from governments and other healthcare payers on medicine prices and other cost control measures in order to limit healthcare spending.\r\nGeopolitical tensions may prevent us operaing in certain markets or may lead to the imposition, alteration or escalation of trade controls, tariffs, taxes or other restrictions to market access which may increase our costs or reduce revenues.",
         "Risk Category": "Economic and financial risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -911,7 +1006,7 @@
         "Enduring Risk": "Failure to achieve strategic plans or meet targets or expectations",
         "Short Name": "Strategic plans",
         "SET Risk Owner": "AS",
-        "Risk Statement": "Failure to successfully implement our business strategy may frustrate the achievement of our targets and materially damage our brand, business, financial position or results of operations.",
+        "Risk Statement": "When we communicate our business strategy, targets or performance expectations (for example, the expectations described in Future prospects in the Financial Review on page 64 of AstraZeneca’s Annual Report and Form 20-F Information 2025), all such statements are forward-looking and based on assumptions and judgements, all of which are subject to significant inherent risks and uncertainties.",
         "Risk Category": "Economic and financial risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -966,7 +1061,7 @@
         "Enduring Risk": "Unexpected deterioration in the company's financial position",
         "Short Name": "Financial position",
         "SET Risk Owner": "AS",
-        "Risk Statement": "Foreign exchange rate movements may materially adversely affect our financial condition or results of operations. \r\nIn a sustained economic downturn, such institutions may cease to trade and there can be no guarantee that we will be able to access the full value of our investments.\r\nWe expect that some of our intangible assets will become impaired in the future. Impairment losses may materially adversely affect our financial condition or results of operations.\r\nSolvency levels could fall, adversely impacting our financial position and requiring higher cash contributions if there are: falls in assets; increases in liability valuations (from falls in bond yields, increases in inflation or lower mortality); or changes in regulations. As liability valuation risks are hedged to a material level in some pension schemes, significant collateral may need to be posted to meet margin requirements, which in extreme circumstances, could lead to a short-term liquidity risk in these pension schemes and a request to the Group to provide temporary liquidity.\r\nUninsured losses, or those where an insurer denies coverage, could materially adversely affect our financial condition.\r\nThe resolution of tax disputes can result in incremental tax costs, a reallocation of profits or losses between jurisdictions, or even double taxation, fines and penalties. They are costly, divert management attention and may adversely affect our reputation. \r\nIf tax treaties are withdrawn or amended, or Competent Authorities are unable to reach an agreement that eliminates double taxation, this could materially adversely affect our financial position.\r\nChanges in tax regimes could result in a material impact on the Group’s cash tax liabilities and tax charge, resulting in either an increase or a reduction in financial results.",
+        "Risk Statement": "Movements in exchange rates against the US dollar, our reporting currency, impact our reported results. The key currencies of Product Sales and costs are: US dollar, euro, Chinese renminbi, pound sterling, Japanese yen, and Swedish krona. \r\nMost of our cash is invested in AAA credit-rated institutional money market funds,fixed income securities issued by government, financial and non-financial entities, and collateralised and non-collateralised bank deposits. Our credit exposure is a mix of US, EU and rest of world default risk across these institutions.\r\nWe invest in many projects in an effort to develop a successful portfolio of approved products. Our Consolidated Statement of Financial Position therefore contains significant investments in intangible assets, including goodwill. Our ability to realise value on these investments depends on regulatory approvals, market acceptance, competition, and legal developments.\r\nOur defined benefit post-retirement obligations (primarily in the UK and Sweden) can materially change in value but are largely backed by assets invested in growth and liability hedging portfolios, which hedge some of the risks inherent in liability valuations.\r\nAlthough we maintain relevant insurance coverage for risks arising within the Group, we may not be able to maintain our insurance coverage at a reasonable cost or in sufficient amounts to protect us against losses.\r\nTax law is complex, leading to the risk of different interpretations. Revenue authorities can make conflicting claims to the profits taxed in individual countries leading to double taxation and the potential for fines and penalties. Tax laws can change following action by international bodies such as the Organisation for Economic Co-operation and Development or individual governments.",
         "Risk Category": "Economic and financial risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -1006,7 +1101,7 @@
         "Enduring Risk": "Failure in financial control or the occurrence of Fraud",
         "Short Name": "Financial controls",
         "SET Risk Owner": "AS",
-        "Risk Statement": "Effective internal controls assist in the provision of reliable Financial Statements and the detection and prevention of fraud. Testing of internal controls provides only limited assurance over the accuracy of Financial Statements and may not prevent or detect misstatements or fraud.\r\nThe introduction of new legislation such as the failure to prevent fraud offence in the Economic Crime and Corporate Transparency Act (effective from 1 September 2025) may increase regulator focus on fraud.",
+        "Risk Statement": "Effective internal controls assist in the provision of reliable Financial Statements and the detection and prevention of fraud. Testing of internal controls provides only limited assurance over the accuracy of Financial Statements and may not prevent or detect misstatements or fraud.\r\nLegislation such as the failure to prevent fraud offence in the UK’s Economic Crime and Corporate Transparency Act may increase regulator focus on fraud.",
         "Risk Category": "Economic and financial risks",
         "Principal Risk?": "No",
         "Risk Type": "Endurance",
@@ -1046,7 +1141,7 @@
         "Enduring Risk": "IP risks related to our products ",
         "Short Name": "IP",
         "SET Risk Owner": "JP",
-        "Risk Statement": "The pharmaceutical industry is experiencing pressure from governments and other payers to impose limits on IP protections to manage healthcare costs. If we are unable to obtain, defend and enforce our IP, we may experience accelerated and intensified competition.",
+        "Risk Statement": "IP protection provides the foundation for continued investment in developing innovative medicines to improve patient health. However, the pharmaceutical industry is experiencing pressure from governments and other healthcare payers to impose limits on IP protections in an effort to manage healthcare costs. Additionally, policymakers are progressively leveraging regulations to expedite the approval of generic drugs and encourage generic drug utilisation. These policies may drive accelerated utilisation of generic alternatives to our products following expiry or loss of our IP rights. We also recognise increasing use of compulsory licensing in some countries in which we operate.\r\nWe are subject to numerous patent challenges relating to various products or processes and assertions of non-infringement of our patents. A loss in any of these challenges could result in loss of patent protection on the covered product and a risk to the revenue generated by the product. We also face the risk that our products may be found to infringe patents owned or licensed by third parties and we may be subject to monetary damages or compelled to cease sales of the infringing product, resulting in a potential risk to revenue. These challenges threaten the value of our investment in pharmaceutical development.",
         "Risk Category": "Legal, regulatory and compliance risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
@@ -1091,7 +1186,7 @@
         "Enduring Risk": "Adverse outcome of litigation and / or governmental investigations",
         "Short Name": "Litigation",
         "SET Risk Owner": "JP",
-        "Risk Statement": "Our business is subject to a wide range of laws and regulations around the world. Actual or perceived failure to comply may result in AstraZeneca and/or its employees being investigated by government agencies and authorities and/or in civil legal proceedings. Government investigations, litigations, and other legal proceedings, regardless of outcome, could be costly, divert management attention, or damage our reputation and demand for our products. Unfavourable resolutions to proceedings against us could subject us to criminal liability, fines, penalties or other monetary or nonmonetary remedies, including enhanced damages, requiring us to make significant provisions in our accounts relating to legal proceedings, and could materially adversely affect our business or results of operations.",
+        "Risk Statement": "Our business is subject to a wide range of laws and regulations around the world.\r\nWe have been, and may continue to be, subject to various legal proceedings and governmental investigations.\r\nActual or perceived failure to comply with laws or regulations may result in AstraZeneca and/or its employees being investigated by government agencies and authorities and/or in civil legal proceedings. Relevant authorities have wide-ranging administrative powers to deal with any failure to comply with laws, regulations or continuing regulatory oversight, and this could affect us, whether such failure is our\r\nown or that of our contractors or external partners. In particular, the manufacturing, marketing, exportation, promotional, clinical, pharmacovigilance and pricing practices of pharmaceutical manufacturers, as well as manufacturer interaction with regulatory agencies, purchasers, prescribers and patients, are subject to extensive regulation, litigation and governmental investigation. Moreover, such laws,\r\nrules and regulations are subject to change.",
         "Risk Category": "Legal, regulatory and compliance risks",
         "Principal Risk?": "Yes",
         "Risk Type": "Principal",
