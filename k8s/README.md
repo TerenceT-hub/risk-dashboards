@@ -16,8 +16,8 @@ deployment just serves whatever's currently in the repo.
 | `deployment.yaml` | Kubernetes Deployment, 2 replicas, modest resource requests/limits for a static site. |
 | `service.yaml` | ClusterIP Service in front of the Deployment. |
 | `ingress.yaml` | Exposes the Service externally with (placeholder) SSO auth annotations. |
-| `argocd-application.yaml` | Tells ArgoCD to watch this repo's `k8s/` path and auto-sync. |
 | `.dockerignore` (repo root) | Keeps local-automation scripts, `node_modules/`, git metadata, and `copilot-knowledge/` out of the image. |
+| `argocd-application.yaml` (repo root, **not** in `k8s/`) | Tells ArgoCD to watch this repo's `k8s/` path and auto-sync. Deliberately lives outside `k8s/` -- if it sat inside the folder it points at, ArgoCD would treat the Application resource as a child of itself and fail to sync (this happened once; see comments in the file). |
 
 ## What's confirmed vs. still unknown
 

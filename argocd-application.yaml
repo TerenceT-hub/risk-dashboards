@@ -1,3 +1,8 @@
+# Lives at the repo root, NOT inside k8s/ -- this file registers the
+# Application itself; it must not sit inside source.path (k8s/) below, or
+# ArgoCD treats this Application resource as a child resource of itself and
+# tries to recursively manage it (confirmed cause of a sync failure).
+#
 # Confirmed working -- this Application was successfully created in ArgoCD
 # (project: enterprise-risk-reporting, same value used for the namespace).
 # It's currently Missing/OutOfSync while the container image and other
